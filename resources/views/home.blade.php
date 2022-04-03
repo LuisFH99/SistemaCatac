@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Aqui los formularios</p>
+    <p>Aqui los formularios rama backend</p>
 @stop
 
 @section('css')
