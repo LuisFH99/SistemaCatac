@@ -237,87 +237,114 @@ return [
         ],
 
         // Sidebar items:
+        
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Home',
+            'icon' => 'nav-icon fas fa-home',
+            'url'  => 'home',
+            
+        ],
+        
+        ['header' => 'COMUNIDAD'],
+        [
+            'text' => 'Reseña Historica',
+            'icon' => 'nav-icon fas fa-copy',
+            'route' => 'resena',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Vision y Mision',
+            'icon' => 'nav-icon fas fa-list-ul',
+            'route' => 'misionvision',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
+            'text' => 'Vision',
+            'icon' => 'nav-icon fas fa-paper-plane',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
+            'text' => 'Objetivo',
+            'icon' => 'nav-icon fas fa-bullseye',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Organos de Gobierno',
+            'icon'    => 'nav-icon fas fa-sitemap',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Asamblea General',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Directivos',
+                    'url'  => '#',
                 ],
                 [
-                    'text' => 'level_one',
+                    'text' => 'Comites Especializados',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Organos de Asesoria',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Organos de Linea',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Organos de Apoyo',
                     'url'  => '#',
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
+            'text' => 'Directivos',
+            'icon' => 'nav-icon fas fa-user-tie',
+            'url'  => 'admin/settings',
+        ],    
+        [
+            'text' => 'Directorios',
+            'icon' => 'nav-icon fas fa-users',
+            'url'  => 'admin/settings',
+        ],    
+        [
+            'text' => 'Convocatoria',
+            'icon' => 'nav-icon fas fa-envelope',
+            'url'  => 'admin/settings',
+        ],        
+
+        ['header' => 'INSTRUMENTOS DE GESTION'],
+        [
+            'text'       => 'Estatuto',
+            'icon'       => 'nav-icon fas fa-book',
             'url'        => '#',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
+            'text'       => 'Reglamento',
+            'icon'       => 'nav-icon fas fa-file-alt',
             'url'        => '#',
         ],
         [
-            'text'       => 'information',
+            'text'       => 'ROF',
             'icon_color' => 'cyan',
             'url'        => '#',
         ],
+        [
+            'text'       => 'POI',
+            'icon_color' => 'cyan',
+            'url'        => '#',
+        ],
+        [
+            'text'       => 'PREC',
+            'icon_color' => 'cyan',
+            'url'        => '#',
+        ],
+        [
+            'text'       => 'Convenios',
+            'icon'       => 'nav-icon fas fa-handshake',
+            'url'        => '#',
+        ],
+        ['header' => 'SERVICIOS'],
+        ['header' => 'NOTICIAS Y EVENTOS'],
     ],
 
     /*

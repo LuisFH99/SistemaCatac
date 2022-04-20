@@ -18,4 +18,9 @@ class ResenaHistorica extends Model
         'borrado',
     ];
     public $timestamps = false;
+
+    public function resenaimagenes()
+    {
+        return $this->belongsToMany(Imagenes::class, 'imagen_has_resena');
+    }
 }

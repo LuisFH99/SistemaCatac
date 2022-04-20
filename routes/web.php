@@ -19,4 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Rutas de Admin
+Route::view('resena', 'livewire.resena.index')->name('resena');
+Route::view('misionvision', 'livewire.misionvision.index')->name('misionvision');
+
+//Fin de Rutas de Admin
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
