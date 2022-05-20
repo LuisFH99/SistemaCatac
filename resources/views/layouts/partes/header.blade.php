@@ -1,15 +1,17 @@
 
 <header id="header" class="header-one">
-    <div class="bg-white">
+    <div style="background: #fff5e3">
       <div class="container">
         <div class="logo-area">
             <div class="row align-items-center">
               <div class="logo col-lg-3 text-center text-lg-left mb-5 mb-md-5 mb-lg-0">
                   <a class="d-block" href="/inicio">
-                    <img loading="lazy" src="{{ asset('constra/images/logo.png') }}" alt="Comunidad de catac">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <img loading="lazy" src="{{ asset('/img/logo_catac.png') }}" style="width: 45%; height: 45%;"  alt="Comunidad de catac">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size: 30px; margin-top: 7%; line-height : 30px;">Comunidad Campesina de Catac</b> 
+                    </div>
                   </a>
-              </div><!-- logo end -->
-    
+                </div>
               <div class="col-lg-9 header-right">
                   <ul class="top-info-box">
                     <li>
@@ -23,7 +25,7 @@
                     <li>
                       <div class="info-box">
                         <div class="info-box-content">
-                            <p class="info-box-title">Email Us</p>
+                            <p class="info-box-title">Nuestro Correo</p>
                             <p class="info-box-subtitle"><a href="mailto:comunidad.decatac@gmail.com">comunidad.decatac@gmail.com</a></p>
                         </div>
                       </div>
@@ -31,14 +33,15 @@
                     <li class="last">
                       <div class="info-box last">
                         <div class="info-box-content">
-                            <p class="info-box-title">Certificación</p>
-                            <p class="info-box-subtitle">ISO 9001:2022</p>
+                            <p class="info-box-title">Reconocimiento</p>
+                            <p class="info-box-subtitle">Decreto Supremo N°2255885255</p>
                         </div>
                       </div>
                     </li>
+                    <!--
                     <li class="header-get-a-quote">
                       <a class="btn btn-primary" href="contact.html">Contacto</a>
-                    </li>
+                    </li> -->
                   </ul><!-- Ul end -->
               </div><!-- header right end -->
             </div><!-- logo area end -->
@@ -59,7 +62,7 @@
                   <div id="navbar-collapse" class="collapse navbar-collapse">
                       <ul class="nav navbar-nav mr-auto">
                         <li class="nav-item dropdown active">
-                            <a href="/inicio" class="nav-link dropdown-toggle">Home </i></a>
+                            <a href="/inicio" class="nav-link dropdown-toggle">Inicio </i></a>
                         </li>
   
                         <li class="nav-item dropdown">
@@ -71,7 +74,6 @@
                               <li class="dropdown-submenu">
                                 <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Organos de gobierno</a>
                                 <ul class="dropdown-menu">
-                                  <li><a href="/asambleageneral">Asamblea General</a></li>
                                   <li><a href="/comitespecializado">Comites Especializados</a></li>
                                 <li><a href="/organosdeasesoria">Organos de Asesoria</a></li>
                                 <li><a href="/organosdelinea">Organos de Linea</a></li>
@@ -80,7 +82,7 @@
 
                               </ul>
                             </li>
-                            <li><a href="/directorio">Directorio</a></li>
+                            <li><a href="/directorio">Asamblea General</a></li>
                             </ul>
                         </li>
                 
@@ -89,7 +91,7 @@
                           <ul class="dropdown-menu" role="menu">
                             <li><a href="/estatuto">Estatuto</a></li>
                             <li class="dropdown-submenu">
-                              <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Reglamento</a>
+                              <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Instrumentos de redaccion</a>
                               <ul class="dropdown-menu">
                                 <li><a href="/rof">ROF</a></li>
                                 <li><a href="/poi">POI</a></li>
@@ -105,35 +107,27 @@
                             <li class="dropdown-submenu">
                               <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Servicentro</a>
                               <ul class="dropdown-menu">
-                                <li><a href="/gasolinera">Gasolinera</a></li>
-                                <li><a href="/minimarket">Mminimarket</a></li>
+                                <li><a href="/serviciosprincipal">Gasolinera</a></li>
+                                <li><a href="/serviciosprincipalminimarket">Minimarket</a></li>
                               </ul>
                             </li>
                             <li class="dropdown-submenu">
                               <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Agropecuaria</a>
                               <ul class="dropdown-menu">
-                                <li><a href="/ganaderia">Ganadería</a></li>
-                                <li><a href="/agricultura">Agricultura</a></li>
+                                <li><a href="/serviciosprincipalganaderia">Ganadería</a></li>
+                                <li><a href="/serviciosprincipalagricultura">Agricultura</a></li>
                               </ul>
                             </li>
                             <li class="dropdown-submenu">
                               <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Transporte</a>
                               <ul class="dropdown-menu">
-                                <li><a href="/transportecantera">Transporte de material de canteras</a></li>
-                                <li><a href="/transporteagregados">Transporte de material de agregados</a></li>
-                                <li><a href="/transportepetreo">Transporte de material pétreos</a></li>
+                                <li><a href="/serviciosprincipaltransporte">Transporte de materiales</a></li>
                               </ul>
                             </li>
-                            <li><a href="/cantera">Cantera</a></li>
-                            <li><a href="/agroveterinaria">Agroveterinaria</a></li>
-                            <li><a href="/turismo">Turismo</a></li>
-                            <li class="dropdown-submenu">
-                              <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Forestación</a>
-                              <ul class="dropdown-menu">
-                                <li><a href="/mineria">Minería</a></li>
-                                <li><a href="/materiaprima">Materia Prima</a></li>
-                              </ul>
-                            </li>
+                            <li><a href="/serviciosprincipalcantera">Cantera</a></li>
+                            <li><a href="/serviciosprincipalagroveterinaria">Agroveterinaria</a></li>
+                            <li><a href="/serviciosprincipalturismo">Turismo</a></li>
+                            <li><a href="/serviciosprincipalforestacion">Forestación</a></li>
                           </ul>
                       </li>
               

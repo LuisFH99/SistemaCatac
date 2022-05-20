@@ -4,8 +4,8 @@
       <div class="row justify-content-between">
         <div class="col-lg-4 col-md-6 footer-widget footer-about">
           <h3 class="widget-title">Sobre Nosotros</h3>
-          <img loading="lazy" width="150px" src="constra/images/logo.png" alt="Constra">
-          <p><br>La Comunidad Campesina de Cátac, una Asociación con casi 900 socios, ademas es una Empresa Comunal, una de las mas grandes en el Perú.</p>
+          <img loading="lazy" width="150px" src="{{ asset('/img/logo_catac.png') }}" alt="Constra">
+          <p style="text-align: justify"><br>La Comunidad Campesina de Cátac, una Asociación con casi 900 socios, ademas es una Empresa Comunal, una de las mas grandes en el Perú.</p>
           <div class="footer-social">
             <ul>
               <li><a href="https://facebook.com/themefisher" aria-label="Facebook"><i
@@ -14,6 +14,7 @@
               </li>
               <li><a href="https://instagram.com/themefisher" aria-label="Instagram"><i
                     class="fab fa-instagram"></i></a></li>
+
             </ul>
           </div><!-- Footer social end -->
         </div><!-- Col end -->
