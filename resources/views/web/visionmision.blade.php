@@ -2,7 +2,7 @@
 
 @section('contenido')
 @foreach ($banner as $b)
-<div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
+<div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}});">
   <div class="banner-text">
     <div class="container">
         <div class="row">
@@ -22,7 +22,6 @@
     </div><!-- Container end -->
   </div><!-- Banner text end -->
 </div><!-- Banner area end --> 
-    
 @endforeach
 
 <section style="margin:3%">
@@ -37,7 +36,7 @@
         </div>
         <div class="col-lg-6 mt-5 mt-lg-0">
         <div id="page-slider"  class="page-slider small-bg">
-            <div class="item rounded img-fluid" style="background-image:url({{$m->url_imagen}})">
+            <div class="item rounded img-fluid" style="background-image:url({{$m->url_imagen}});width: 50%; height: 50%">
                 <div class="container"></div> 
             </div>
           </div> 
@@ -48,7 +47,7 @@
         @else
         <div class="col-lg-6 mt-5 mt-lg-0">
           <div id="page-slider" class="page-slider small-bg">
-              <div class="item rounded" style="background-image:url({{$m->url_imagen}});">
+              <div class="item rounded" style="background-image:url({{$m->url_imagen}});width: 50%; height: 50%">
                   <div class="container"></div> 
               </div>
             </div>          

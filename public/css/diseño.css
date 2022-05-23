@@ -103,6 +103,29 @@
 }
 
 .icon:hover {
+    background-color: white;
+    box-shadow:  0 0 20px white ;
+}
+
+.icon:hover:nth-child(2) {
+    background-color: #1877f2;
+    box-shadow:  0 0 20px #1877f2;
+}
+
+.icon:hover:nth-child(3) {
+    background-color: #1da1f2;
+    box-shadow:  0 0 20px #1da1f2 ;
+}
+
+.icon:hover:nth-child(4) {
+  background-color: red;
+  box-shadow:  0 0 20px red ;
+} 
+
+
+
+/*
+.icon:hover {
     background-color: #e60073;
     box-shadow:  0 0 20px #e60073 ;
 }
@@ -125,7 +148,7 @@
 .icon:hover:nth-child(5) {
   background-color: red;
   box-shadow:  0 0 20px red ;
-}
+} */
 
 .icon i {
     color: #fff;

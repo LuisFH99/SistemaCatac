@@ -1,17 +1,17 @@
 @extends('layouts.web')
 @section('contenido')
-  <div id="banner-area" class="banner-area" style="background-image:url(constra/images/banner/bannerservi.jpg)">
+  <div id="banner-area" class="banner-area" style="background-image:url(images/banner/bannerservi.jpg)">
     <div class="banner-text">
       <div class="container">
           <div class="row">
             <div class="col-lg-12">
                 <div class="banner-heading">
-                  <h1 class="banner-title">Gasolinera</h1>
+                  <h1 class="banner-title">Restaurante</h1>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a href="#">Servicios</a></li>
                         <li class="breadcrumb-item"><a href="#">Servicentro</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Gasolinera</li>
+                        <li class="breadcrumb-item active" aria-current="page">Restaurante</li>
                       </ol>
                   </nav>
                 </div>
@@ -30,10 +30,10 @@
             <div class="widget">
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
-                <li class="active"><a href="/serviciosprincipal">Detalles</a></li>
-                <li><a href="/serviciosofertados">Servicios</a></li>
-                <li><a href="/serviciosadquirir">Como comprar</a></li>
-                <li><a href="/serviciocontacto">Contacto</a></li>
+                <li class="active"><a href="/serviciosprincipalrestaurante">Detalles</a></li>
+                <li><a href="/serviciosofertadosrestaurante">Servicios</a></li>
+                <li><a href="/serviciosadquirirrestaurante">Como comprar</a></li>
+                <li><a href="/serviciocontactorestaurante">Contacto</a></li>
               </ul>
             </div><!-- Widget end -->
   

@@ -57,7 +57,7 @@ Route::get('/peconvenios', [App\Http\Controllers\Web\IndexController::class, 'pe
 Route::get('/noticias', [App\Http\Controllers\Web\IndexController::class, 'noticias'])->name('noticias');
 Route::get('/eventos', [App\Http\Controllers\Web\IndexController::class, 'eventos'])->name('eventos');
 Route::get('/actividades', [App\Http\Controllers\Web\IndexController::class, 'actividades'])->name('actividades');
-
+Route::get('/noticiaeventoactividad', function () {return view('web.noticiaeventoactividad');});
 //SERVICIOS
 //Servicentro Gasolinera
 Route::get('/serviciosprincipal',[App\Http\Controllers\Web\IndexController::class, 'serviciosprincipal'])->name('serviciosprincipal');
@@ -112,3 +112,11 @@ Route::get('/serviciosprincipalcantera',[App\Http\Controllers\Web\IndexControlle
 Route::get('/serviciosofertadoscantera',[App\Http\Controllers\Web\IndexController::class, 'serviciosofertadoscantera'])->name('serviciosofertadoscantera');
 Route::get('/serviciosadquirircantera',[App\Http\Controllers\Web\IndexController::class, 'serviciosadquirircantera'])->name('serviciosadquirircantera');
 Route::get('/serviciocontactocantera',[App\Http\Controllers\Web\IndexController::class, 'serviciocontactocantera'])->name('serviciocontactocantera');
+
+
+//Servicios 
+//Servicentro Restaurant
+Route::get('/serviciosprincipalrestaurante',[App\Http\Controllers\Web\IndexController::class, 'serviciosprincipalrestaurante'])->name('serviciosprincipalrestaurante');
+Route::get('/serviciosofertadosrestaurante',[App\Http\Controllers\Web\IndexController::class, 'serviciosofertadosrestaurante'])->name('serviciosofertadosrestaurante');
+Route::get('/serviciosadquirirrestaurante',[App\Http\Controllers\Web\IndexController::class, 'serviciosadquirirrestaurante'])->name('serviciosadquirirrestaurante');
+Route::get('/serviciocontactorestaurante',[App\Http\Controllers\Web\IndexController::class, 'serviciocontactorestaurante'])->name('serviciocontactorestaurante');

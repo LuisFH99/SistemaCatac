@@ -1,53 +1,61 @@
 @extends('layouts.web')
 @section('contenido')
-<div id="banner-area" class="banner-area" style="background-image:url(constra/images/banner/banneresta.jpg)">
-    <div class="banner-text">
-      <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                  <h1 class="banner-title">Reglamento de Organización y Funciones</h1>
-                  <h1 class="banner-subtitle">Comunidad Campesina de Catac</h1>
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">Instrumentos de Gestión</a></li>
-                        <li class="breadcrumb-item"><a href="#">Reglamento</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">ROF</li>
-                      </ol>
-                  </nav>
-                </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
-  
+
+@foreach ($banner as $b)
+<div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}});">
+  <div class="banner-text">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="banner-heading">
+                <h1 class="banner-title">{{$b->titulo}}</h1>
+                <h1 class="banner-subtitle">{{$b->subtitulo}}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="#">Comunidad</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Misión y Visión</li>
+                    </ol>
+                </nav>
+              </div>
+          </div><!-- Col end -->
+        </div><!-- Row end -->
+    </div><!-- Container end -->
+  </div><!-- Banner text end -->
+</div><!-- Banner area end --> 
+@endforeach
+
+
+
+
   <section id="main-container" class="main-container">
     <div class="container">
       <div class="row">
           <div class="col-lg-16">
-            <p>El Reglamento de Organización y Funciones (ROF) de la Municipalidad Distrital de Cátac, es el instrumento de gestión institucional que formaliza 
+            <p style="text-align: justify">El Reglamento de Organización y Funciones (ROF) de la Municipalidad Distrital de Cátac, es el instrumento de gestión institucional que formaliza 
               la estructura orgánica de la entidad municipal, orientada al esfuerzo institucional y al logro de la misión, visión y objetivos institucionales; 
               conteniendo las funciones generales de la Municipalidad y las funciones específicas de los órganos y unidades orgánicas, estableciendo sus relaciones 
               y responsabilidades.</p>
+
+              @foreach ($instrumentos as $i)
               <div class="accordion accordion-group accordion-classic" id="construction-accordion">
                 <div class="card">
                   <div class="card-header p-0 bg-transparent" id="headingOne">
                     <h2 class="mb-0">
-                      <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                        Ordenanza municipal N°0001-2022
+                      <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}"
+                        aria-expanded="true" aria-controls="collapse{{$i->id}}">
+                        {{$i->descripcion}}
                       </button>
                     </h2>
                   </div>
                     
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                  <div id="collapse{{$i->id}}" class="collapse show" aria-labelledby="headingOne"
                     data-parent="#construction-accordion">
                     <div class="card-body">
-                      <center><iframe src="constra/images/ESTATUTO DE LA COMUNIDAD CAMPESINA DE CÁTAC. BASES LEGALES - PDF Descargar libre.pdf"></iframe></center>
+                      <center><iframe src="{{ url($i->url_documento) }}"></iframe></center>
                     </div>
                   </div>
                 </div>
+                <!--
                 <div class="card">
                   <div class="card-header p-0 bg-transparent" id="headingTwo">
                     <h2 class="mb-0">
@@ -78,8 +86,11 @@
                       <center><iframe src="constra/images/ESTATUTO DE LA COMUNIDAD CAMPESINA DE CÁTAC. BASES LEGALES - PDF Descargar libre.pdf"></iframe></center>
                     </div>
                   </div>
-                </div>
+                </div> -->
+
               </div>  
+              @endforeach
+
           </div><!-- Col end -->
       </div><!-- Content row end -->
   

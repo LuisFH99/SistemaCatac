@@ -74,12 +74,13 @@
                               <li class="dropdown-submenu">
                                 <a href="#!" class="dropdown-toggle" data-toggle="dropdown">Organos de gobierno</a>
                                 <ul class="dropdown-menu">
-                                  <li><a href="/comitespecializado">Comites Especializados</a></li>
+                                  <!-- <li><a href="/comitespecializado">Comites Especializados</a></li>-->
                                 <li><a href="/organosdeasesoria">Organos de Asesoria</a></li>
                                 <li><a href="/organosdelinea">Organos de Linea</a></li>
                                 <li><a href="/organosdeapoyo">Organos de Apoyo</a></li>
                                 <li><a href="/directivos">Directivos</a></li>
-
+                                <li><a href="/directivos">Directivos</a></li>
+                                <li><a href="/directivos">Directivos</a></li>
                               </ul>
                             </li>
                             <li><a href="/directorio">Asamblea General</a></li>
@@ -134,7 +135,7 @@
                       <li class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Noticicas y Eventos <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="/noticias">Noticias</a></li>
+                            <li><a href="/noticiaeventoactividad">Noticias</a></li>
                             <li><a href="/eventos">Eventos</a></li>
                             <li><a href="/actividades">Actividades Programadas</a></li>
                           </ul>

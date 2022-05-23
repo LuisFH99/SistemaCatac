@@ -19,18 +19,18 @@ class IndexController extends Controller
         $mision= DB::table('mision')
             ->join('imagenes as i','i.id','mision.imagenes_id')
             ->select('descripcion', 'mision.posicion', 'mision.activo', 'mision.borrado', 'url_imagen')
-            ->where('mision.activo', '=', '1')
+            ->where('mision.activo', '1')
             ->get();
 
         $vision= DB::table('vision')
         ->join('imagenes as i','i.id','vision.imagenes_id')
         ->select('descripcion', 'vision.posicion', 'vision.activo', 'vision.borrado', 'url_imagen')
-        ->where('vision.activo', '=', '1')
+        ->where('vision.activo','1')
         ->get();
 
         $banner= DB::table('baner_pestanias')
         ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
-        ->where('baner_pestanias.activo', '=', '1')
+        ->where('baner_pestanias.activo','1')
         ->where('estado','misionvision')
         ->get();
 
@@ -40,7 +40,7 @@ class IndexController extends Controller
     public function resenahistorica(){
 
         $historia= DB::table('resena_historica')
-                    ->where('activo', '=', '1')
+                    ->where('activo', '1')
                     ->get();
 
         $banner= DB::table('baner_pestanias')
@@ -104,13 +104,15 @@ class IndexController extends Controller
                         ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
                         ->join('imagenes as i','i.id','funcionarios.imagenes_id')
                         ->select('p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
-                        ->paginate(1);
+                        ->where('funcionarios.estado','1')
+                        ->paginate(10);
 
         $banner= DB::table('baner_pestanias')
                         ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
                         ->where('baner_pestanias.activo', '=', '1')
                         ->where('estado','directorio')
                         ->get();
+                        
         return view('web.directorio',compact('funcionarios','banner'));
     }
 
@@ -128,15 +130,14 @@ class IndexController extends Controller
         return view('web.perfil',compact('perfiles'));
     }
 
-
     public function comitespecializado(){
-        return view('web.comitespecializado');
 
+        return view('web.comitespecializado');
     }
     
     public function organosdeasesoria(){
-        return view('web.organosdeasesoria');
 
+        return view('web.organosdeasesoria');
     }
 
     public function organosdelinea(){
@@ -149,37 +150,105 @@ class IndexController extends Controller
 
     }
     
-
     public function directivos(){
         return view('web.directivos');
-
-    }
-
-    public function directorio(){
-        return view('web.directorio');
 
     }
 
     //INSTRUMENTOS  DE GESTION
 
     public function estatuto(){
+        
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',4)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','estatuto')
+                    ->get();
 
-        return view('web.estatuto');
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.estatuto', compact('instrumentos','banner','modicatoria'));
     }
 
     public function rof(){
 
-        return view('web.rof');
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',1)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','rof')
+                    ->get();
+
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.rof', compact('instrumentos','banner','modicatoria'));
     }
 
     public function poi(){
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',2)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','poi')
+                    ->get();
 
-        return view('web.poi');
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+
+        return view('web.poi', compact('instrumentos','banner','modicatoria'));
     }
 
     public function peconvenios(){
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',3)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','peconvenios')
+                    ->get();
 
-        return view('web.peconvenios');
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.peconvenios', compact('instrumentos','banner','modicatoria'));
     }
 
     //NOTICAS Y EVENTOS
@@ -386,6 +455,27 @@ class IndexController extends Controller
     public function serviciocontactocantera(){
 
         return view('web.cantera.serviciocanteracontacto');
+    }
+
+    //servicentro Restaurant
+    public function serviciosprincipalrestaurante(){
+
+        return view('web.servicentro.serviciosprincipalrestaurante');
+    }
+
+    public function serviciosofertadosrestaurante(){
+
+        return view('web.servicentro.serviciosofertadosrestaurante');
+    }
+
+    public function serviciosadquirirrestaurante(){
+
+        return view('web.servicentro.serviciosadquirirrestaurante');
+    }
+
+    public function serviciocontactorestaurante(){
+
+        return view('web.servicentro.serviciocontactorestaurante');
     }
 
 
