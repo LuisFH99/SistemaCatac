@@ -257,14 +257,14 @@ return [
             'route' => 'misionvision',
         ],
         [
-            'text' => 'Vision',
+            'text' => 'Baners',
             'icon' => 'nav-icon fas fa-paper-plane',
-            'url'  => 'admin/settings',
+            'route'  => 'baners',
         ],
         [
             'text' => 'Objetivo',
             'icon' => 'nav-icon fas fa-bullseye',
-            'url'  => 'admin/settings',
+            'route'  => 'objetivo',
         ],
         [
             'text'    => 'Organos de Gobierno',

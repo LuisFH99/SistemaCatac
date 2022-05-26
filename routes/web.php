@@ -25,6 +25,8 @@ Auth::routes();
 //Rutas de Admin
 Route::view('resena', 'livewire.resena.index')->name('resena');
 Route::view('misionvision', 'livewire.misionvision.index')->name('misionvision');
+Route::view('baners', 'livewire.baner.index')->name('baners');
+Route::view('objetivo', 'livewire.objetivo.index')->name('objetivo');
 
 //Fin de Rutas de Admin
 

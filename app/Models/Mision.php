@@ -18,4 +18,9 @@ class Mision extends Model
         'imagenes_id'
     ];
     public $timestamps = false; 
+
+    public function imagenes()
+    {
+        return $this->belongsTo(Imagenes::class,'imagenes_id','id');
+    }
 }
