@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <!-- Favicon
 ================================================== -->
-<link rel="icon" type="image/png" href="{{ asset('constra/images/logo.png') }} ">
+<link rel="icon" type="image/png" href="{{ asset('img/logo_catac.png') }} ">
 <!-- CSS
 ================================================== -->
   <!-- Bootstrap -->
@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{{ asset('constra/plugins/slick/slick-theme.css') }} ">
   <!-- Colorbox -->
   <link rel="stylesheet" href="{{ asset('constra/plugins/colorbox/colorbox.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/diseño.css') }}">
   <!-- Template styles-->
   <link rel="stylesheet" href="{{ asset('constra/css/style.css') }} ">
 

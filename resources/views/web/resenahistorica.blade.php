@@ -1,13 +1,16 @@
 @extends('layouts.web')
 @section('contenido')
     <!--/ Header end -->
-<div id="banner-area" class="banner-area" style="background-image:url(constra/images/banner/banner5.jpg)">
+@foreach ($banner as $b)
+    
+<div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
     <div class="banner-text">
       <div class="container">
           <div class="row">
             <div class="col-lg-12">
                 <div class="banner-heading">
-                  <h1 class="banner-title">Reseña Histórica</h1>
+                  <h1 class="banner-title">{{$b->titulo}}</h1>
+@endforeach
                   <h1 class="banner-subtitle">Comunidad Campesina de Catac</h1>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb justify-content-center">
@@ -28,42 +31,25 @@
         <div class="col-lg-12 mt-5 mt-lg-0">
             
           <div id="page-slider" class="page-slider small-bg">
-  
-              <div class="item" style="background-image:url(constra/images/slider-pages/slide-reseña.jpg);background-size: contain;">
+            @foreach ($slider as $s)
+              <div class="item" style="background-image:url({{$s->url_imagen}})">
                 <div class="container">
-                   <!-- <div class="box-slider-content">
+                  <!-- <div class="box-slider-content">
                       <div class="box-slider-text">
-                           <h2 class="box-slide-title">Leadership</h2> 
+                          <h2 class="box-slide-title">Leadership</h2> 
                       </div>    
                     </div> -->
                 </div>
               </div><!-- Item 1 end -->
-  
-              <div class="item" style="background-image:url(constra/images/slider-pages/slide-centro2.jpg);background-size: contain;">
-                <div class="container">
-                     <!-- <div class="box-slider-content">
-                      <div class="box-slider-text">
-                        <h2 class="box-slide-title">Relationships</h2>
-                      </div>    
-                    </div> -->
-                </div>
-              </div><!-- Item 1 end -->
-  
-              <div class="item" style="background-image:url(constra/images/slider-pages/slide-ganado.jpg);background-size: contain;">
-                <div class="container"> 
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <!-- <h2 class="box-slide-title">Performance</h2> -->
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
+            @endforeach
           </div><!-- Page slider end-->          
         </div><!-- Col end -->
           <div class="col-lg-12"><br><br>
             @foreach ($historia as $h)
-                <h3 class="column-title"><center>{{$h->titulo}}</center></h3>
-                <p style="text-align: justify">{{$h->descripcion}}</p>
+                <div class="col-lg-12 shadow-sm p-4 bg-white rounded" style="text-align: justify;">
+                  <h3 class="column-title"><center>{{$h->titulo}}</center></h3>
+                  <p style="text-align: justify">{{$h->descripcion}}</p>  
+                </div>
             @endforeach
           
         </div><!-- Col end -->

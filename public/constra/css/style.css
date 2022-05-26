@@ -593,7 +593,7 @@ a[href^=tel] {
 /* Top Bar
 ================================================== */
 .top-bar {
-  padding: 8px 0;
+  padding: 2px 0;
   background: #ebebeb;
   position: relative;
 }
@@ -2759,7 +2759,7 @@ img.testimonial-thumb {
           transform: translateY(-50%);
   background-color: transparent;
   text-shadow: none;
-  transition: all .25s ease;
+  transition: all .18s ease;
   padding: 0;
   outline: 0;
   border: 0;
@@ -3183,7 +3183,6 @@ label {
 
 .pagination li a {
   border-radius: 0 !important;
-  margin-right: 8px;
   color: #7c7c7c;
 }
 

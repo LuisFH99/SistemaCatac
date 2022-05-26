@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
+
 class IndexController extends Controller
 {
     /**
@@ -13,56 +15,129 @@ class IndexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function visionmision(){
-
         
         $mision= DB::table('mision')
-        ->join('imagenes as i','i.id','mision.imagenes_id')
-        ->where('mision.activo', '=', '1')
-        ->get();
+            ->join('imagenes as i','i.id','mision.imagenes_id')
+            ->select('descripcion', 'mision.posicion', 'mision.activo', 'mision.borrado', 'url_imagen')
+            ->where('mision.activo', '1')
+            ->get();
 
         $vision= DB::table('vision')
         ->join('imagenes as i','i.id','vision.imagenes_id')
-        ->where('vision.activo', '=', '1')
+        ->select('descripcion', 'vision.posicion', 'vision.activo', 'vision.borrado', 'url_imagen')
+        ->where('vision.activo','1')
         ->get();
 
-        $baner= DB::table('baner')
-        ->join('imagenes as i','i.id','baner.imagenes_id')
-        ->where('baner.activo', '=', '1')
+        $banner= DB::table('baner_pestanias')
+        ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+        ->where('baner_pestanias.activo','1')
+        ->where('estado','misionvision')
         ->get();
-                
-        return view('web.visionmision', compact('mision','vision'));
+
+        return view('web.visionmision', compact('mision','vision','banner'));
     }
 
     public function resenahistorica(){
 
         $historia= DB::table('resena_historica')
-                    ->where('activo', '=', '1')
+                    ->where('activo', '1')
                     ->get();
 
-        return view('web.resenahistorica', compact('historia'));
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo','1')
+                    ->where('estado','reseña')
+                    ->get();                    
+
+        $slider=DB::table('imagen_has_resena')
+                ->join('imagenes as i','i.id','imagen_has_resena.imagenes_id')
+                ->join('resena_historica as r','r.id','imagen_has_resena.resena_historica_id')
+                ->select('url_imagen')
+                ->get();
+
+        return view('web.resenahistorica', compact('historia','banner','slider'));
     }
 
     public function objetivos(){
 
-        $objetivos= DB::table('objetivos')
-        ->where('activo', '=', '1')
-        ->get();
+        $ogenerales= DB::table('objetivos')
+                ->join('imagenes as i','i.id','objetivos.imagenes_id')
+                ->where('objetivos.activo','1')
+                ->where('tipo_objetivo_id',1)
+                ->get();
 
-        return view('web.objetivos', compact('objetivos'));
+        $oespecificos= DB::table('objetivos')
+            ->join('imagenes as i','i.id','objetivos.imagenes_id')
+            ->where('objetivos.activo','1')
+            ->where('tipo_objetivo_id',2)
+            ->orderby('objetivos.id','desc')
+            ->get();
+        
+        $tipos=DB::table('tipo_objetivo')
+                ->where('id',1)
+                ->get();
+
+        $tipos1=DB::table('tipo_objetivo')
+                ->where('id',2)
+                ->get();
+
+        $banner= DB::table('baner_pestanias')
+                ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                ->where('baner_pestanias.activo','1')
+                ->where('estado','objetivos')
+                ->get();
+
+        $obejtivos3= DB::table('objetivos')
+        ->join('imagenes as i','i.id','objetivos.imagenes_id')
+        ->where('objetivos.activo','1')
+        ->where('objetivos_id',4)
+        ->get();
+                
+        return view('web.objetivos', compact('tipos1','oespecificos','banner','tipos','ogenerales','obejtivos3'));
     }
     
     public function asambleageneral(){
-        return view('web.asambleageneral');
+        $funcionarios=DB::table('funcionarios')
+                        ->join('persona as p','p.id','funcionarios.persona_id')
+                        ->join('cargo as c','c.id','funcionarios.cargo_id')
+                        ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+                        ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+                        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+                        ->select('p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+                        ->where('funcionarios.estado','1')
+                        ->paginate(10);
+
+        $banner= DB::table('baner_pestanias')
+                        ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                        ->where('baner_pestanias.activo', '=', '1')
+                        ->where('estado','directorio')
+                        ->get();
+                        
+        return view('web.directorio',compact('funcionarios','banner'));
+    }
+
+    public function perfil($id){
+        $perfiles=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+        ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('p.nombre as name','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+        ->where('persona_id',$id)
+        ->get();
+
+        return view('web.perfil',compact('perfiles'));
     }
 
     public function comitespecializado(){
-        return view('web.comitespecializado');
 
+        return view('web.comitespecializado');
     }
     
     public function organosdeasesoria(){
-        return view('web.organosdeasesoria');
 
+        return view('web.organosdeasesoria');
     }
 
     public function organosdelinea(){
@@ -75,37 +150,105 @@ class IndexController extends Controller
 
     }
     
-
     public function directivos(){
         return view('web.directivos');
-
-    }
-
-    public function directorio(){
-        return view('web.directorio');
 
     }
 
     //INSTRUMENTOS  DE GESTION
 
     public function estatuto(){
+        
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',4)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','estatuto')
+                    ->get();
 
-        return view('web.estatuto');
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.estatuto', compact('instrumentos','banner','modicatoria'));
     }
 
     public function rof(){
 
-        return view('web.rof');
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',1)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','rof')
+                    ->get();
+
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.rof', compact('instrumentos','banner','modicatoria'));
     }
 
     public function poi(){
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',2)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','poi')
+                    ->get();
 
-        return view('web.poi');
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+
+        return view('web.poi', compact('instrumentos','banner','modicatoria'));
     }
 
     public function peconvenios(){
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',3)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','peconvenios')
+                    ->get();
 
-        return view('web.peconvenios');
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.peconvenios', compact('instrumentos','banner','modicatoria'));
     }
 
     //NOTICAS Y EVENTOS
@@ -124,6 +267,217 @@ class IndexController extends Controller
 
         return view('web.actividades');
     }
+
+    //SERVICIOS
+    //servicentro Gasolinera
+    public function serviciosprincipal(){
+
+        return view('web.servicentro.serviciosprincipal');
+    }
+
+    public function serviciosofertados(){
+
+        return view('web.servicentro.serviciosofertados');
+    }
+
+    public function serviciosadquirir(){
+
+        return view('web.servicentro.serviciosadquirir');
+    }
+
+    public function serviciocontacto(){
+
+        return view('web.servicentro.serviciocontacto');
+    }
+
+    //servicentro Minimarket
+    public function serviciosprincipalminimarket(){
+
+        return view('web.servicentro.serviciosprincipalminimarket');
+    }
+
+    public function serviciosofertadosminimarket(){
+
+        return view('web.servicentro.serviciosofertadosminimarket');
+    }
+
+    public function serviciosadquirirminimarket(){
+
+        return view('web.servicentro.serviciosadquirirminimarket');
+    }
+
+    public function serviciocontactominimarket(){
+
+        return view('web.servicentro.serviciocontactominimarket');
+    }
+
+    //servicentro Ganaderia
+    public function serviciosprincipalganaderia(){
+
+        return view('web.agropecuaria.serviciosprincipalganaderia');
+    }
+
+    public function serviciosofertadosganaderia(){
+
+        return view('web.agropecuaria.serviciosofertadosganaderia');
+    }
+
+    public function serviciosadquirirganaderia(){
+
+        return view('web.agropecuaria.serviciosadquirirganaderia');
+    }
+
+    public function serviciocontactoganaderia(){
+
+        return view('web.agropecuaria.serviciocontactoganaderia');
+    }
+
+    //servicentro Agricultura
+    public function serviciosprincipalagricultura(){
+
+        return view('web.agropecuaria.serviciosprincipalagricultura');
+    }
+
+    public function serviciosofertadosagricultura(){
+
+        return view('web.agropecuaria.serviciosofertadosagricultura');
+    }
+
+    public function serviciosadquiriragricultura(){
+
+        return view('web.agropecuaria.serviciosadquiriragricultura');
+
+    }public function serviciocontactoagricultura(){
+
+        return view('web.agropecuaria.serviciocontactoagricultura');
+    }
+
+    //servicentro Agroveterinaria
+
+    public function serviciosprincipalagroveterinaria(){
+
+        return view('web.agroveterinaria.servicioagroveterinariaprincipal');
+    }
+
+    public function serviciosofertadosagroveterinaria(){
+
+        return view('web.agroveterinaria.servicioagroveterinariaofertados');
+    }
+
+    public function serviciosadquiriragroveterinaria(){
+
+        return view('web.agroveterinaria.servicioagroveterinariaadquirir');
+
+    }public function serviciocontactoagroveterinaria(){
+
+        return view('web.agroveterinaria.servicioagroveterinariaontacto');
+    }
+
+    //servicio transporte
+    public function serviciosprincipaltransporte(){
+
+        return view('web.transporte.serviciotransporteprincipal');
+    }
+
+    public function serviciosofertadostransporte(){
+
+        return view('web.transporte.serviciotransporteofertados');
+    }
+
+    public function serviciosadquirirtransporte(){
+
+        return view('web.transporte.serviciotransporteadquirir');
+    }
+
+    public function serviciocontactotransporte(){
+
+        return view('web.transporte.serviciotransportecontacto');
+    }
+
+    //servicio turismo
+    public function serviciosprincipalturismo(){
+
+        return view('web.turismo.servicioturismoprincipal');
+    }
+
+    public function serviciosofertadosturismo(){
+
+        return view('web.turismo.servicioturismoofertados');
+    }
+
+    public function serviciosadquirirturismo(){
+
+        return view('web.turismo.servicioturismoadquirir');
+    }
+
+    public function serviciocontactoturismo(){
+
+        return view('web.turismo.servicioturismocontacto');
+    }
+
+    //servicio forestacion
+    public function serviciosprincipalforestacion(){
+
+        return view('web.forestacion.servicioforestacionprincipal');
+    }
+
+    public function serviciosofertadosforestacion(){
+
+        return view('web.forestacion.servicioforestacionofertados');
+    }
+
+    public function serviciosadquirirforestacion(){
+
+        return view('web.forestacion.servicioforestacionadquirir');
+    }
+
+    public function serviciocontactoforestacion(){
+
+        return view('web.forestacion.servicioforestacioncontacto');
+    }
+
+    //servicio cantera
+    public function serviciosprincipalcantera(){
+
+        return view('web.cantera.serviciocanteraprincipal');
+    }
+
+    public function serviciosofertadoscantera(){
+
+        return view('web.cantera.serviciocanteraofertados');
+    }
+
+    public function serviciosadquirircantera(){
+
+        return view('web.cantera.serviciocanteraadquirir');
+    }
+
+    public function serviciocontactocantera(){
+
+        return view('web.cantera.serviciocanteracontacto');
+    }
+
+    //servicentro Restaurant
+    public function serviciosprincipalrestaurante(){
+
+        return view('web.servicentro.serviciosprincipalrestaurante');
+    }
+
+    public function serviciosofertadosrestaurante(){
+
+        return view('web.servicentro.serviciosofertadosrestaurante');
+    }
+
+    public function serviciosadquirirrestaurante(){
+
+        return view('web.servicentro.serviciosadquirirrestaurante');
+    }
+
+    public function serviciocontactorestaurante(){
+
+        return view('web.servicentro.serviciocontactorestaurante');
+    }
+
 
     /**
      * Show the form for creating a new resource.
