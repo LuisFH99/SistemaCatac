@@ -17,78 +17,84 @@
                     </ol>
                 </nav>
               </div>
-          </div><!-- Col end -->
-        </div><!-- Row end -->
-    </div><!-- Container end -->
-  </div><!-- Banner text end -->
-</div><!-- Banner area end --> 
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 @endforeach
 
-<section style="margin:3%">
+<section class="container mt-0">
   <!-- MISION -->
   @foreach ($mision as $m)
-  
-      <div  id="transicionderecho" class="row" style="margin-bottom: 5%">
-        @if ($m->posicion == 1)
-        <div class="col-lg-6 shadow-sm p-4 bg-white"  style="text-align: justify;border-radius: 10px;">
-          <div class="col-lg-12"><h3 class="column-title text-center">Mision</h3></div>    
-          <div class="col-lg-12 text-muted"><p>{{$m->descripcion}}</p> </div>
-        </div>
-        <div class="col-lg-6 mt-5 mt-lg-0">
-        <div id="page-slider"  class="page-slider small-bg">
-            <div class="item rounded img-fluid" style="background-image:url({{$m->url_imagen}});width: 50%; height: 50%">
-                <div class="container"></div> 
-            </div>
-          </div> 
-                   
-        </div>
-
-        
-        @else
-        <div class="col-lg-6 mt-5 mt-lg-0">
-          <div id="page-slider" class="page-slider small-bg">
-              <div class="item rounded" style="background-image:url({{$m->url_imagen}});width: 50%; height: 50%">
-                  <div class="container"></div> 
-              </div>
-            </div>          
+    <div  class="row mb-2">
+      @if ($m->posicion == 1)
+      <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+        <div  class="row no-gutters">
+          <div class="col-lg-4 p-2">
+            <img src="{{ url($m->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
           </div>
-        <div class="col-lg-6 shadow-sm p-4 bg-white" style="text-align: justify;border-radius: 10px;">
-          <div class="col-lg-12"><h3 class="column-title text-center">Misión</h3></div>    
-          <div class="col-lg-12 text-muted"><p>{{$m->descripcion}}</p></div>
+          <div class="col-lg-8">
+            <div class="card-body ">
+              <h5 class="card-title pt-2" style="font-size: 140%">Mision</h5>
+              <br><p class="card-text text-muted pt-4" style="text-align: justify">{{$m->descripcion}}</p>
+            </div>
+          </div>
         </div>
-        @endif
       </div>
+      @else
+      <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+        <div  class="row no-gutters">
+          <div class="col-lg-8">
+            <div class="card-body">
+              <h5 class="card-title pt-2" style="font-size: 140%">Mision</h5>
+              <br><p class="card-text text-muted pt-3" style="text-align: justify">{{$m->descripcion}}</p>
+            </div>
+          </div>
+          <div class="col-lg-4 p-2 pb-0">
+            <img src="{{ url($m->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+      @endif
+    </div> 
   @endforeach 
+
   <hr style="height: 0.5px;background: yellowgreen">
+
   <!--VISION -->
   @foreach ($vision as $m)
-  <div class="row" id="transicionizquierda" style="margin-bottom: 5%">
-    @if ($m->posicion == 1)
-    <div class="col-lg-6 shadow-sm p-4 bg-white" style="text-align: justify;border-radius: 10px;border: blue">
-      <div class="col-lg-12"><h3 class="column-title text-center">Vision</h3></div>    
-      <div class="col-lg-12 text-muted"><p>{{$m->descripcion}}</p></div>
-    </div>
-    <div class="col-lg-6 mt-5 mt-lg-0">
-    <div id="page-slider" class="page-slider small-bg">
-        <div class="item rounded" style="background-image:url({{$m->url_imagen}})">
-            <div class="container"></div> 
-        </div>
-      </div>          
-    </div>
-    @else
-    <div class="col-lg-6 mt-5 mt-lg-0">
-      <div id="page-slider" class="page-slider small-bg">
-          <div class="item rounded" style="background-image:url({{$m->url_imagen}})">
-              <div class="container"></div> 
+    <div  class="row mb-2">
+      @if ($m->posicion == 1)
+      <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+        <div  class="row no-gutters">
+          <div class="col-lg-4 p-2">
+            <img src="{{ url($m->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
           </div>
-        </div>          
+          <div class="col-lg-8 p-6">
+            <div class="card-body">
+              <h5 class="card-title pt-2" style="font-size: 140%">Vision</h5>
+              <br><p class="card-text text-muted pt-4" style="text-align: justify">{{$m->descripcion}}</p>
+            </div>
+          </div>
+        </div>
       </div>
-    <div class="col-lg-6 shadow-sm p-4 bg-white rounded" style="text-align: justify;border-radius: 10px;border: blue">
-      <div class="col-lg-12"><h3 class="column-title text-center">Vision</h3></div>    
-      <div class="col-lg-12 text-muted"><p>{{$m->descripcion}}</p></div>
-    </div>
-    @endif
-  </div>
-@endforeach
-</section><!-- Main container end -->
+      @else
+      <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+        <div  class="row no-gutters">
+          <div class="col-lg-8 p-6">
+            <div class="card-body">
+              <h5 class="card-title pt-2" style="font-size: 140%">Vision</h5>
+              <br><p class="card-text text-muted pt-3" style="text-align: justify">{{$m->descripcion}}</p>
+            </div>
+          </div>
+          <div class="col-lg-4 p-2 pb-0">
+            <img src="{{ url($m->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+      @endif
+    </div> 
+  @endforeach
+</section>
 @endsection

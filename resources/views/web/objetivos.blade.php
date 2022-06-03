@@ -20,109 +20,124 @@
           </div><!-- Row end -->
       </div><!-- Container end -->
     </div><!-- Banner text end -->
-</div><!-- Banner area end --> 
-  @endforeach
-  <section style="margin: 2%">
+</div>
+@endforeach
+
+  <section class="container mt-0">
         @foreach ($tipos as $t)
-        <h3 class="column-title; text-center">{{$t->tipo}}</h3>
+        <h3 class="column-title; text-center mt-0" >{{$t->tipo}}</h3>
         @endforeach
-
         @foreach ($ogenerales as $o)
-        <div class="row">
+        <div  class="row mb-2">
           @if ($o->posicion == 1)
-
-          <div class="col-lg-6 shadow-sm p-4 bg-white rounded" style="text-align: justify;height: 250px">
-            <p>{{$o->objetivo}} </p>
-           </div>
-          <div class="col-lg-6 mt-5 mt-lg-0" >
-            <div id="page-slider" class="page-slider small-bg">
-                <div class="item" style="background-image:url({{$o->url_imagen}});">
-                  <div class="container" style="height: 5%">
-                      <!-- <div class="box-slider-content">
-                        <div class="box-slider-text">
-                            <h2 class="box-slide-title">Leadership</h2>
-                        </div>    
-                      </div> -->
-                  </div>
+          <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+            <div  class="row no-gutters">
+              <div class="col-lg-4 p-2">
+                <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+              </div>
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title" >Objetivo General 0{{$con1++}}</h5>
+                  <p class="card-text text-muted pt-4" style="text-align: justify">{{$o->objetivo}}</p>
                 </div>
-            </div>          
+              </div>
+            </div>
           </div>
           @else
-          <div class="col-lg-6 mt-5 mt-lg-0">
-            <div id="page-slider" class="page-slider small-bg">
-                <div class="item" style="background-image:url(constra/images/slider-pages/slide-centro2.jpg)">
-                  <div class="container">
-                      <!-- <div class="box-slider-content">
-                        <div class="box-slider-text">
-                            <h2 class="box-slide-title">Leadership</h2>
-                        </div>    
-                      </div> -->
-                  </div>
+          <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+            <div  class="row no-gutters">
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title" >Objetivo General 0{{$con1++}}</h5>
+                  <p class="card-text text-muted pt-3" style="text-align: justify">{{$o->objetivo}}</p>
                 </div>
-            </div>          
+              </div>
+              <div class="col-lg-4 p-2 pb-0">
+                <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+              </div>
+            </div>
           </div>
-          <div class="col-lg-6 shadow-sm p-4 bg-white rounded" style="text-align: justify;">
-            <!-- <h3 class="column-title">Mejorar</h3> -->
-            <p>{{$o->objetivo}} </p>
-           </div>
           @endif
-        </div>
-        <br><br>     
+        </div> 
         @endforeach
         <hr style="height: 0.5px;background: yellowgreen">
 
+        <!-- objetivos especificos -->
+
+
         @foreach ($tipos1 as $t)
-        <h3 class="column-title; text-center" >{{$t->tipo}}</h3>
+        <h3 class="column-title; text-center"  >{{$t->tipo}}</h3>
         @endforeach
 
         @foreach ($oespecificos as $o)
         <div class="row">
           @if ($o->posicion == 1)
-
-          <div class="col-lg-6 shadow-sm p-4 bg-white rounded" style="text-align: justify;height: 5%;">
-            <p>{{$o->objetivo}} </p>
-           </div>
-          <div class="col-lg-6 mt-5 mt-lg-0">
-            <div id="page-slider" class="page-slider small-bg">
-                <div class="item" style="background-image:url({{$o->url_imagen}}); height: 5%">
-                  <div class="container">
-                      <!-- <div class="box-slider-content">
-                        <div class="box-slider-text">
-                            <h2 class="box-slide-title">Leadership</h2>
-                        </div>    
-                      </div> -->
-                  </div>
+          <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+            <div  class="row no-gutters">
+              <div class="col-lg-4 p-2">
+                <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+              </div>
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title" >Objetivo Especifico 0{{$con++}}</h5>
+                  <p class="card-text text-muted pt-4" style="text-align: justify">{{$o->objetivo}}</p>
                 </div>
-            </div>          
+              </div>
+            </div>
           </div>
           @else
-          <div class="col-lg-6 mt-5 mt-lg-0">
-            <div id="page-slider" class="page-slider small-bg">
-                <div class="item" style="background-image:url({{$o->url_imagen}})">
-                  <div class="container">
-                      <!-- <div class="box-slider-content">
-                        <div class="box-slider-text">
-                            <h2 class="box-slide-title">Leadership</h2>
-                        </div>    
-                      </div> -->
-                  </div>
+          <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+            <div  class="row no-gutters">
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title" >Objetivo Especifico 0{{$con++}}</h5>
+                  <p class="card-text text-muted pt-3" style="text-align: justify">{{$o->objetivo}}</p>
                 </div>
-            </div>          
+              </div>
+              <div class="col-lg-4 p-2 pb-0">
+                <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+              </div>
+            </div>
           </div>
-          <div class="col-lg-6 shadow-sm p-4 bg-white rounded" style="text-align: justify;">
-            <!-- <h3 class="column-title">Mejorar</h3> -->
-            <p>{{$o->objetivo}} </p>
-           </div>
           @endif
-
-        </div>
-        <br><br>     
+        </div>  
         @endforeach
-          @foreach ($obejtivos3 as $o)
-          <small><p>{{$o->objetivo}}</p></small>                
-          @endforeach
-      </div><!-- Content row end -->
-    </div><!-- Container end -->
-  </section><!-- Main container end -->
+        
+        @foreach ($obejtivos3 as $o)
+        <div class="row">
+          @if ($o->posicion == 1)
+          <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+            <div  class="row no-gutters">
+              <div class="col-lg-4 p-2">
+                <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+              </div>
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title" >Objetivo Especifico 0{{$con++}}</h5>
+                  <p class="card-text text-muted pt-4" style="text-align: justify">{{$o->objetivo}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          @else
+          <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+            <div  class="row no-gutters">
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title" >Objetivo Especifico 0{{$con++}}</h5>
+                  <p class="card-text text-muted pt-3" style="text-align: justify">{{$o->objetivo}}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 p-2 pb-0">
+                <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          @endif
+        </div>        
+        @endforeach
+      </div>
+    </div>
+  </section>
   
 @endsection

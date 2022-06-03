@@ -1,6 +1,7 @@
 @extends('layouts.web')
 @section('contenido')
-  <div id="banner-area" class="banner-area" style="background-image:url(images/banner/bannerservi.jpg)">
+  @foreach ($banner as $b)
+  <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
     <div class="banner-text">
       <div class="container">
           <div class="row">
@@ -20,6 +21,7 @@
       </div><!-- Container end -->
     </div><!-- Banner text end -->
   </div><!-- Banner area end --> 
+  @endforeach
   
   <section id="main-container" class="main-container">
     <div class="container">
@@ -31,9 +33,9 @@
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
                 <li><a href="/serviciosprincipalminimarket">Detalles</a></li>
-                <li><a href="/serviciosofertadosminimarket">Servicios</a></li>
+                <li><a href="/serviciosofertadosminimarket">Productos</a></li>
                 <li class="active"><a href="/serviciosadquirirminimarket">Como comprar</a></li>
-                <li><a href="/serviciocontactominimarket">Contacto</a></li>
+                <li><a href="/serviciocontactominimarket">Personal</a></li>
               </ul>
             </div><!-- Widget end -->
   
@@ -46,17 +48,14 @@
               <div class="col-md-14">
                 <h3 class="column-title-small">Como adquirir el servicio</h3>
   
-                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-                  moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                  Consectetur adipiscing elit. Integer adipiscing erat eget risus sollicitudin pellentesque et non erat
-                  tincidunt nunc posuere.</p>
+                <p>Para adquirir el servicio tiene que seguir los siguientes pasos.</p>
                 <ul class="list-arrow">
-                  <li>Partnership Strategy tristique eleifend.</li>
-                  <li>Opporutnity to work with amet elit a.</li>
-                  <li>Saving Time to Deal with commodo iaculis.</li>
-                  <li>Leadership skills to manage erat volutpat.</li>
-                  <li>Cut cost without sacrificing dolore magna.</li>
-                  <li>Automate your business elis tristique.</li>
+                  <li>Ingresar al establecimiento y revisar los productos que desee adquirir.</li>
+                  <li>Preguntar a la encargada del minimarket por si no encuentra el producto que desea.</li>
+                  <li>Pedir la cantidad qe desee comprar de determinado producto.</li>
+                  <li>Pagar el producto o productos que se adquieran.</li>
+                  <li>Los pagos se pueden hacer en efectivo o con tarjeta de crédito.</li>
+                  <li>Recibir el vuelto o vaucher, verificar que todo esté bien y luego retirarse.</li>
                 </ul>
               </div>  
             </div>

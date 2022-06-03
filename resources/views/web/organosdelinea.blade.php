@@ -1,147 +1,282 @@
 @extends('layouts.web')
 @section('contenido')
-<div id="banner-area" class="banner-area" style="background-image:url(constra/images/banner/bannerAsamblea.jpg)">
-    <div class="banner-text">
-      <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                  <h1 class="banner-title">Organos de Linea</h1>
-                  <h1 class="banner-subtitle">Comunidad Campesina de Catac</h1>
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">Comunidad</a></li>
-                        <li class="breadcrumb-item"><a href="#">Organos de Gobierno</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Organos de Linea</li>
-                      </ol>
-                  </nav>
-                </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
-  
-  <section id="main-container" class="main-container">
+@foreach ($banner as $b)
+<div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}});">
+  <div class="banner-text">
     <div class="container">
-      <div class="row">
-          <div class="col-lg-12" style="text-align: justify;">
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit commodo condimentum nisi, fusce eleifend interdum sem sodales leo luctus ullamcorper nostra lacus, iaculis cras metus dictum eros nullam ornare vitae ridiculus. Feugiat sed pretium in odio fringilla dignissim litora, taciti proin vulputate platea mauris nulla erat cursus, phasellus est himenaeos dapibus curabitur vivamus. Placerat ultricies fringilla aliquam leo cum eu quisque nisi eros nascetur nunc sollicitudin arcu lacinia, magnis nisl magna urna dictumst quis tincidunt diam convallis primis malesuada netus in</p><br>
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="banner-heading">
+                <h1 class="banner-title">{{$b->titulo}}</h1>
+                <h1 class="banner-subtitle">{{$b->subtitulo}}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="#">Comunidad</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Organo de Linea</li>
+                    </ol>
+                </nav>
+              </div>
           </div><!-- Col end -->
-          
-          <!-- <div class="col-lg-12" style="text-align: justify;">
-            <h4 class="column-title">Miembros de la asamblea general</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit commodo condimentum nisi, fusce eleifend interdum sem sodales leo luctus ullamcorper nostra lacus, iaculis cras metus dictum eros nullam ornare vitae ridiculus. Feugiat sed pretium in odio fringilla dignissim litora, taciti proin vulputate platea mauris nulla erat cursus, phasellus est himenaeos dapibus curabitur vivamus. Placerat ultricies fringilla aliquam leo cum eu quisque nisi eros nascetur nunc sollicitudin arcu lacinia, magnis nisl magna urna dictumst quis tincidunt diam convallis primis malesuada netus in</p><br>
-          </div>-->
-          
-          <div class="col-lg-12" style="text-align: justify;">
-            <h4 class="column-title">Funciones de los organos linea</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit commodo condimentum nisi, fusce eleifend interdum sem sodales leo luctus ullamcorper nostra lacus, iaculis cras metus dictum eros nullam ornare vitae ridiculus. Feugiat sed pretium in odio fringilla dignissim litora, taciti proin vulputate platea mauris nulla erat cursus, phasellus est himenaeos dapibus curabitur vivamus. Placerat ultricies fringilla aliquam leo cum eu quisque nisi eros nascetur nunc sollicitudin arcu lacinia, magnis nisl magna urna dictumst quis tincidunt diam convallis primis malesuada netus in</p><br>
-          </div><!-- Col end -->
-  
-          <div class="col-lg-12" style="text-align: justify;">
-            <h4 class="column-title">Miembros de los organos linea</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit commodo condimentum nisi, fusce eleifend interdum sem sodales leo luctus ullamcorper nostra lacus, iaculis cras metus dictum eros nullam ornare vitae ridiculus. Feugiat sed pretium in odio fringilla dignissim litora, taciti proin vulputate platea mauris nulla erat cursus, phasellus est himenaeos dapibus curabitur vivamus. Placerat ultricies fringilla aliquam leo cum eu quisque nisi eros nascetur nunc sollicitudin arcu lacinia, magnis nisl magna urna dictumst quis tincidunt diam convallis primis malesuada netus in</p><br>
-          </div>
-      </div><!-- Content row end -->
-  
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-          <div class="ts-team-wrapper">
-            <div class="team-img-wrapper">
-              <img loading="lazy" src="constra/images/team/team3.jpg" class="img-fluid" alt="team-img">
-            </div>
-            <div class="ts-team-content-classic">
-              <h3 class="ts-name">Mark Conter</h3>
-              <p class="ts-designation">Cargo: Presidente</p>
-              <p class="ts-description">Sus funciones son Nats Stenman began his career in construction with boots on the ground</p>
-              <div class="team-social-icons">
-                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a target="_blank" href="#"><i class="fab fa-whatsapp"></i></a>              
-              </div>
-              <!--/ social-icons-->
-            </div>
-          </div>
-          <!--/ Team wrapper 3 end -->
-        </div><!-- Col end -->
-  
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-          <div class="ts-team-wrapper">
-            <div class="team-img-wrapper">
-              <img loading="lazy" src="constra/images/team/team4.jpg" class="img-fluid" alt="team-img">
-            </div>
-            <div class="ts-team-content-classic">
-              <h3 class="ts-name">AYESHA STEWART</h3>
-              <p class="ts-designation">Cargo: Secretario</p>
-              <p class="ts-description">Sus funciones son Nats Stenman began his career in construction with boots on the ground</p>
-              <div class="team-social-icons">
-                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a target="_blank" href="#"><i class="fab fa-whatsapp"></i></a>   
-              </div>
-              <!--/ social-icons-->
-            </div>
-          </div>
-          <!--/ Team wrapper 4 end -->
-  
-        </div><!-- Col end -->
-  
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-          <div class="ts-team-wrapper">
-            <div class="team-img-wrapper">
-              <img loading="lazy" src="constra/images/team/team5.jpg" class="img-fluid" alt="team-img">
-            </div>
-            <div class="ts-team-content-classic">
-              <h3 class="ts-name">Dave Clarkte</h3>
-              <p class="ts-designation">Cargo: Tesorero</p>
-              <p class="ts-description">Sus funciones son Nats Stenman began his career in construction with boots on the ground</p>
-              <div class="team-social-icons">
-                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a target="_blank" href="#"><i class="fab fa-whatsapp"></i></a>   
-              </div>
-              <!--/ social-icons-->
-            </div>
-          </div>
-          <!--/ Team wrapper 5 end -->
-        </div><!-- Col end -->
-  
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-          <div class="ts-team-wrapper">
-            <div class="team-img-wrapper">
-              <img loading="lazy" src="constra/images/team/team6.jpg" class="img-fluid" alt="team-img">
-            </div>
-            <div class="ts-team-content-classic">
-              <h3 class="ts-name">Elton Joe</h3>
-              <p class="ts-designation">Cargo: Supervisor</p>
-              <p class="ts-description">Sus funciones son Nats Stenman began his career in construction with boots on the ground</p>
-              <div class="team-social-icons">
-                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a target="_blank" href="#"><i class="fab fa-whatsapp"></i></a>   
-              </div>
-              <!--/ social-icons-->
-            </div>
-          </div>
-          <!--/ Team wrapper 6 end -->
-        </div><!-- Col end -->
-        <div class="col-lg-12 mb-5 mb-lg-0">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">6</a></li>
-              <li class="page-item"><a class="page-link" href="#">7</a></li>
-              <li class="page-item"><a class="page-link" href="#">8</a></li>
-              <li class="page-item"><a class="page-link" href="#">9</a></li>
-              <li class="page-item"><a class="page-link" href="#">10</a></li>
-              <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a></li>
-            </ul>
-          </nav>
-        </div>
-      </div><!-- Content row end -->
+        </div><!-- Row end -->
     </div><!-- Container end -->
-  </section><!-- Main container end -->
-  
+  </div><!-- Banner text end -->
+</div><!-- Banner area end --> 
+@endforeach
+
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row">
+      @foreach ($suborganos as $o)
+      <div class="col-lg-12" style="text-align: justify;">
+        <h4 class="column-title mb-2" style="text-align: left">{{$o->nombre}}</h4>
+        <p style="text-align: justify">{{$o->descripcion}}</p><br>
+
+          @if ($o->id == 27)
+          <div class="row" style="margin-top: 0%">
+            @if ($funcionarios1->count())
+            @foreach ($funcionarios1 as $f)
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+              <div id="zoom" class="card ts-team-wrapper ml-0">
+      
+                <div class="team-img-wrapper">
+                  <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                </div>
+            
+                <div class="ts-team-content-classic mb-4 m-2">
+                  <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
+                  <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
+                  <div class="team-social-icons">
+                    <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
+                    <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
+                  </div>
+                </div>
+      
+              </div>
+            </div>    
+            @endforeach
+            <div class="col-lg-12 mb-5 mb-lg-0">
+              <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li  class="page-item">{{ $funcionarios1->links() }}</li>
+                  </ul>
+              </nav>
+            </div>  
+            @else
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="{{ url('img\not-found.png') }}" alt="">
+            @endif
+          </div>
+          @else
+              @if ($o->id==28)
+              <div class="row" style="margin-top: 0%">
+                @if ($funcionarios2->count())
+                @foreach ($funcionarios2 as $f)
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+                  <div id="zoom" class="card ts-team-wrapper ml-0">
+          
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                    </div>
+                
+                    <div class="ts-team-content-classic mb-4 m-2">
+                      <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
+                      <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
+                      <div class="team-social-icons">
+                        <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
+                        <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
+                      </div>
+                    </div>
+          
+                  </div>
+                </div>    
+                @endforeach
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                  <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center">
+                        <li  class="page-item">{{ $funcionarios2->links() }}</li>
+                      </ul>
+                  </nav>
+                </div>  
+                @else
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="{{ url('img\not-found.png') }}" alt="">
+                @endif
+              </div>
+              @else
+                  @if ($o->id==29)
+                  <div class="row" style="margin-top: 0%">
+                    @if ($funcionarios3->count())
+                    @foreach ($funcionarios3 as $f)
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+                      <div id="zoom" class="card ts-team-wrapper ml-0">
+              
+                        <div class="team-img-wrapper">
+                          <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                        </div>
+                    
+                        <div class="ts-team-content-classic mb-4 m-2">
+                          <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
+                          <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
+                          <div class="team-social-icons">
+                            <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
+                            <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
+                          </div>
+                        </div>
+              
+                      </div>
+                    </div>    
+                    @endforeach
+                    <div class="col-lg-12 mb-5 mb-lg-0">
+                      <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                            <li  class="page-item">{{ $funcionarios3->links() }}</li>
+                          </ul>
+                      </nav>
+                    </div>  
+                    @else
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="{{ url('img\not-found.png') }}" alt="">
+                    @endif
+                  </div>
+                  @else
+                      @if ($o->id==30)
+                      <div class="row" style="margin-top: 0%">
+                        @if ($funcionarios4->count())
+                        @foreach ($funcionarios4 as $f)
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+                          <div id="zoom" class="card ts-team-wrapper ml-0">
+                  
+                            <div class="team-img-wrapper">
+                              <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                            </div>
+                        
+                            <div class="ts-team-content-classic mb-4 m-2">
+                              <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
+                              <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
+                              <div class="team-social-icons">
+                                <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
+                                <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
+                              </div>
+                            </div>
+                  
+                          </div>
+                        </div>    
+                        @endforeach
+                        <div class="col-lg-12 mb-5 mb-lg-0">
+                          <nav aria-label="Page navigation example">
+                              <ul class="pagination justify-content-center">
+                                <li  class="page-item">{{ $funcionarios4->links() }}</li>
+                              </ul>
+                          </nav>
+                        </div>  
+                        @else
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="{{ url('img\not-found.png') }}" alt="">
+                        @endif
+                      </div>
+                      @else
+                        @if ($o->id==31)
+                          <div class="row" style="margin-top: 0%">
+                            @if ($funcionarios5->count())
+                            @foreach ($funcionarios5 as $f)
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+                              <div id="zoom" class="card ts-team-wrapper ml-0">
+                      
+                                <div class="team-img-wrapper">
+                                  <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                                </div>
+                            
+                                <div class="ts-team-content-classic mb-4 m-2">
+                                  <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
+                                  <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
+                                  <div class="team-social-icons">
+                                    <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
+                                    <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
+                                  </div>
+                                </div>
+                      
+                              </div>
+                            </div>    
+                            @endforeach
+                            <div class="col-lg-12 mb-5 mb-lg-0">
+                              <nav aria-label="Page navigation example">
+                                  <ul class="pagination justify-content-center">
+                                    <li  class="page-item">{{ $funcionarios5->links() }}</li>
+                                  </ul>
+                              </nav>
+                            </div>  
+                            @else
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="{{ url('img\not-found.png') }}" alt="">
+                            @endif
+                          </div>
+                        @endif
+                      @endif
+                  @endif
+              @endif
+          @endif
+
+      </div>
+      @endforeach
+
+<!-- 
+      <div class="col-lg-12" style="text-align: justify;">
+        <h4 class="column-title">Lista de los Miembros</h4>
+        <form method="get" > 
+          <div class="col-lg-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+              <input type="text" name="buscar" class="form-control" placeholder="Buscar Integrante..."  value="{{$buscar}}">
+            </div><br>
+          </div>
+        </form>
+      </div> -->
+    </div>
+  </div>
+</section>
 @endsection

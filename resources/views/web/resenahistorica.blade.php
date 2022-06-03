@@ -1,8 +1,7 @@
 @extends('layouts.web')
 @section('contenido')
     <!--/ Header end -->
-@foreach ($banner as $b)
-    
+@foreach ($banner as $b) 
 <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
     <div class="banner-text">
       <div class="container">
@@ -19,17 +18,16 @@
                       </ol>
                   </nav>
                 </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
   
-  <section id="main-container" class="main-container">
+  <section style="margin:5%">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 mt-5 mt-lg-0">
-            
           <div id="page-slider" class="page-slider small-bg">
             @foreach ($slider as $s)
               <div class="item" style="background-image:url({{$s->url_imagen}})">
@@ -40,23 +38,19 @@
                       </div>    
                     </div> -->
                 </div>
-              </div><!-- Item 1 end -->
+              </div>
             @endforeach
-          </div><!-- Page slider end-->          
-        </div><!-- Col end -->
+          </div>     
+        </div>
           <div class="col-lg-12"><br><br>
             @foreach ($historia as $h)
                 <div class="col-lg-12 shadow-sm p-4 bg-white rounded" style="text-align: justify;">
-                  <h3 class="column-title"><center>{{$h->titulo}}</center></h3>
-                  <p style="text-align: justify">{{$h->descripcion}}</p>  
+                  <h3 class="column-title" style="color: #cc5c34"><center>{{$h->titulo}}</center></h3>
+                  <p style=" text-muted text-align: justify">{{$h->descripcion}}</p>  
                 </div>
             @endforeach
-          
-        </div><!-- Col end -->
-         
-  
-      </div><!-- Content row end -->
-  
-    </div><!-- Container end -->
-  </section><!-- Main container end -->
+        </div>
+      </div>
+    </div>
+  </section>
 @endsection

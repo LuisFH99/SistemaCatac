@@ -16,59 +16,64 @@
                     </ol>
                 </nav>
               </div>
-          </div><!-- Col end -->
-        </div><!-- Row end -->
-    </div><!-- Container end -->
-  </div><!-- Banner text end -->
-</div><!-- Banner area end --> 
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 @endforeach
 
-  
-  
-  <section id="main-container" class="main-container pb-4">
+
+  <section id="main-container" class="main-container">
     <div class="container">
-      <!--/ Title row end -->
-  
-      <div class="col-lg-12" style="text-align: justify">
-        <p>La Asamblea General es el órgano supremo de la Comunidad. Está constituido por todos los Comuneros y Comuneras Calificados(as) y debidamente inscritos en el Padrón Comunal. Es presidida por un Director de Debates elegido en el mismo acto.</p><br>
-      </div><!-- Col end -->
-  
-      <div class="col-lg-6" style="margin-bottom: 2%">
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-          <input type="text" class="form-control" placeholder="Buscar Integrante de la comunidad">
+      
+      <form method="get" >
+        <div class="col-lg-6" style="margin-bottom: 2%">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+            <input type="text" name="buscar" class="form-control" placeholder="Buscar Integrante..."  value="{{$buscar}}">
+          </div><br>
         </div>
-      </div><!-- Col end -->
-  
+      </form>
+
       <div class="row" style="margin-top: 0%">
-        @foreach ($funcionarios as $f)
-        <div class="card col-lg-3 col-md-4 col-sm-6 mb-5 shadow-none p-2 mb-5 bg-light rounded" style="margin: 5px">
-          <div  class="ts-team-wrapper">
-            <div  class="team-img-wrapper">
-              <img  loading="lazy" src="{{$f->url_imagen}}" style="width: 300px;height: 250px;align-content: center" class="img-fluid rounded" alt="team-img">
-            </div>
-            <div  class=" p-2 ts-team-content-classic rounded" style="margin-top: 2%">
-              <h6 class="ts-name">{{$f->apep}} {{$f->apem}} {{$f->name}}</h6><br>
-              <p class="ts-designation">Oficina: {{$f->nombre}}</p>
-              <p class="ts-designation">Organo: {{$f->organo}}</p>
-              <!-- <p class="ts-designation">Cargo Administrativo: {{$f->cargo}}</p>
-              <p class="ts-designation">FECHA INICIO: {{$f->fech_inicio}}</p>
-              <p class="ts-designation">FECHA FIN: {{$f->fech_fin}}</p> -->
-              
-              <!-- <p class="ts-description" style="text-align: justify">{{$f->perfil}}</p> -->
-              <div class="team-social-icons" style="margin-top: 5%">
-                <!-- <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a> -->
-                <!-- <a target="_blank" href="#"><i class="fab fa-twitter"></i></a> -->
-                <a style="cursor: pointer"><i class="fas fa-at"> {{$f->email}}</i></a>
-                <a style="cursor: pointer"><i class="fab fa-whatsapp"> {{$f->telefono}}</i></a><br><br> 
-                <a class="link-secondary" href="perfiles/{{$f->persona}}"><strong>Ver Perfil Prosefional</strong></a>
-              </div>  
-              <!--/ social-icons-->
+        @if ($funcionarios->count())
+          @foreach ($funcionarios as $f)
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-5"> 
+            <div id="zoom" class="card ts-team-wrapper ml-0">
+
+              <div class="team-img-wrapper">
+                <img  loading="lazy" src="{{$f->url_imagen}}" style="width: 330px;height: 330px;align-content: center" class="img-fluid rounded mt-0 " alt="team-img">
+              </div>
+
+              <div class="ts-team-content-classic mb-4 m-2">
+                <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                <!-- <p class="ts-designation">Oficina: {{$f->nombre}}</p> -->
+                <p class="ts-designation">Organo: {{$f->organo}}</p>
+                <p class="ts-designation">Cargo: {{$f->cargo }}</p>
+                <div class="team-social-icons">
+                  <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
+                  <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a class="link-secondary mb-0" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a>  
+                </div> 
+              </div>
+
             </div>
           </div>
-          <!--/ Team wrapper 3 end -->
-        </div><!-- Col end -->            
-        @endforeach
+          @endforeach
+        @else
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="{{ url('img\not-found.png') }}" alt="">
+        @endif
+
 
   <!--
         <div class="col-lg-12 mb-5 mb-lg-0">
@@ -96,11 +101,7 @@
                 <li  class="page-item">{{ $funcionarios->links() }}</li>
               </ul>
           </nav>
-  
-  
-  
-          
-      </div><!-- Content row end -->
-    </div><!-- Container end -->
-  </section><!-- Main container end -->
+        </div>
+    </div>
+  </section>
 @endsection

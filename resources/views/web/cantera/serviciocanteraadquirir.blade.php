@@ -1,24 +1,26 @@
 @extends('layouts.web')
 @section('contenido')
-  <div id="banner-area" class="banner-area" style="background-image:url(images/banner/bannerservi.jpg)">
-    <div class="banner-text">
-      <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                  <h1 class="banner-title">Cantera</h1>
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">Servicios</a></li>
-                        <li class="breadcrumb-item"><a href="#">Cantera</a></li>
-                      </ol>
-                  </nav>
-                </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
+  @foreach ($banner as $b)
+    <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
+      <div class="banner-text">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="banner-heading">
+                    <h1 class="banner-title">Cantera</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                          <li class="breadcrumb-item"><a href="#">Servicios</a></li>
+                          <li class="breadcrumb-item"><a href="#">Cantera</a></li>
+                        </ol>
+                    </nav>
+                  </div>
+              </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+      </div><!-- Banner text end -->
+    </div><!-- Banner area end --> 
+  @endforeach
   
   <section id="main-container" class="main-container">
     <div class="container">
@@ -31,9 +33,9 @@
               <ul class="nav service-menu">
                 <ul class="nav service-menu">
                   <li><a href="/serviciosprincipalcantera">Detalles</a></li>
-                  <li><a href="/serviciosofertadoscantera">Servicios</a></li>
+                  <li><a href="/serviciosofertadoscantera">Productos</a></li>
                   <li class="active"><a href="/serviciosadquirircantera">Como comprar</a></li>
-                  <li><a href="/serviciocontactocantera">Contacto</a></li>
+                  <li><a href="/serviciocontactocantera">Personal</a></li>
                 </ul>
               </ul>
             </div><!-- Widget end -->
@@ -47,17 +49,13 @@
               <div class="col-md-14">
                 <h3 class="column-title-small">Como adquirir el servicio</h3>
   
-                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-                  moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                  Consectetur adipiscing elit. Integer adipiscing erat eget risus sollicitudin pellentesque et non erat
-                  tincidunt nunc posuere.</p>
+                <p>Para adquirir el servicio tiene que seguir los siguientes pasos:</p>
                 <ul class="list-arrow">
-                  <li>Partnership Strategy tristique eleifend.</li>
-                  <li>Opporutnity to work with amet elit a.</li>
-                  <li>Saving Time to Deal with commodo iaculis.</li>
-                  <li>Leadership skills to manage erat volutpat.</li>
-                  <li>Cut cost without sacrificing dolore magna.</li>
-                  <li>Automate your business elis tristique.</li>
+                  <li>Para adquirir el servicio se tiene que enviar solicitud por mesa de partes.</li>
+                  <li>Una vez recepcionada la solicitud esta se envía para que la revisen.</li>
+                  <li>El tiempo de respuesta es de máximo una semana.</li>
+                  <li>Una vez enviada la respuesta contactarse o acercarse a las oficinas de la comunidad.</li>
+                  <li>Los pagos se pueden realizar en efectivo o con tarjeta.</li>
                 </ul>
               </div>  
             </div>

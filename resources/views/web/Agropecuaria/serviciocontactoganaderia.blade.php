@@ -1,25 +1,27 @@
 @extends('layouts.web')
 @section('contenido')
-  <div id="banner-area" class="banner-area" style="background-image:url(images/banner/bannerservi.jpg)">
-    <div class="banner-text">
-      <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                  <h1 class="banner-title">Ganaderia</h1>
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">Servicios</a></li>
-                        <li class="breadcrumb-item"><a href="#">Agropecuaria</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Ganaderia</li>
-                      </ol>
-                  </nav>
-                </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
+  @foreach ($banner as $b)
+    <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
+      <div class="banner-text">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="banner-heading">
+                    <h1 class="banner-title">Ganaderia</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                          <li class="breadcrumb-item"><a href="#">Servicios</a></li>
+                          <li class="breadcrumb-item"><a href="#">Agropecuaria</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Ganaderia</li>
+                        </ol>
+                    </nav>
+                  </div>
+              </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+      </div><!-- Banner text end -->
+    </div><!-- Banner area end --> 
+  @endforeach
   
   <section id="main-container" class="main-container">
     <div class="container">
@@ -30,10 +32,10 @@
             <div class="widget">
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
-                <li><a href="/serviciosprincipalagricultura">Detalles</a></li>
-                <li><a href="/serviciosofertadosagricultura">Servicios</a></li>
-                <li class="active"><a href="/serviciocontactoagricultura">Como comprar</a></li>
-                <li><a href="/serviciosadquiriragricultura">Contacto</a></li>
+                <li><a href="/serviciosprincipalganaderia">Detalles</a></li>
+                <li><a href="/serviciosofertadosganaderia">Productos</a></li>
+                <li><a href="/serviciosadquirirganaderia">Como comprar</a></li>
+                <li class="active"><a href="/serviciocontactoganaderia">Personal</a></li>
               </ul>
             </div><!-- Widget end -->
   
@@ -44,39 +46,40 @@
           <div class="content-inner-page">
             <div class="row">
               <div class="container">          
+                @foreach ($encargado as $e)
                 <div class="row">
-                  <div class="col-lg-9">
+                  <div class="col-lg-7">
                     <div id="page-slider" class="page-slider small-bg">
                       <div class="item">
-                        <img loading="lazy" class="img-fluid" src="images/projects/project7.jpg" alt="project-image" />
+                        <img loading="lazy" class="img-fluid" src="{{$e->url_imagen}}" style="width: 450px; height: 330px;"/>
                       </div>
                     </div><!-- Page slider end -->
                   </div><!-- Slider col end -->
             
-                  <div class="col-lg-3 mt-5 mt-lg-0">          
+                  <div class="col-lg-5 mt-4 mt-lg-0">          
                     <ul class="project-info list-unstyled">
                       <li>
                         <p class="project-info-label">Nombres y Apellidos:</p>
-                        <p class="project-info-content">Antonio Cartagena Almendariz</p>
+                        <p class="project-info-content">{{$e->apell_pat}}&nbsp;{{$e->apell_mat}}&nbsp;{{$e->nombre}}</p>
                       </li>
                       <li>
-                        <p class="project-info-label">Localización</p>
-                        <p class="project-info-content">McLean, VA</p>
+                        <p class="project-info-label">Telefono</p>
+                        <p class="project-info-content">+51 {{$e->telefono}}</p>
                       </li>
                       <li>
-                        <p class="project-info-label">Año de gestión</p>
-                        <p class="project-info-content">2022</p>
+                        <p class="project-info-label">Correo</p>
+                        <p class="project-info-content">{{$e->email}}</p>
                       </li>
                       <li>
-                        <p class="project-info-label">Categorías</p>
-                        <p class="project-info-content">Commercial, Interiors</p>
+                        <p class="project-info-label">Subservicio</p>
+                        <p class="project-info-content">Ganaderia</p>
                       </li>
                     </ul>
             
                   </div><!-- Content col end -->
             
                 </div><!-- Row end -->
-            
+                @endforeach            
               </div><!-- Conatiner end -->
             </div><!-- 1st row end-->
           </div>

@@ -2,30 +2,65 @@
 @section('contenido')
 <div><br>
     @foreach ($perfiles as $f)
-    <div class="card p-2 col-lg-3 col-md-4 col-sm-6 mb-5 rounded" style="margin: 5px">
-      <div  class="ts-team-wrapper">
-        <div  class="team-img-wrapper">
-          <img  loading="lazy" src="{{$f->url_imagen}}" style="width: 300px;height: 300px;" style="align-content: center" class="img-fluid" alt="team-img">
-        </div>
-        <div  class="card p-2 ts-team-content-classic">
-          <h6 class="ts-name">{{$f->apep}} {{$f->apem}} {{$f->name}}</h6><br>
-          <p class="ts-designation">Oficina: {{$f->nombre}} - {{$f->organo}}</p>
-          <!-- <p class="ts-designation">Cargo Administrativo: {{$f->cargo}}</p>
-          <p class="ts-designation">FECHA INICIO: {{$f->fech_inicio}}</p>
-          <p class="ts-designation">FECHA FIN: {{$f->fech_fin}}</p> -->
+
+    <div >
+      <div class="container card">
+        <hr style="height: 0.5px;background: yellowgreen">
+        <div class="row">
+          <div class="col-lg-5 mb-0">
+            <div id="page-slider" class="page-slider small-bg">
+              <div class="item">
+                <a href="{{ url($f->url_imagen) }}"><img loading="lazy" class="img-fluid" src="{{ asset($f->url_imagen) }}" style="width: 95%;height:95% ;" alt="project-image" /><br>
+                </a>
+              </div>
+            </div>
+            <div class="row mb-0">
+              <div class="col-lg-5">
+                <p class="project-info-label m-0">Nombres y Apellidos:</p> <p class="project-info-content">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                <p class="project-info-label m-0">DNI:</p> <p class="project-info-content">{{$f->DNI}}</p>
+              </div>
+              <div class="col-lg-6" style="text-align: left">
+                <p class="project-info-label m-0">Datos de Contacto:</p>
+                  <p class="project-info-content m-0"><i class="fas fa-at"> {{$f->email}}</i></p> 
+                  <p class="project-info-content"><i class="fab fa-whatsapp"> {{$f->telefono}}</i></p>
+              </div>
+            </div>
+          </div>
           
-          <!-- <p class="ts-description" style="text-align: justify">{{$f->perfil}}</p> -->
-          <div class="team-social-icons" style="margin-top: 5%">
-            <!-- <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a> -->
-            <!-- <a target="_blank" href="#"><i class="fab fa-twitter"></i></a> -->
-            <a style="cursor: pointer"><i class="fas fa-at"> {{$f->email}}</i></a>
-            <a style="cursor: pointer"><i class="fab fa-whatsapp"> {{$f->telefono}}</i></a><br><br> 
-          </div>  
-          <!--/ social-icons-->
-        </div>
-      </div>
-      <!--/ Team wrapper 3 end -->
-    </div><!-- Col end -->            
+          <div class="col-lg-6">          
+            <ul class=" project-info list-unstyled">
+              <li>
+                <p class="project-info-label m-0" >Perfil:</p>
+                <p class="project-info-content" style="text-align: justify">{{$f->perfil}}</p>
+              </li>
+              <li>
+                <p class="project-info-label m-0">Profesion:</p>
+                <p class="project-info-content">{{$f->profesion}}</p>
+              </li>
+              <li>
+                <p class="project-info-label m-0">Oficina:</p>
+                <p class="project-info-content">{{$f->organo}} - {{$f->nombre}}</p>
+              </li>
+              <li>
+                <p class="project-info-label m-0">Cargo:</p>
+                <p class="project-info-content">{{$f->cargo}}</p>
+              </li>
+              <li>
+                <p class="project-info-label m-0">Periodo:</p>
+                <p class="project-info-content">Del {{$f->fech_inicio}} al {{$f->fech_fin}}</p>
+              </li>
+              <li>
+                <p class="project-info-label m-0">Documento CV:</p>
+                <a href="{{ url($f->url_cv) }}" target="_blank"><img src="{{ asset('img/pdf.png') }}" style="width: 20%" class="img-fluid" alt=""></a>
+              </li>            
+            </ul>
+    
+          </div><!-- Content col end -->
+    
+        </div><!-- Row end -->
+        <hr style="height: 0.5px;background: yellowgreen">
+      </div><!-- Conatiner end -->
+    </div><!-- Main container end -->     
     @endforeach
 </div>
 @endsection

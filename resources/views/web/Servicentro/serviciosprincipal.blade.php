@@ -1,26 +1,28 @@
 @extends('layouts.web')
 @section('contenido')
-  <div id="banner-area" class="banner-area" style="background-image:url(constra/images/banner/bannerservi.jpg)">
-    <div class="banner-text">
-      <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                  <h1 class="banner-title">Gasolinera</h1>
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">Servicios</a></li>
-                        <li class="breadcrumb-item"><a href="#">Servicentro</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Gasolinera</li>
-                      </ol>
-                  </nav>
-                </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
-  
+  @foreach ($banner as $b)
+    <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
+      <div class="banner-text">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="banner-heading">
+                    <h1 class="banner-title">Estación de Servicio</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                          <li class="breadcrumb-item"><a href="#">Servicios</a></li>
+                          <li class="breadcrumb-item"><a href="#">Servicentro</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Estación de Servicio</li>
+                        </ol>
+                    </nav>
+                  </div>
+              </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+      </div><!-- Banner text end -->
+    </div><!-- Banner area end --> 
+  @endforeach
+
   <section id="main-container" class="main-container">
     <div class="container">
       <div class="row">
@@ -31,43 +33,39 @@
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
                 <li class="active"><a href="/serviciosprincipal">Detalles</a></li>
-                <li><a href="/serviciosofertados">Servicios</a></li>
+                <li><a href="/serviciosofertados">Productos</a></li>
                 <li><a href="/serviciosadquirir">Como comprar</a></li>
-                <li><a href="/serviciocontacto">Contacto</a></li>
+                <li><a href="/serviciocontacto">Personal</a></li>
               </ul>
             </div><!-- Widget end -->
   
           </div><!-- Sidebar end -->
         </div><!-- Sidebar Col end -->
   
-        <div class="col-xl-8 col-lg-8">
-          <div class="content-inner-page">
-  
-            <h2 class="column-title mrt-0">Que es?</h2>
-  
-            <div class="row">
-              <div class="col-md-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer adipiscing erat eget risus
-                  sollicitudin pellentesque et non erat. Maecenas nibh dolor, malesuada et bibendum a, sagittis accumsan
-                  ipsum. Pellentesque ultrices ultrices sapien.</p>
-              </div><!-- col end -->
-            </div><!-- 1st row end-->
-  
-            <h2 class="column-title mrt-0">Funciones</h2>
-            <div class="row"> 
-              <div class="col-md-12">
-                <ul class="list-arrow">
-                  <li>Partnership Strategy tristique eleifend.</li>
-                  <li>Opporutnity to work with amet elit a.</li>
-                  <li>Saving Time to Deal with commodo iaculis.</li>
-                  <li>Leadership skills to manage erat volutpat.</li>
-                  <li>Cut cost without sacrificing dolore magna.</li>
-                  <li>Automate your business elis tristique.</li>
-                </ul>
+        
+          <div class="col-xl-8 col-lg-8" style="text-align: justify">
+            <div class="content-inner-page">
+
+              @foreach ($subservicio as $ss)
+              <div class="row" >
+                <div class="col-md-12">
+                  <p>{{$ss->descripcion}}</p>
+                </div><!-- col end -->
+              </div><!-- 1st row end-->
+              @endforeach
+              <h2 class="column-title mrt-0">Funciones</h2>
+              @foreach ($funciones as $f)
+              <div class="row"> 
+                <div class="col-md-12">
+                  <ul class="list-arrow">
+                    <li>{{$f->funcion}}<br></li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div><!-- Content inner end -->
-        </div><!-- Content Col end -->
+              @endforeach
+            </div><!-- Content inner end -->
+          </div><!-- Content Col end -->
+        
   
   
       </div><!-- Main row end -->

@@ -1,24 +1,26 @@
 @extends('layouts.web')
 @section('contenido')
-  <div id="banner-area" class="banner-area" style="background-image:url(images/banner/bannerservi.jpg)">
-    <div class="banner-text">
-      <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                  <h1 class="banner-title">Turismo</h1>
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">Servicios</a></li>
-                        <li class="breadcrumb-item"><a href="#">Turismo</a></li>
-                      </ol>
-                  </nav>
-                </div>
-            </div><!-- Col end -->
-          </div><!-- Row end -->
-      </div><!-- Container end -->
-    </div><!-- Banner text end -->
-  </div><!-- Banner area end --> 
+  @foreach ($banner as $b)
+    <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
+      <div class="banner-text">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="banner-heading">
+                    <h1 class="banner-title">Turismo</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                          <li class="breadcrumb-item"><a href="#">Servicios</a></li>
+                          <li class="breadcrumb-item"><a href="#">Turismo</a></li>
+                        </ol>
+                    </nav>
+                  </div>
+              </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+      </div><!-- Banner text end -->
+    </div><!-- Banner area end --> 
+  @endforeach
   
   <section id="main-container" class="main-container">
     <div class="container">
@@ -32,59 +34,66 @@
                 <li><a href="/serviciosprincipalturismo">Detalles</a></li>
                 <li class="active"><a href="/serviciosofertadosturismo">Servicios</a></li>
                 <li><a href="/serviciosadquirirturismo">Como comprar</a></li>
-                <li><a href="/serviciocontactoturismo">Contacto</a></li>
+                <li><a href="/serviciocontactoturismo">Personal</a></li>
               </ul>
             </div><!-- Widget end -->
   
           </div><!-- Sidebar end -->
         </div><!-- Sidebar Col end -->
   
-        <div class="col-xl-9 col-lg-9">
+        <div class="col-xl-9 col-lg-9" style="text-align: justify">
           <div class="content-inner-page">
-            
-            <div class="row">
-              <div class="col-lg-6">
-                <h3 class="column-title">ANTAMINA</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, 
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                <a class="btn btn-primary" href="https://www.antamina.com/">Conocer mas >></a>
-              </div><!-- Col end -->
-              <div class="col-lg-6 mt-5  mt-lg-0">
-                <div id="page-slider" class="page-slider small-bg">
-                    <div class="item" style="background-image:url(images/minera1.jpg)">
-                      <div class="container">
-                          <div class="box-slider-content">  
-                          </div>
-                      </div>
-                    </div><!-- Item 1 end -->
-                </div><!-- Page slider end-->          
-              </div><!-- Col end -->
+            @foreach ($pastoruri as $p)
+            <div class="row" >
+              <div class="card mb-3" style="width: 850px; height: 185px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4" >
+                    <img src="{{$p->url_imagen}}" alt="..." style="width: 260pX; height: 183px;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{$p->producto}}</h5>
+                      <p class="card-text" style="width: 400px; white-space: nowrap; text-overflow: ellipsis;
+                      overflow: hidden;">{{$p->descripcion}}</p>
+                    </div>
+                    <center>
+                      <a href="/pastoruri">
+                        <button type="button" class="btn btn-primary" style="background: #64cc17;" >
+                          Ver mas
+                        </button>
+                      </a>
+                    </center>
+                  </div>
+                </div>
+              </div>
             </div><!-- 1st row end-->
-  
+            @endforeach
+            @foreach ($queshque as $q)
+            <div class="row" >
+              <div class="card mb-3" style="width: 850px; height: 185px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4" >
+                    <img src="{{$q->url_imagen}}" alt="..." style="width: 260pX; height: 183px;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{$q->producto}}</h5>
+                      <p class="card-text" style="width: 400px; white-space: nowrap; text-overflow: ellipsis;
+                      overflow: hidden;">{{$q->descripcion}}</p>
+                    </div>
+                    <center>
+                      <a href="/queshque">
+                        <button type="button" class="btn btn-primary" style="background: #64cc17;" >
+                          Ver mas
+                        </button>
+                      </a>
+                    </center>
+                  </div>
+                </div>
+              </div>
+            </div><!-- 1st row end-->
+            @endforeach
             <div class="gap-40"></div>
-  
-            <div class="row">
-              <div class="col-lg-6 mt-5  mt-lg-0">
-                <div id="page-slider" class="page-slider small-bg">
-                    <div class="item" style="background-image:url(images/minera1.jpg)">
-                      <div class="container">
-                          <div class="box-slider-content">  
-                          </div>
-                      </div>
-                    </div><!-- Item 1 end -->
-                </div><!-- Page slider end-->          
-              </div><!-- Col end -->
-              <div class="col-lg-6">
-                <h3 class="column-title">ANTAMINA</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, 
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                <a class="btn btn-primary" href="https://www.antamina.com/">Conocer mas >></a>
-              </div><!-- Col end -->
-            </div>
           </div><!-- Content inner end -->
         </div><!-- Content Col end -->
   
