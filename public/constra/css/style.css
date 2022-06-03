@@ -32,7 +32,7 @@ p {
   font-family: "Open Sans", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased !important;
-  line-height: 26px;
+  line-height: 20px;
   font-size: 15px;
 }
 
@@ -998,30 +998,54 @@ ul.navbar-nav > li > a {
   font-size: 13px;
 }
 
+
 /* Dropdown */
 .dropdown-submenu {
   position: relative;
 }
 
-.dropdown-submenu > .dropdown-menu {
+.dropdown-submenu>.dropdown-menu {
   top: 0;
   left: 100%;
-  margin-top: -2px;
-  border-radius: 0;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px;
+  border-radius: 0 6px 6px 6px;
 }
 
-.dropdown-submenu > a:after {
+.dropdown-submenu:hover>.dropdown-menu {
   display: block;
-  content: "\f105";
-  font-family: "Font Awesome 5 Free";
-  float: right;
-  margin-top: 0;
-  margin-right: -5px;
-  border: 0;
 }
 
-.dropdown-submenu:hover > a:after {
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #ccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
   border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
 }
 
 .dropdown-menu {
@@ -1093,11 +1117,11 @@ ul.navbar-nav > li > a {
 .dropdown-menu li a:focus {
   color: #64dd17;
 }
-
+/*
 @media (min-width: 991px) {
   ul.nav li.dropdown:hover ul.dropdown-menu {
     display: block;
-  }
+  } 
 }
 
 @media (min-width: 991px) {
@@ -1109,7 +1133,7 @@ ul.navbar-nav > li > a {
   ul.nav li.dropdown ul.dropdown-menu li.dropdown-submenu:hover .dropdown-menu {
     display: block;
   }
-}
+} */
 
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -3580,4 +3604,28 @@ label {
   font-weight: 700;
 }
 
-/*# sourceMappingURL=maps/style.css.map */
+/*https://codepen.io/sazzad/pen/WNbdOg*/
+
+/*
+.nav li a:hover, .nav li a.dropdown-toggle.active {
+  background-color: green;
+  color: #fff;
+}
+
+.nav li a:hover span, .nav li a.dropdown-toggle.active span {
+  color: #1faa00;
+} */
+
+/*hover en los a del header*/
+ /*.nav li a {
+  display: block;
+ color: #333;
+  background-color: #1faa00;  
+    padding: 10px 20px;
+  
+  text-decoration: none;
+  margin-bottom: 2%;
+}
+.nav li .dropdown-menu.active {
+  display: block;
+}*/

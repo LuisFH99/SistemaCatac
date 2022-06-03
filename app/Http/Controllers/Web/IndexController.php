@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comuneros;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
@@ -14,6 +15,27 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function inicio(){
+
+        $noticia=DB::table('imagenes_has_noticias as in')
+        ->join('noticias as n','in.noticias_idnoticias','=','n.id')
+        ->join('imagenes as i','i.id','=','in.imagenes_id')
+        ->select('n.titulo as titulo','n.descripcion as descripcion', 'n.fecha as fecha', 'i.url_imagen as url_imagen', 'in.id')
+        ->where('n.activo', '=', '1')
+        ->where('i.activo', '=', '1')
+        ->get();
+
+        $evento=DB::table('eventos as e')
+        ->join('imagenes as i','e.imagenes_id','=','i.id')
+        ->select('e.titulo','e.descripcion', 'e.fecha', 'url_imagen', 'e.id')
+        ->where('e.activo', '=', '1')
+        ->get();
+
+        return view('web.index', compact('noticia','evento'));
+     }
+
+
     public function visionmision(){
         
         $mision= DB::table('mision')
@@ -58,10 +80,11 @@ class IndexController extends Controller
         return view('web.resenahistorica', compact('historia','banner','slider'));
     }
 
-    public function objetivos(){
-
+    public function objetivos(){    
+        $con1=1;$con=1;
         $ogenerales= DB::table('objetivos')
                 ->join('imagenes as i','i.id','objetivos.imagenes_id')
+                ->select('objetivo', 'objetivos.posicion', 'objetivos.activo', 'objetivos.borrado', 'url_imagen')
                 ->where('objetivos.activo','1')
                 ->where('tipo_objetivo_id',1)
                 ->get();
@@ -70,6 +93,8 @@ class IndexController extends Controller
             ->join('imagenes as i','i.id','objetivos.imagenes_id')
             ->where('objetivos.activo','1')
             ->where('tipo_objetivo_id',2)
+            ->where('objetivos.id','!=',4)
+            ->select('objetivos.id as id','objetivo', 'objetivos.posicion', 'objetivos.activo', 'objetivos.borrado', 'url_imagen')
             ->orderby('objetivos.id','desc')
             ->get();
         
@@ -89,76 +114,593 @@ class IndexController extends Controller
 
         $obejtivos3= DB::table('objetivos')
         ->join('imagenes as i','i.id','objetivos.imagenes_id')
+        ->select('objetivos.id as id','objetivo', 'objetivos.posicion', 'objetivos.activo', 'objetivos.borrado', 'url_imagen')
         ->where('objetivos.activo','1')
         ->where('objetivos_id',4)
+        ->orwhere('objetivos.id',4)
         ->get();
                 
-        return view('web.objetivos', compact('tipos1','oespecificos','banner','tipos','ogenerales','obejtivos3'));
+        return view('web.objetivos', compact('con','con1','tipos1','oespecificos','banner','tipos','ogenerales','obejtivos3'));
     }
     
-    public function asambleageneral(){
+    public function asambleageneral(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
         $funcionarios=DB::table('funcionarios')
                         ->join('persona as p','p.id','funcionarios.persona_id')
                         ->join('cargo as c','c.id','funcionarios.cargo_id')
                         ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
                         ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
                         ->join('imagenes as i','i.id','funcionarios.imagenes_id')
-                        ->select('p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+                        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
                         ->where('funcionarios.estado','1')
-                        ->paginate(10);
-
+                        ->where('p.nombre','Like',"%{$buscar}")
+                        ->orwhere('p.apell_pat','Like',"%{$buscar}")
+                        ->orwhere('p.apell_mat','Like',"%{$buscar}")
+                        ->orderby('p.apell_pat','asc')
+                        ->paginate(12);
+        
         $banner= DB::table('baner_pestanias')
                         ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
                         ->where('baner_pestanias.activo', '=', '1')
                         ->where('estado','directorio')
                         ->get();
                         
-        return view('web.directorio',compact('funcionarios','banner'));
+        return view('web.directorio',compact('buscar','funcionarios','banner'));
     }
 
     public function perfil($id){
+
         $perfiles=DB::table('funcionarios')
+                ->join('persona as p','p.id','funcionarios.persona_id')
+                ->join('cargo as c','c.id','funcionarios.cargo_id')
+                ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+                ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+                ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+                ->select('funcionarios.id as id','url_cv','p.nombre as name','DNI','profesion','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil','url_cv')
+                ->where('funcionarios.id',$id)
+                ->get();
+
+        return view('web.perfil',compact('perfiles'));
+    }
+
+    /*organos de gobierno*/
+
+    public function organosdedireccion(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','direccion')
+                    ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+                    ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+                    ->where('sub_organos_gobierno.avtivo',1)
+                    ->where('organo_gobierno_id',1)
+                    ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+                    ->get();
+
+        $funcionarios=DB::table('comuneros')
+        ->join('persona as p','p.id','comuneros.persona_id')
+        ->join('imagenes as i','i.id','comuneros.imagenes_id')
+        ->select('p.DNI','p.nombre as name','p.apell_pat as apep','p.apell_mat as apem','email','telefono','lugar_procedencia','url_imagen')
+        /*->where('p.nombre','Like',"%{$buscar}")
+        ->orwhere('p.apell_pat','Like',"%{$buscar}")
+        ->orwhere('p.apell_mat','Like',"%{$buscar}")*/
+        ->where( DB::raw('p.nombre',' ','p.apell_pat',' ','p.apell_mat'), 'Like',"%{$buscar}%")
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+        
+        return view('web.organosdedireccion', compact('organos','banner','funcionarios','buscar'));
+    }
+    
+    public function organosdejecucion(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','ejecucion')
+                    ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+                    ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+                    ->where('sub_organos_gobierno.avtivo',1)
+                    ->where('organo_gobierno_id',2)
+                    ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+                    ->get();
+        
+        $funcionarios=DB::table('funcionarios')
+                    ->join('persona as p','p.id','funcionarios.persona_id')
+                    ->join('cargo as c','c.id','funcionarios.cargo_id')
+                    ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+                    ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+                    ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+                    ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+                    ->where('funcionarios.estado','1')
+                    ->where('o.id',2)
+                    ->where('p.nombre','Like',"%{$buscar}%")
+                    ->orwhere('p.apell_pat','Like',"%{$buscar}%")
+                    ->orwhere('p.apell_mat','Like',"%{$buscar}%")
+                    ->orderby('p.apell_pat','asc')
+                    ->paginate(12);
+
+        return view('web.organosdejecucion', compact('buscar','organos','banner','funcionarios'));
+    }
+
+    public function organosdeadministracion(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','administracion')
+                    ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+                    ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+                    ->where('sub_organos_gobierno.avtivo',1)
+                    ->where('organo_gobierno_id',3)
+                    ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+                    ->get();
+        
+        $funcionarios=DB::table('funcionarios')
+                    ->join('persona as p','p.id','funcionarios.persona_id')
+                    ->join('cargo as c','c.id','funcionarios.cargo_id')
+                    ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+                    ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+                    ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+                    ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+                    /*->where('p.nombre','Like',"%{$buscar}%")
+                    ->orwhere('p.apell_pat','Like',"%{$buscar}%")
+                    ->orwhere('p.apell_mat','Like',"%{$buscar}%") */
+                    ->where('funcionarios.estado','1')
+                    ->where('o.id',3)
+                    ->orderby('p.apell_pat','asc')
+                    ->paginate(12);
+
+        return view('web.organosdeadministracion', compact('buscar','organos','banner','funcionarios'));
+
+    }
+    /*organos de asesoria y apoyo*/
+    public function organosdeapoyo(Request $request){
+
+        //organo apoyo
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+        ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+        ->where('baner_pestanias.activo', '=', '1')
+        ->where('estado','apoyo')
+        ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+        ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.id',6)
+        ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+        ->get();
+
+        $suborganos= DB::table('sub_organos_gobierno')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.sub_organos_gobierno_id',6)
+        ->get();
+
+
+        $funcionarios1=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',21)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios2=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',22)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios3=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',23)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios4=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',24)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios5=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',25)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        return view('web.organosdeapoyo', compact('buscar','suborganos','organos','banner','funcionarios1','funcionarios2','funcionarios3','funcionarios4','funcionarios5'));
+    }
+
+    public function organosdeasesoria(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+        ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+        ->where('baner_pestanias.activo', '=', '1')
+        ->where('estado','apoyo')
+        ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+        ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.id',4)
+        ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+        ->get();
+
+        $suborganos= DB::table('sub_organos_gobierno')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.sub_organos_gobierno_id',4)
+        ->get();
+
+
+        $funcionarios1=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',8)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios2=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',9)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios3=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',10)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios4=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',11)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+
+        return view('web.organosdeasesoria', compact('funcionarios1','funcionarios2','funcionarios3','funcionarios4','suborganos','buscar','organos','banner'));
+
+    }
+
+    //Organo de linea, de aca en adelante esperando a talia que suba los registros 31-05-2022
+
+    public function comites(Request $request){
+
+        
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+        ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+        ->where('baner_pestanias.activo', '=', '1')
+        ->where('estado','apoyo')
+        ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+        ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.id',5)
+        ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+        ->get();
+
+
+        $suborganos= DB::table('sub_organos_gobierno')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.sub_organos_gobierno_id',5)
+        ->get();
+
+
+        $funcionarios1=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',12)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+        
+        $funcionarios2=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',13)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios3=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',14)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios4=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',15)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios5=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',16)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios6=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',17)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios7=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',18)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios8=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',19)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios9=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('funcionarios.sub_organos_gobierno_id',20)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+
+        return view('web.comites', compact('buscar','suborganos','organos','banner','funcionarios1','funcionarios2','funcionarios3','funcionarios4','funcionarios5','funcionarios6','funcionarios7','funcionarios8','funcionarios9'));
+
+    }
+
+
+    public function aproductivas(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+        ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+        ->where('baner_pestanias.activo', '=', '1')
+        ->where('estado','linea')
+        ->get();
+        /*
+        $organos= DB::table('sub_organos_gobierno')
+        ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.id',5)
+        ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+        ->get(); */
+
+        $suborganos= DB::table('sub_organos_gobierno')
+        ->where('sub_organos_gobierno.avtivo',1)
+        ->where('sub_organos_gobierno.organo_gobierno_id',5)
+        ->get();
+
+        $funcionarios1=DB::table('funcionarios')
         ->join('persona as p','p.id','funcionarios.persona_id')
         ->join('cargo as c','c.id','funcionarios.cargo_id')
         ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
         ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
         ->join('imagenes as i','i.id','funcionarios.imagenes_id')
-        ->select('p.nombre as name','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
-        ->where('persona_id',$id)
-        ->get();
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('s.id',27)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
 
-        return view('web.perfil',compact('perfiles'));
+        $funcionarios2=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+        ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('s.id',28)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios3=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+        ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('s.id',29)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios4=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+        ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('s.id',30)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        $funcionarios5=DB::table('funcionarios')
+        ->join('persona as p','p.id','funcionarios.persona_id')
+        ->join('cargo as c','c.id','funcionarios.cargo_id')
+        ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+        ->join('organo_gobierno as o','o.id','s.organo_gobierno_id')
+        ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+        ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','o.nombre as organo','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+        ->where('funcionarios.estado','1')
+        ->where('s.id',31)
+        ->orderby('p.apell_pat','asc')
+        ->paginate(12);
+
+        return view('web.organosdelinea', compact('buscar','suborganos','banner','funcionarios1','funcionarios2','funcionarios3','funcionarios4','funcionarios5'));
     }
 
-    public function comitespecializado(){
-
-        return view('web.comitespecializado');
-    }
-    
-    public function organosdeasesoria(){
-
-        return view('web.organosdeasesoria');
-    }
-
-    public function organosdelinea(){
-        return view('web.organosdelinea');
-
-    }
-    
-    public function organosdeapoyo(){
-        return view('web.organosdeapoyo');
-
-    }
-    
-    public function directivos(){
-        return view('web.directivos');
-
-    }
-
-    //INSTRUMENTOS  DE GESTION
-
-    public function estatuto(){
+    public function aempresariales(){
         
+        return view('web.aempresariales');
+    }
+    
+    //Organos Autonomos
+
+    public function controlinterno(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','ejecucion')
+                    ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+                    ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+                    ->where('sub_organos_gobierno.avtivo',1)
+                    ->where('sub_organos_gobierno.id',7)
+                    ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+                    ->get();
+        
+        $funcionarios=DB::table('funcionarios')
+                    ->join('persona as p','p.id','funcionarios.persona_id')
+                    ->join('cargo as c','c.id','funcionarios.cargo_id')
+                    ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+                    ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+                    ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+                    ->where('funcionarios.estado','1')
+                    ->where('s.id',7)
+                    ->orderby('p.apell_pat','asc')
+                    ->paginate(12);
+
+        return view('web.controlinterno', compact('buscar','organos','banner','funcionarios'));
+    }
+
+    public function comitelectoral(Request $request){
+
+        $buscar = trim($request->get('buscar'));
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','ejecucion')
+                    ->get();
+
+        $organos= DB::table('sub_organos_gobierno')
+                    ->join('organo_gobierno as o','o.id','sub_organos_gobierno.organo_gobierno_id')
+                    ->where('sub_organos_gobierno.avtivo',1)
+                    ->where('sub_organos_gobierno.id',26)
+                    ->select('sub_organos_gobierno.nombre as nombre','descripcion')
+                    ->get();
+        
+        $funcionarios=DB::table('funcionarios')
+                    ->join('persona as p','p.id','funcionarios.persona_id')
+                    ->join('cargo as c','c.id','funcionarios.cargo_id')
+                    ->join('sub_organos_gobierno as s','s.id','funcionarios.sub_organos_gobierno_id')
+                    ->join('imagenes as i','i.id','funcionarios.imagenes_id')
+                    ->select('funcionarios.id as id','p.nombre as name','p.id as persona','p.apell_pat as apep','fech_inicio','fech_fin','email','telefono','p.apell_mat as apem','s.nombre as nombre','cargo','url_imagen','perfil')
+                    ->where('funcionarios.estado','1')
+                    ->where('s.id',26)
+                    ->orderby('p.apell_pat','asc')
+                    ->paginate(12);
+
+
+        return view('web.comitelectoral', compact('buscar','organos','banner','funcionarios'));
+    }
+
+    public function estatuto(Request $request){
+
+        $codigo = trim($request->get('codigo'));
+
+        $codigos = DB::table('comuneros')
+                    ->where('codigo',$codigo)
+                    ->count();
+
         $instrumentos=DB::table('instrumentos_gestion')
                     ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
                     ->where('instrumentos_gestion.activo',1)
@@ -177,10 +719,16 @@ class IndexController extends Controller
                     ->where('instrumentos_gestion_id',2)
                     ->get();
 
-        return view('web.estatuto', compact('instrumentos','banner','modicatoria'));
+        return view('web.estatuto', ["codigos"=>$codigos,"instrumentos" => $instrumentos, "banner" => $banner, "modicatoria" => $modicatoria,"codigo" => $codigo]);
     }
 
-    public function rof(){
+    public function rof(Request $request){
+
+        $codigo = trim($request->get('codigo'));
+
+        $codigos = DB::table('comuneros')
+                    ->where('codigo',$codigo)
+                    ->count();
 
         $instrumentos=DB::table('instrumentos_gestion')
                     ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
@@ -201,10 +749,17 @@ class IndexController extends Controller
                     ->where('instrumentos_gestion_id',2)
                     ->get();
 
-        return view('web.rof', compact('instrumentos','banner','modicatoria'));
+        return view('web.rof', ["codigos"=>$codigos,"instrumentos" => $instrumentos, "banner" => $banner, "modicatoria" => $modicatoria,"codigo" => $codigo]);
     }
 
-    public function poi(){
+    public function poi(Request $request){
+
+        $codigo = trim($request->get('codigo'));
+
+        $codigos = DB::table('comuneros')
+                    ->where('codigo',$codigo)
+                    ->count();
+
         $instrumentos=DB::table('instrumentos_gestion')
                     ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
                     ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
@@ -224,11 +779,16 @@ class IndexController extends Controller
                     ->where('instrumentos_gestion_id',2)
                     ->get();
 
-
-        return view('web.poi', compact('instrumentos','banner','modicatoria'));
+        return view('web.poi', ["codigos"=>$codigos,"instrumentos" => $instrumentos, "banner" => $banner, "modicatoria" => $modicatoria,"codigo" => $codigo]);
     }
 
-    public function peconvenios(){
+    public function peconvenios(Request $request){
+        $codigo = trim($request->get('codigo'));
+
+        $codigos = DB::table('comuneros')
+                    ->where('codigo',$codigo)
+                    ->count();
+                    
         $instrumentos=DB::table('instrumentos_gestion')
                     ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
                     ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
@@ -248,300 +808,925 @@ class IndexController extends Controller
                     ->where('instrumentos_gestion_id',2)
                     ->get();
 
-        return view('web.peconvenios', compact('instrumentos','banner','modicatoria'));
+        return view('web.peconvenios', ["codigos"=>$codigos,"instrumentos" => $instrumentos, "banner" => $banner, "modicatoria" => $modicatoria,"codigo" => $codigo]);
+    }
+
+    public function normativas(Request $request){
+
+        $codigo = trim($request->get('codigo'));
+
+        $codigos = DB::table('comuneros')
+                    ->where('codigo',$codigo)
+                    ->count();
+
+        $instrumentos=DB::table('instrumentos_gestion')
+                    ->join('tipo_instrumento as t','t.id','instrumentos_gestion.tipo_instrumento_id')
+                    ->select('instrumentos_gestion.id as id', 'descripcion', 'url_documento','tipo')
+                    ->where('instrumentos_gestion.activo',1)
+                    ->where('tipo_instrumento_id',5)
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','normativo')
+                    ->get();
+                   
+        $modicatoria= DB::table('modificatorias')
+                    ->join('instrumentos_gestion as g','g.id','modificatorias.instrumentos_gestion_id')
+                    ->where('modificatorias.activo',1)
+                    ->where('instrumentos_gestion_id',2)
+                    ->get();
+
+        return view('web.normativa', ["codigos"=>$codigos,"instrumentos" => $instrumentos, "banner" => $banner, "modicatoria" => $modicatoria,"codigo" => $codigo]);
     }
 
     //NOTICAS Y EVENTOS
 
-    public function noticias(){
+    public function noticiasindividuales($id){
 
-        return view('web.noticias');
+        $noticia=DB::table('imagenes_has_noticias as in')
+                ->join('noticias as n','n.id','=','in.noticias_idnoticias')
+                ->join('imagenes as i','i.id','=','in.imagenes_id')
+                ->select('n.titulo','n.descripcion', 'n.fecha', 'url_imagen', 'in.id')
+                ->where('in.id','=',$id)
+                ->where('n.activo', '=', '1')
+                ->where('i.activo', '=', '1')
+                ->get();
+
+        return view('web.noticiaeventoactividad', compact('noticia'));
     }
 
+    public function noticias(){
+
+        $noticia=DB::table('imagenes_has_noticias as in')
+                ->join('noticias as n','in.noticias_idnoticias','=','n.id')
+                ->join('imagenes as i','i.id','=','in.imagenes_id')
+                ->select('n.titulo as titulo','n.descripcion as descripcion', 'n.fecha as fecha', 'i.url_imagen as url_imagen', 'in.id')
+                ->where('n.activo', '=', '1')
+                ->where('i.activo', '=', '1')
+                ->get();
+
+        $banner= DB::table('baner_pestanias')
+                ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                ->where('baner_pestanias.activo', '=', '1')
+                ->where('estado','noticias')
+                ->get();
+
+        return view('web.noticias', compact('noticia','banner'));
+    }
+
+    public function eventoindividual($id){
+
+        $evento=DB::table('eventos as e')
+                ->join('imagenes as i','e.imagenes_id','=','i.id')
+                ->select('e.titulo','e.descripcion', 'e.fecha', 'url_imagen', 'e.id')
+                ->where('e.activo', '=', '1')
+                ->where('e.id','=',$id)
+                ->get();
+
+        return view('web.evento', compact('evento')); /*Crear*/ 
+    }
+    
     public function eventos(){
 
-        return view('web.eventos');
+        $evento=DB::table('eventos as e')
+                ->join('imagenes as i','e.imagenes_id','=','i.id')
+                ->select('e.titulo','e.descripcion', 'e.fecha', 'url_imagen', 'e.id')
+                ->where('e.activo', '=', '1')
+                ->get();
+
+        $banner= DB::table('baner_pestanias')
+                ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                ->where('baner_pestanias.activo', '=', '1')
+                ->where('estado','noticias')
+                ->get();
+
+        return view('web.eventos', compact('evento', 'banner'));
     }
 
     public function actividades(){
 
-        return view('web.actividades');
+        $comunicado=DB::table('comunicados as c')
+                ->join('imagenes as i','c.imagenes_id','=','i.id')
+                ->select('c.titulo','c.descripcion', 'c.fecha', 'i.url_imagen', 'c.id')
+                ->where('c.activo', '=', '1')
+                ->get();
+
+        $banner= DB::table('baner_pestanias')
+                ->join('imagenes as i','i.id','baner_pestanias.imagenes_id')
+                ->where('baner_pestanias.activo', '=', '1')
+                ->where('estado','noticias')
+                ->get();
+
+        return view('web.actividades', compact('comunicado','banner'));
+    }
+
+    public function actividadindividual($id){
+
+        $comunicado=DB::table('comunicados as c')
+                ->join('imagenes as i','c.imagenes_id','=','i.id')
+                ->select('c.titulo','c.descripcion', 'c.fecha', 'i.url_imagen', 'c.id')
+                ->where('c.activo', '=', '1')
+                ->where('c.id','=',$id)
+                ->get();
+
+        return view('web.actividad', compact('comunicado')); /*Crear*/ 
     }
 
     //SERVICIOS
     //servicentro Gasolinera
     public function serviciosprincipal(){
 
-        return view('web.servicentro.serviciosprincipal');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->join('servicios as s','s.id','=','ss.servicios_id')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Gasolineria')
+                    ->get();
+        
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Servicentro')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosprincipal', compact('banner','subservicio','funciones'));
     }
 
     public function serviciosofertados(){
 
-        return view('web.servicentro.serviciosofertados');
+        $producto= DB::table('sub_servicios as ss')
+                    ->join('productos as p','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Gasolineria')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosofertados', compact('banner','producto'));
     }
 
     public function serviciosadquirir(){
 
-        return view('web.servicentro.serviciosadquirir');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosadquirir', compact('banner'));
     }
 
     public function serviciocontacto(){
 
-        return view('web.servicentro.serviciocontacto');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Gasolineria')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciocontacto', compact('banner','encargado'));
     }
 
     //servicentro Minimarket
     public function serviciosprincipalminimarket(){
 
-        return view('web.servicentro.serviciosprincipalminimarket');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','MiniMarket')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Servicentro')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+        
+        return view('web.servicentro.serviciosprincipalminimarket',compact('banner','subservicio','funciones'));
     }
 
     public function serviciosofertadosminimarket(){
 
-        return view('web.servicentro.serviciosofertadosminimarket');
+        $producto= DB::table('sub_servicios as ss')
+                    ->join('productos as p','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','MiniMarket')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosofertadosminimarket', compact('producto','banner'));
     }
 
     public function serviciosadquirirminimarket(){
 
-        return view('web.servicentro.serviciosadquirirminimarket');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosadquirirminimarket', compact('banner'));
     }
 
     public function serviciocontactominimarket(){
 
-        return view('web.servicentro.serviciocontactominimarket');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','MiniMarket')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciocontactominimarket', compact('banner','encargado'));
     }
 
     //servicentro Ganaderia
     public function serviciosprincipalganaderia(){
 
-        return view('web.agropecuaria.serviciosprincipalganaderia');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Ganaderia')
+                    ->get();
+                    
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Agropecuaria')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+        
+        return view('web.agropecuaria.serviciosprincipalganaderia', compact('banner','subservicio','funciones'));
     }
 
     public function serviciosofertadosganaderia(){
 
-        return view('web.agropecuaria.serviciosofertadosganaderia');
+        $producto= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Ganaderia')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agropecuaria.serviciosofertadosganaderia', compact('banner','producto'));
     }
 
     public function serviciosadquirirganaderia(){
 
-        return view('web.agropecuaria.serviciosadquirirganaderia');
+        $banner= DB::table('baner_pestanias')
+                            ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                            ->where('baner_pestanias.activo', '=', '1')
+                            ->where('estado','servicio')
+                            ->get();
+
+        return view('web.agropecuaria.serviciosadquirirganaderia', compact('banner'));
     }
 
     public function serviciocontactoganaderia(){
 
-        return view('web.agropecuaria.serviciocontactoganaderia');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Ganaderia')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agropecuaria.serviciocontactoganaderia', compact('banner','encargado'));
     }
 
     //servicentro Agricultura
     public function serviciosprincipalagricultura(){
 
-        return view('web.agropecuaria.serviciosprincipalagricultura');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Agricultura')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Agropecuaria')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agropecuaria.serviciosprincipalagricultura', compact('banner','subservicio','funciones'));
     }
 
     public function serviciosofertadosagricultura(){
 
-        return view('web.agropecuaria.serviciosofertadosagricultura');
+        $producto= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Agricultura')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agropecuaria.serviciosofertadosagricultura', compact('banner','producto'));
     }
 
     public function serviciosadquiriragricultura(){
 
-        return view('web.agropecuaria.serviciosadquiriragricultura');
+        $banner= DB::table('baner_pestanias')
+                            ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                            ->where('baner_pestanias.activo', '=', '1')
+                            ->where('estado','servicio')
+                            ->get();
+        
+        return view('web.agropecuaria.serviciosadquiriragricultura', compact('banner'));
 
     }public function serviciocontactoagricultura(){
 
-        return view('web.agropecuaria.serviciocontactoagricultura');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Agricultura')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+        
+        return view('web.agropecuaria.serviciocontactoagricultura', compact('banner','encargado'));
     }
 
     //servicentro Agroveterinaria
 
     public function serviciosprincipalagroveterinaria(){
 
-        return view('web.agroveterinaria.servicioagroveterinariaprincipal');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Agroveterinaria')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Agroveterinaria')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agroveterinaria.servicioagroveterinariaprincipal', compact('subservicio','funciones','banner'));
     }
 
     public function serviciosofertadosagroveterinaria(){
 
-        return view('web.agroveterinaria.servicioagroveterinariaofertados');
+        $producto= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Agroveterinaria')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agroveterinaria.servicioagroveterinariaofertados', compact('producto','banner'));
     }
 
     public function serviciosadquiriragroveterinaria(){
 
-        return view('web.agroveterinaria.servicioagroveterinariaadquirir');
+        $banner= DB::table('baner_pestanias')
+                            ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                            ->where('baner_pestanias.activo', '=', '1')
+                            ->where('estado','servicio')
+                            ->get();
+
+        return view('web.agroveterinaria.servicioagroveterinariaadquirir', compact('banner'));
 
     }public function serviciocontactoagroveterinaria(){
 
-        return view('web.agroveterinaria.servicioagroveterinariaontacto');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Agroveterinaria')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.agroveterinaria.servicioagroveterinariaontacto', compact('encargado','banner'));
     }
 
     //servicio transporte
     public function serviciosprincipaltransporte(){
 
-        return view('web.transporte.serviciotransporteprincipal');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Transporte de Materiales')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Transporte')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.transporte.serviciotransporteprincipal', compact('subservicio','funciones','banner'));
     }
 
     public function serviciosofertadostransporte(){
 
-        return view('web.transporte.serviciotransporteofertados');
+        $producto= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Transporte de Materiales')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.transporte.serviciotransporteofertados', compact('producto','banner'));
     }
 
     public function serviciosadquirirtransporte(){
 
-        return view('web.transporte.serviciotransporteadquirir');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+        
+        return view('web.transporte.serviciotransporteadquirir', compact('banner'));
     }
 
     public function serviciocontactotransporte(){
 
-        return view('web.transporte.serviciotransportecontacto');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Transporte de Materiales')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.transporte.serviciotransportecontacto', compact('encargado','banner'));
     }
 
     //servicio turismo
     public function serviciosprincipalturismo(){
 
-        return view('web.turismo.servicioturismoprincipal');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Turismo')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Turismo')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.turismo.servicioturismoprincipal', compact('subservicio','funciones','banner'));
     }
 
     public function serviciosofertadosturismo(){
 
-        return view('web.turismo.servicioturismoofertados');
+        $pastoruri= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('p.id','=','27')
+                    ->get();
+        
+        $queshque= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('p.id','=','28')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.turismo.servicioturismoofertados', compact('banner','pastoruri','queshque'));
+    }
+
+    public function serviciospastoruri(){
+
+        $pastoruri= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('p.id','=','27')
+                    ->get();
+
+        return view('web.turismo.turismopastoruri', compact('pastoruri'));
+    }
+
+    public function serviciosqueshque(){
+        
+        $queshque= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('p.id','=','28')
+                    ->get();
+
+        return view('web.turismo.turismoqueshque', compact('queshque'));
     }
 
     public function serviciosadquirirturismo(){
 
-        return view('web.turismo.servicioturismoadquirir');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.turismo.servicioturismoadquirir', compact('banner'));
     }
 
     public function serviciocontactoturismo(){
 
-        return view('web.turismo.servicioturismocontacto');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Turismo')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.turismo.servicioturismocontacto', compact('encargado','banner'));
     }
 
     //servicio forestacion
     public function serviciosprincipalforestacion(){
 
-        return view('web.forestacion.servicioforestacionprincipal');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Forestacion')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Forestacion')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','forestacion')
+                    ->get();
+
+        return view('web.forestacion.servicioforestacionprincipal', compact('subservicio','funciones','banner'));
     }
 
     public function serviciosofertadosforestacion(){
 
-        return view('web.forestacion.servicioforestacionofertados');
+        $producto= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Forestacion')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','forestacion')
+                    ->get();
+
+        return view('web.forestacion.servicioforestacionofertados', compact('banner', 'producto'));
     }
 
     public function serviciosadquirirforestacion(){
 
-        return view('web.forestacion.servicioforestacionadquirir');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','forestacion')
+                    ->get();
+
+        return view('web.forestacion.servicioforestacionadquirir', compact('banner'));
     }
 
     public function serviciocontactoforestacion(){
 
-        return view('web.forestacion.servicioforestacioncontacto');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Forestacion')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','forestacion')
+                    ->get();
+
+
+        return view('web.forestacion.servicioforestacioncontacto', compact('encargado', 'banner'));
     }
 
     //servicio cantera
     public function serviciosprincipalcantera(){
 
-        return view('web.cantera.serviciocanteraprincipal');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Cantera')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Cantera')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.cantera.serviciocanteraprincipal', compact('subservicio','funciones','banner'));
     }
 
     public function serviciosofertadoscantera(){
 
-        return view('web.cantera.serviciocanteraofertados');
+        $producto= DB::table('productos as p')
+                    ->join('sub_servicios as ss','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('p.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','=','Cantera')
+                    ->get();
+
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.cantera.serviciocanteraofertados', compact('producto','banner'));
     }
 
     public function serviciosadquirircantera(){
 
-        return view('web.cantera.serviciocanteraadquirir');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.cantera.serviciocanteraadquirir', compact('banner'));
     }
 
     public function serviciocontactocantera(){
 
-        return view('web.cantera.serviciocanteracontacto');
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Cantera')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.cantera.serviciocanteracontacto', compact('encargado', 'banner'));
     }
 
     //servicentro Restaurant
     public function serviciosprincipalrestaurante(){
 
-        return view('web.servicentro.serviciosprincipalrestaurante');
+        $subservicio= DB::table('sub_servicios as ss')
+                    ->select('ss.nom_sub_servicios','ss.descripcion')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Restaurante')
+                    ->get();
+
+        $funciones= DB::table('funciones as f')
+                    ->join('servicios as s','s.id','=','f.servicios_id')
+                    ->select('f.funcion')
+                    ->where('f.activo', '=', '1')
+                    ->where('s.nom_servicio','Servicentro')
+                    ->get();
+        
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosprincipalrestaurante',compact('subservicio','banner','funciones'));
     }
 
     public function serviciosofertadosrestaurante(){
+        
+        $producto= DB::table('sub_servicios as ss')
+                    ->join('productos as p','p.sub_servicios_idsub_servicios','=','ss.id')
+                    ->join('imagenes as i','p.imagenes_id','=','i.id')
+                    ->select('p.producto','p.descripcion','i.url_imagen','p.id')
+                    ->where('ss.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Restaurante')
+                    ->get();
 
-        return view('web.servicentro.serviciosofertadosrestaurante');
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
+
+        return view('web.servicentro.serviciosofertadosrestaurante', compact('producto','banner'));
     }
 
     public function serviciosadquirirrestaurante(){
 
-        return view('web.servicentro.serviciosadquirirrestaurante');
+        $banner= DB::table('baner_pestanias')
+                            ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                            ->where('baner_pestanias.activo', '=', '1')
+                            ->where('estado','servicio')
+                            ->get();
+
+        return view('web.servicentro.serviciosadquirirrestaurante', compact('banner'));
     }
 
     public function serviciocontactorestaurante(){
 
-        return view('web.servicentro.serviciocontactorestaurante');
-    }
+        $encargado= DB::table('encargado as e')
+                    ->join('persona as p','p.id','=','e.persona_id')
+                    ->join('imagenes as i','i.id','=','e.imagenes_id')
+                    ->join('sub_servicios_has_encargado as se','se.encargado_id','=','e.id')
+                    ->join('sub_servicios as ss','se.sub_servicios_id','=','ss.id')
+                    ->select('p.nombre','p.apell_pat', 'p.apell_mat', 'p.email', 'p.telefono','e.fecha_inicio', 'e.fecha_fin', 'i.url_imagen')
+                    ->where('e.activo', '=', '1')
+                    ->where('ss.nom_sub_servicios','Restaurante')
+                    ->get();
 
+        $banner= DB::table('baner_pestanias')
+                    ->join('imagenes as i','i.id','baner_pestanias.imagenes_id','i.url_imagen')
+                    ->where('baner_pestanias.activo', '=', '1')
+                    ->where('estado','servicio')
+                    ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('web.servicentro.serviciocontactorestaurante', compact('banner','encargado'));
     }
 }

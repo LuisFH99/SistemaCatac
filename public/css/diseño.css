@@ -1,169 +1,173 @@
 
 .fa:hover {
-    background-color: gold;
+  background-color: gold;
 }
 
 .fa-facebook {
-    background: red;
-    color: #cb2027;
+  background: red;
+  color: #cb2027;
 }
 
 .buttons {
-    min-width: 300px;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .buttons a {
-    text-decoration: none;
-    font-size: 28px;
-    width: 40px;
-    height: 40px;
-    line-height: 30px;
-    text-align: center;
-    background: white;
-    color: #f1f1f1;
-    border-radius: 50%;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
-    transition: all .4s ease-in-out;
-  }
-  
-  .buttons a:hover {
-    transform: scale(1.2);
-  }
+  min-width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
 
-  /*Transiciones*/
-  #transicionderecho{
-    animation: mover-derecha 3s ease-in-out;
-    animation-delay: 0ms;
-    border-radius: 5px;
-  }
+.buttons a {
+  text-decoration: none;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  line-height: 30px;
+  text-align: center;
+  background: white;
+  color: #f1f1f1;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+  transition: all .4s ease-in-out;
+}
 
-  @keyframes mover-derecha {
-      0%{
-        transform: translateX(-1500px);
-        visibility: visible;
-      }
-      
-      100%{
-        transform: translateX(0px);
-      }
-  }
+.buttons a:hover {
+  transform: scale(1.2);
+}
 
-  #transicionizquierda{
-    animation: mover-izquierda 3s ease-in-out;
-    animation-delay: 0ms;
-    border-radius: 5px;
-  }
+/*Transiciones*/
+#transicionderecho{
+  animation: mover-derecha 4s ease-in-out;
+  animation-delay: 0ms;
+  border-radius: 5px;
+}
 
-  @keyframes mover-izquierda {
+@keyframes mover-derecha {
     0%{
-      transform: translateX(1500px);
-      visibility: visible;
+      /*transform: translateX(-1500px);*/
+      opacity: 0;
     }
     
     100%{
-      transform: translateX(0px);
+      /*transform: translateX(0px);*/
+      opacity: 1;
     }
 }
 
+#transicionizquierda{
+  animation: mover-izquierda 4s ease-in-out;
+  animation-delay: 0ms;
+  border-radius: 5px;
+}
+
+@keyframes mover-izquierda {
+  0%{
+    transform: translateX(1500px);
+    visibility: visible;
+  }
+  
+  100%{
+    transform: translateX(0px);
+  }
+}
+
 /*Zoom*/
-
 #zoom{
-	align-content: center;
-  margin-top: 5%;
+border-radius: 8px;
+border: 1px solid #cccccc;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 0;
+box-sizing: border-box;
+width: 270px;
+height: 525px;
+transition: all linear 200ms;
 }
 
-#zoom div{
-	width: 100%;
-	transition: all 300ms;
-	position: relative;
+#zoom:hover{
+transform: scale(1.1);
+transition: all linear 200ms;
+z-index: 1;
+box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+cursor: pointer;
 }
 
-#zoom div:hover{
-	transform: scale(1.15);
-}
-
-#zoom1 i:hover{
-	transform: scale(1.15);
-}
 
 /*iconos*/
 
 .icon {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    margin: 10px;
-    margin-bottom: 0%;
-    margin-top: 0%;
-    border-radius: 50%;
-    transition: all .8s;
-    cursor: pointer;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  margin-bottom: 0%;
+  margin-top: 0%;
+  border-radius: 50%;
+  transition: all .8s;
+  cursor: pointer;
 }
 
 .icon:hover {
-    background-color: white;
-    box-shadow:  0 0 20px white ;
+  background-color: white;
+  box-shadow:  0 0 20px white ;
 }
 
 .icon:hover:nth-child(2) {
-    background-color: #1877f2;
-    box-shadow:  0 0 20px #1877f2;
+  background-color: #1877f2;
+  box-shadow:  0 0 20px #1877f2;
 }
 
 .icon:hover:nth-child(3) {
-    background-color: #1da1f2;
-    box-shadow:  0 0 20px #1da1f2 ;
+  background-color: #1da1f2;
+  box-shadow:  0 0 20px #1da1f2 ;
 }
 
 .icon:hover:nth-child(4) {
-  background-color: red;
-  box-shadow:  0 0 20px red ;
+background-color: red;
+box-shadow:  0 0 20px red ;
 } 
 
 
 
 /*
 .icon:hover {
-    background-color: #e60073;
-    box-shadow:  0 0 20px #e60073 ;
+  background-color: #e60073;
+  box-shadow:  0 0 20px #e60073 ;
 }
 
 .icon:hover:nth-child(2) {
-    background-color: #1877f2;
-    box-shadow:  0 0 20px #1877f2;
+  background-color: #1877f2;
+  box-shadow:  0 0 20px #1877f2;
 }
 
 .icon:hover:nth-child(3) {
-    background-color: #25d366;
-    box-shadow: 0 0 20px #25d366 ;
+  background-color: #25d366;
+  box-shadow: 0 0 20px #25d366 ;
 }
 
 .icon:hover:nth-child(4) {
-    background-color: #1da1f2;
-    box-shadow:  0 0 20px #1da1f2 ;
+  background-color: #1da1f2;
+  box-shadow:  0 0 20px #1da1f2 ;
 }
 
 .icon:hover:nth-child(5) {
-  background-color: red;
-  box-shadow:  0 0 20px red ;
+background-color: red;
+box-shadow:  0 0 20px red ;
 } */
 
 .icon i {
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    font-size: 1.7rem;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 1.7rem;
 }
 
 svg circle {
-    stroke-dasharray: 150;
-    transition: all .8s ease-in-out;
+  stroke-dasharray: 150;
+  transition: all .8s ease-in-out;
 }
 
 .icon:hover circle {
-    stroke-dasharray: 220;
+  stroke-dasharray: 220;
 }
+

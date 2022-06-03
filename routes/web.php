@@ -25,41 +25,64 @@ Auth::routes();
 //Rutas de Admin
 Route::view('resena', 'livewire.resena.index')->name('resena');
 Route::view('misionvision', 'livewire.misionvision.index')->name('misionvision');
-Route::view('baners', 'livewire.baner.index')->name('baners');
-Route::view('objetivo', 'livewire.objetivo.index')->name('objetivo');
 
 //Fin de Rutas de Admin
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //vistas web
+
+/*
 Route::get('inicio', MainController::class);
-Route::get('/', MainController::class);
+Route::get('/', MainController::class); */
+
+Route::get('/', [App\Http\Controllers\Web\IndexController::class,'inicio'])->name('inicio');
+Route::get('/inicio', [App\Http\Controllers\Web\IndexController::class,'inicio'])->name('inicio');
 
 //COMUNIDAD
+
+
+
+
+
 Route::get('/visionmision', [App\Http\Controllers\Web\IndexController::class, 'visionmision'])->name('visionmision');
 Route::get('/reseñahistorica', [App\Http\Controllers\Web\IndexController::class, 'resenahistorica'])->name('resenahistorica');
 Route::get('/objetivos', [App\Http\Controllers\Web\IndexController::class, 'objetivos'])->name('objetivos');
-Route::get('/asambleageneral', [App\Http\Controllers\Web\IndexController::class, 'asambleageneral'])->name('asambleageneral');
-Route::get('/comitespecializado', [App\Http\Controllers\Web\IndexController::class, 'comitespecializado'])->name('comitespecializado');
-Route::get('/organosdeasesoria', [App\Http\Controllers\Web\IndexController::class, 'organosdeasesoria'])->name('organosdeasesoria');
-Route::get('/organosdelinea', [App\Http\Controllers\Web\IndexController::class, 'organosdelinea'])->name('organosdelinea');
+//Route::get('/asambleageneral', [App\Http\Controllers\Web\IndexController::class, 'asambleageneral'])->name('asambleageneral');
+Route::get('/organosdedireccion', [App\Http\Controllers\Web\IndexController::class, 'organosdedireccion'])->name('organosdedireccion');
+Route::get('/organosdejecucion', [App\Http\Controllers\Web\IndexController::class, 'organosdejecucion'])->name('organosdejecucion');
+Route::get('/organosdeadministracion', [App\Http\Controllers\Web\IndexController::class, 'organosdeadministracion'])->name('organosdeadministracion');
 Route::get('/organosdeapoyo', [App\Http\Controllers\Web\IndexController::class, 'organosdeapoyo'])->name('organosdeapoyo');
-Route::get('/directivos', [App\Http\Controllers\Web\IndexController::class, 'directivos'])->name('directivos');
+Route::get('/organosdelinea', [App\Http\Controllers\Web\IndexController::class, 'aproductivas'])->name('organosdelinea');
+ 
+/*Faltan*/
+Route::get('/organosdeasesoria', [App\Http\Controllers\Web\IndexController::class, 'organosdeasesoria'])->name('organosdeasesoria');
+Route::get('/comites', [App\Http\Controllers\Web\IndexController::class, 'comites'])->name('comites');
+Route::get('/aempresariales', [App\Http\Controllers\Web\IndexController::class, 'aempresariales'])->name('aempresariales');
+Route::get('/controlinterno', [App\Http\Controllers\Web\IndexController::class, 'controlinterno'])->name('controlinterno');
+Route::get('/comitelectoral', [App\Http\Controllers\Web\IndexController::class, 'comitelectoral'])->name('comitelectoral');
+/*aca*/
+
 Route::get('/directorio', [App\Http\Controllers\Web\IndexController::class, 'asambleageneral'])->name('asambleageneral');
 Route::get('/perfiles/{id}', [App\Http\Controllers\Web\IndexController::class, 'perfil'])->name('perfil');
 
 //INSTRUMENTOS DE GESTION
-Route::get('/estatuto', [App\Http\Controllers\Web\IndexController::class, 'estatuto'])->name('estatuto');
-Route::get('/rof', [App\Http\Controllers\Web\IndexController::class, 'rof'])->name('rof');
-Route::get('/poi', [App\Http\Controllers\Web\IndexController::class, 'poi'])->name('poi');
-Route::get('/peconvenios', [App\Http\Controllers\Web\IndexController::class, 'peconvenios'])->name('peconvenios');
+//Route::post('/estatuto', [App\Http\Controllers\Web\IndexController::class, 'estatuto'])->name('estatuto');
+Route::match(['get','post'],'/estatuto', [App\Http\Controllers\Web\IndexController::class, 'estatuto'])->name('estatuto');
+
+Route::match(['get','post'],'/rof', [App\Http\Controllers\Web\IndexController::class, 'rof'])->name('rof');
+Route::match(['get','post'],'/poi', [App\Http\Controllers\Web\IndexController::class, 'poi'])->name('poi');
+Route::match(['get','post'],'/peconvenios', [App\Http\Controllers\Web\IndexController::class, 'peconvenios'])->name('peconvenios');
+Route::match(['get','post'],'/normativas', [App\Http\Controllers\Web\IndexController::class, 'normativas'])->name('normativas');
 
 //NOTICIAS Y EVENTOS
 Route::get('/noticias', [App\Http\Controllers\Web\IndexController::class, 'noticias'])->name('noticias');
+Route::get('/noticiaeventoactividad/{id}', [App\Http\Controllers\Web\IndexController::class, 'noticiasindividuales'])->name('noticiaeventoactividad');
+Route::get('/eventoindividual/{id}', [App\Http\Controllers\Web\IndexController::class, 'eventoindividual'])->name('eventoindividual');
 Route::get('/eventos', [App\Http\Controllers\Web\IndexController::class, 'eventos'])->name('eventos');
 Route::get('/actividades', [App\Http\Controllers\Web\IndexController::class, 'actividades'])->name('actividades');
-Route::get('/noticiaeventoactividad', function () {return view('web.noticiaeventoactividad');});
+Route::get('/actividadindividual/{id}', [App\Http\Controllers\Web\IndexController::class, 'actividadindividual'])->name('actividadindividual');
+
 //SERVICIOS
 //Servicentro Gasolinera
 Route::get('/serviciosprincipal',[App\Http\Controllers\Web\IndexController::class, 'serviciosprincipal'])->name('serviciosprincipal');
@@ -94,6 +117,8 @@ Route::get('/serviciosadquiriragroveterinaria',[App\Http\Controllers\Web\IndexCo
 //Turismo
 Route::get('/serviciosprincipalturismo',[App\Http\Controllers\Web\IndexController::class, 'serviciosprincipalturismo'])->name('serviciosprincipalturismo');
 Route::get('/serviciosofertadosturismo',[App\Http\Controllers\Web\IndexController::class, 'serviciosofertadosturismo'])->name('serviciosofertadosturismo');
+Route::get('/pastoruri',[App\Http\Controllers\Web\IndexController::class, 'serviciospastoruri'])->name('pastoruri');
+Route::get('/queshque',[App\Http\Controllers\Web\IndexController::class, 'serviciosqueshque'])->name('queshque');
 Route::get('/serviciocontactoturismo',[App\Http\Controllers\Web\IndexController::class, 'serviciocontactoturismo'])->name('serviciocontactoturismo');
 Route::get('/serviciosadquirirturismo',[App\Http\Controllers\Web\IndexController::class, 'serviciosadquirirturismo'])->name('serviciosadquirirturismo');
 

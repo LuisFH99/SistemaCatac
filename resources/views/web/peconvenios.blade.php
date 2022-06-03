@@ -12,7 +12,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
                       <li class="breadcrumb-item"><a href="#">Comunidad</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Misión y Visión</li>
+                      <li class="breadcrumb-item active" aria-current="page">PEC</li>
                     </ol>
                 </nav>
               </div>
@@ -44,63 +44,78 @@
                 </div>
             </div>
           </div> 
-          <div class="card">
-            <div class="card-header p-0 bg-transparent" id="headingTwo">
-                <h2 class="mb-0">
-                  <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="false" aria-controls="collapseTwo">
-                    {{$i->descripcion}}
-                  </button>
-                </h2>
-            </div>
-            <div id="collapse{{$i->id}}" class="collapse" aria-labelledby="headingTwo" data-parent="#our-values-accordion">
-                <div class="card-body">
-                 <!-- <div class="card">
-                    <h5>Entidad: UNASAM <br> Fecha de Inicio: 22/03/2022 <br> Fecha de Finalización: 22/03/2026 <br> Beneficios: Este convenio nos trae.....</h5>
-                  </div><br> -->
-                  <center><iframe src="{{ url($i->url_documento) }}"></iframe></center>
-                </div>
-            </div>
-          </div>
-          <!-- <div class="card">
-            <div class="card-header p-0 bg-transparent" id="headingThree">
-                <h2 class="mb-0">
-                  <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Convenio con la minera antamina .....
-                  </button>
-                </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#our-values-accordion">
-                <div class="card-body">
-                  <div class="card">
-                    <h5>Entidad: UNASAM <br> Fecha de Inicio: 22/03/2022 <br> Fecha de Finalización: 22/03/2026 <br> Beneficios: Este convenio nos trae.....</h5>
-                  </div>
-                  <center><iframe src="constra/images/ESTATUTO DE LA COMUNIDAD CAMPESINA DE CÁTAC. BASES LEGALES - PDF Descargar libre.pdf"></iframe></center>
-                </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header p-0 bg-transparent" id="headingFour">
-              <h2 class="mb-0">
-                <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
-                  data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                  
-                </button>
-              </h2>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-              data-parent="#construction-accordion">
-              <div class="card-body">
+
+              @if ($codigos > 0)
+              <div class="accordion accordion-group" id="construction-accordion">
                 <div class="card">
-                  <h5>Entidad: UNASAM <br> Fecha de Inicio: 22/03/2022 <br> Fecha de Finalización: 22/03/2026 <br> Beneficios: Este convenio nos trae.....</h5>
+                  <div class="card-header p-0 bg-transparent" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="true" aria-controls="collapse{{$i->id}}">
+                        {{$i->descripcion}}
+                      </button>
+                    </h2>
+                  </div>
+                    
+                  <div id="collapse{{$i->id}}" class="collapse show" aria-labelledby="headingOne"
+                    data-parent="#construction-accordion">
+                    <div class="card-body">
+                      <center><iframe src="{{ url($i->url_documento) }}"></iframe></center>
+                    </div>
+                  </div>
                 </div>
-                <center><iframe src="constra/images/ESTATUTO DE LA COMUNIDAD CAMPESINA DE CÁTAC. BASES LEGALES - PDF Descargar libre.pdf"></iframe></center>
               </div>
-            </div>
-          </div>-->
+              @else
+              <div class="accordion accordion-group" id="construction-accordion">
+                <div class="card">
+                  <div class="card-header p-0 bg-transparent" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-block text-left collapsed" type="button" data-toggle="modal" data-target="#staticBackdrop" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="false" aria-controls="collapse{{$i->id}}">
+                        {{$i->descripcion}}
+                      </button>
+                    </h2>
+                  </div>
+                    
+                  <div id="collapse{{$i->id}}" class="collapse" aria-labelledby="headingOne"
+                    data-parent="#construction-accordion">
+                    <div class="card-body">
+                      <center><iframe src="{{ url($i->url_documento) }}"></iframe></center>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endif  
       </div>
         @endforeach
-        <!--/ Accordion end -->
-      </div><!-- Col end -->
-    </div><!-- Container end -->
-  </section><!-- Main container end -->
+      </div>
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ingreso de Credenciales</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <form method="post" >
+        @csrf
+      <div class="modal-body">
+        <div class="alert alert-warning">
+          <p> <i class="fas fa-exclamation-triangle"></i><b> Aviso:</b><br>
+            Solo los comunero de la comunidad pueden visualizar los Instrumentos de Gestion, por ello se le pide que inserte su codigo asignado.<br>
+          </p>
+        </div>  
+          <input type="password" name="codigo" class="form-control" placeholder="Ingrese Codigo de Comunero" value="{{$codigo}}">        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-times-circle"></i> Cancelar</button>
+        <button type="submit" class="btn btn-primary"><i class="far fa-check-circle"></i> Ingresar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+  </section>
 @endsection

@@ -73,7 +73,7 @@
     </div><!-- Container end -->
   </section><!-- Action end -->
   
-  <section id="ts-features" class="ts-features">
+  <section id="ts-features" class="ts-features" style="background: #ffffff">
     <div class="container">
       <div class="row">
           <div class="col-lg-6">
@@ -140,7 +140,7 @@
     </div><!-- Container end -->
   </section><!-- Feature are end -->
   
-  <section id="facts" class="facts-area dark-bg">
+  <section id="facts" class="facts-area" style="background: #fff5e3">
     <div class="container">
       <div class="row text-center">
         <div class="col-12">
@@ -148,66 +148,36 @@
         </div>
       </div>
       <div class="row">
+        @foreach ($noticia as $n)
           <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                  <img loading="lazy" class="w-100" src="{{ asset('constra/images/paro1.webp') }}" alt="service-image">
-                </div>
-                <div class="d-flex">
-                  <div class="card-date"><span>03</span><br>Abril</div>
-                  <div class="ts-service-info">
-                      <h3 class="service-box-title"><a href="noticiaeventoactividad.html">Paro Nacional Indefinido</a></h3>
-                      <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team looking for talent like. Lorem ipsum dolor suscipit.</p>
-                      <a class="learn-more d-inline-block" href="noticiaeventoactividad.html" aria-label="service-details"><i class="fa fa-caret-right"></i> Leer más</a>
-                  </div>
-                </div>
-            </div><!-- Service1 end -->
-          </div><!-- Col 1 end -->
-  
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                  <img loading="lazy" class="w-100" src="{{ asset('constra/images/paro2.jpg') }}" alt="service-image">
+            <div class="ts-service-box ml-4" >
+                <div class="ts-service-image-wrapper ">
+                  <img loading="lazy" class="img-fluid" src="{{ asset($n->url_imagen) }}" style="width:350px ; height: 350px;" alt="service-image">
                 </div>
                 <div class="d-flex">
                   <div class="ts-service-box-img">
-                    <div class="card-date"><span>04</span><br>Abril</div>
+                    <div class="card-date ml-4">{{$n->fecha}}</div>
                   </div>
-                  <div class="ts-service-info">
-                      <h3 class="service-box-title"><a href="noticiaeventoactividad.html">Paro Nacional Indefinido</a></h3>
-                      <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team looking for talent like. Lorem ipsum dolor suscipit.</p>
-                      <a class="learn-more d-inline-block" href="noticiaeventoactividad.html" aria-label="service-details"><i class="fa fa-caret-right"></i> Leer más</a>
-                  </div>
-                </div>
-            </div><!-- Service2 end -->
-          </div><!-- Col 2 end -->
-  
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                  <img loading="lazy" class="w-100" src="{{ asset('constra/images/paro1.webp') }}" alt="service-image">
-                </div>
-                <div class="d-flex">
-                  <div class="ts-service-box-img">
-                    <div class="card-date"><span>25</span><br>December</div>
-                  </div>
-                  <div class="ts-service-info">
-                      <h3 class="service-box-title"><a href="noticiaeventoactividad.html">Paro Nacional Indefinido</a></h3>
-                      <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team looking for talent like. Lorem ipsum dolor suscipit.</p>
-                      <a class="learn-more d-inline-block" href="noticiaeventoactividad.html" aria-label="service-details"><i class="fa fa-caret-right"></i> Leer más</a>
+                  <div class="ts-service-info ml-0">
+                      <h3 class="service-box-title"><a href="noticiaeventoactividad.html">{{$n->titulo}}</a></h3>
+                      <p class="card-text" style="width: 250px; white-space: nowrap; text-overflow: ellipsis;
+                      overflow: hidden;">{{$n->descripcion}}</p>
+                      <a class="learn-more d-inline-block" href="{{ route('noticiaeventoactividad', $n->id) }} aria-label="service-details"><i class="fa fa-caret-right"></i> <b>Leer más</b></a>
                   </div>
                 </div>
-            </div><!-- Service3 end -->
-          </div><!-- Col 3 end -->
+            </div>
+          </div>            
+        @endforeach
+
       </div><!-- Content row end -->
       <div class="general-btn text-center mt-4">
-        <a class="btn btn-primary" href="noticias.html">Más Noticias</a>
+        <a class="btn btn-primary" href="/noticias">Más Noticias</a>
     </div>
     </div><!-- Container end -->
     <!--/ Container end -->
-  </section><!-- Facts end -->
+  </section>
   
-  <section id="news" class="news">
+  <section id="news" class="news" style="background: #ffffff">
     <div class="container">
       <div class="row text-center">
           <div class="col-12">
@@ -217,70 +187,33 @@
       <!--/ Title row end -->
   
       <div class="row">
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="latest-post">
+        @foreach ($evento as $e)
+          <div class="col-lg-4 col-md-6 mb-4 ml-5">
+            <div class="latest-post ml-4">
                 <div class="latest-post-media">
                   <a href="noticiaeventoactividad.html" class="latest-post-img">
-                      <img loading="lazy" class="img-fluid" src="{{ asset('constra/images/paro1.webp') }} " alt="img">
+                      <img loading="lazy" class="img-fluid" src="{{ asset($e->url_imagen) }}" style="width:350px ; height: 350px;" alt="img">
                   </a>
                 </div>
                 <div class="post-body">
                   <h4 class="post-title">
-                      <a href="noticiaeventoactividad1.html" class="d-inline-block">Paro Nacional Indefinido</a>
+                      <a href="noticiaeventoactividad1.html" class="d-inline-block">{{$e->titulo}}</a>
                   </h4>
                   <div class="latest-post-meta">
                       <span class="post-item-date">
-                        <i class="fa fa-clock-o"></i> Abril 03, 2022
+                        <i class="fa fa-clock-o"></i><i class="fas fa-calendar"></i> {{$e->fecha}}
                       </span>
                   </div>
                 </div>
-            </div><!-- Latest post end -->
-          </div><!-- 1st post col end -->
+            </div>
+          </div>
   
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="latest-post">
-                <div class="latest-post-media">
-                  <a href="noticiaeventoactividad.html" class="latest-post-img">
-                      <img loading="lazy" class="img-fluid" src="{{ asset('constra/images/paro2.jpg') }} " alt="img">
-                  </a>
-                </div>
-                <div class="post-body">
-                  <h4 class="post-title">
-                      <a href="noticiaeventoactividad2.html" class="d-inline-block">Paro Nacional Indefinido</a>
-                  </h4>
-                  <div class="latest-post-meta">
-                      <span class="post-item-date">
-                        <i class="fa fa-clock-o"></i> Abril 03, 2022
-                      </span>
-                  </div>
-                </div>
-            </div><!-- Latest post end -->
-          </div><!-- 2nd post col end -->
-  
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="latest-post">
-                <div class="latest-post-media">
-                  <a href="noticiaeventoactividad.html" class="latest-post-img">
-                      <img loading="lazy" class="img-fluid" src="{{ asset('constra/images/paro1.webp') }}" alt="img">
-                  </a>
-                </div>
-                <div class="post-body">
-                  <h4 class="post-title">
-                      <a href="noticiaeventoactividad2.html" class="d-inline-block">Paro Nacional Indefinido</a>
-                  </h4>
-                  <div class="latest-post-meta">
-                      <span class="post-item-date">
-                        <i class="fa fa-clock-o"></i> Abril 3, 2022
-                      </span>
-                  </div>
-                </div>
-            </div><!-- Latest post end -->
-          </div><!-- 3rd post col end -->
+        @endforeach
       </div>
       <!--/ Content row end -->
   
       <div class="general-btn text-center mt-4">
-          <a class="btn btn-primary" href="eventos.html">Más Eventos</a>
+          <a class="btn btn-primary" href="/eventos">Más Eventos</a>
       </div>
   
     </div>
@@ -288,7 +221,7 @@
   </section>
   <!--/ News end -->
   
-  <section id="project-area" class="project-area solid-bg">
+  <section id="project-area" class="project-area solid-bg" style="background: #fff5e3">
     <div class="container">
       <div class="row text-center">
         <div class="col-lg-12">
@@ -332,8 +265,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;servicentro&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href=" {{ asset('constra/images/projects/project1.jpg') }}" aria-label="project-img">
-                  <img class="img-fluid" src=" {{ asset('constra/images/projects/project1.jpg') }}" alt="project-img">
+                <a class="gallery-popup" href=" {{ asset('constra/images/projects/project1.jpg') }}" style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src=" {{ asset('constra/images/projects/project1.jpg') }}"  style="width: 500px;height: 300px; "alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -349,8 +282,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;agropecuaria&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project2.jpg') }}" aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project2.jpg') }}" alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project2.jpg') }}" style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project2.jpg') }}" style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -366,8 +299,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;transporte&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project3.jpg') }}" aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project3.jpg') }}" alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project3.jpg') }}" style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project3.jpg') }}" style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -383,8 +316,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;cantera&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project4.jpg') }} " aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project4.jpg') }} " alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project4.jpg') }} " style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project4.jpg') }} "  style="width: 500px;height: 300px; "alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -400,8 +333,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;agroveterinaria&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project5.jpg') }} " aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project5.jpg') }} " alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project5.jpg') }} " style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project5.jpg') }} " style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -417,8 +350,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;turismo&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href=" {{ asset('constra/images/projects/project6.jpg') }}" aria-label="project-img">
-                  <img class="img-fluid" src=" {{ asset('constra/images/projects/project6.jpg') }}" alt="project-img">
+                <a class="gallery-popup" href=" {{ asset('constra/images/projects/project6.jpg') }}" style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src=" {{ asset('constra/images/projects/project6.jpg') }}" style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -434,8 +367,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;forestacion&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project8.jpg') }} " aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project8.jpg') }} " alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project8.jpg') }} " style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project8.jpg') }} " style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -451,8 +384,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;servicentro&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project1.jpg') }} " aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project1.jpg') }} " alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project1.jpg') }} " style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project1.jpg') }} " style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
@@ -468,8 +401,8 @@
   
             <div class="col-lg-4 col-sm-6 shuffle-item" data-groups="[&quot;agropecuaria&quot;]">
               <div class="project-img-container">
-                <a class="gallery-popup" href="{{ asset('constra/images/projects/project2.jpg') }}" aria-label="project-img">
-                  <img class="img-fluid" src="{{ asset('constra/images/projects/project2.jpg') }}" alt="project-img">
+                <a class="gallery-popup" href="{{ asset('constra/images/projects/project2.jpg') }}" style="width: 500px;height: 300px; " aria-label="project-img">
+                  <img class="img-fluid" src="{{ asset('constra/images/projects/project2.jpg') }}" style="width: 500px;height: 300px; " alt="project-img">
                   <span class="gallery-icon"><i class="fa fa-plus"></i></span>
                 </a>
                 <div class="project-item-info">
