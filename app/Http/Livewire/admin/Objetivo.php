@@ -203,11 +203,12 @@ class Objetivo extends Component
         $objto=new Resena();
         Objetivos::where('objetivos_id',$id)->update(['borrado'=> 1]);
         $objetivo=Objetivos::findOrFail($id);
+        $idimg=$objetivo->imagenes_id;
         $deleted=$objetivo->update([
             'borrado' => 1,
             'imagenes_id'=>null
         ]);
-        $objto->EliminarImg($objetivo->imagenes_id);
+        $objto->EliminarImg($idimg);
         if(isset($deleted)){
             $datos = [
                 'modo' => 'bg-success',

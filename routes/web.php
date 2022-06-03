@@ -23,10 +23,13 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 //Rutas de Admin
-Route::view('resena', 'livewire.resena.index')->name('resena');
-Route::view('misionvision', 'livewire.misionvision.index')->name('misionvision');
-Route::view('baners', 'livewire.baner.index')->name('baners');
-Route::view('objetivo', 'livewire.objetivo.index')->name('objetivo');
+Route::view('gestion/resena', 'livewire.resena.index')->name('admin.resena');
+Route::view('gestion/misionvision', 'livewire.misionvision.index')->name('admin.misionvision');
+Route::view('gestion/baners', 'livewire.baner.index')->name('admin.baners');
+Route::view('gestion/objetivos', 'livewire.objetivo.index')->name('admin.objetivo');
+Route::view('gestion/noticias', 'livewire.noticia.index')->name('noticia');
+Route::view('gestion/eventos', 'livewire.evento.index')->name('admin.evento');
+Route::view('gestion/actividades', 'livewire.comunicado.index')->name('admin.actividad');
 
 //Fin de Rutas de Admin
 

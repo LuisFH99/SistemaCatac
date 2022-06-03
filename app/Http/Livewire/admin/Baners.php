@@ -154,11 +154,12 @@ class Baners extends Component
     public function EliminarBaner($id){
         $objto=new Resena();
         $baner=Baner::findOrFail($id);
+        $idimg=$baner->imagenes_id;
         $deleted=$baner->update([
             'borrado' => 1,
             'imagenes_id'=>null
         ]);
-        $objto->EliminarImg($baner->imagenes_id);
+        $objto->EliminarImg($idimg);
         if(isset($deleted)){
             $datos = [
                 'modo' => 'bg-success',

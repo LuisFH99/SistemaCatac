@@ -232,20 +232,22 @@ class MisionVision extends Component
         $objto=new Resena();
         if($dtos[1]==1){
             $vision = Vision::findOrFail($dtos[0]);
+            $idimg=$vision->imagenes_id;
             $deleted=$vision->update([
                 'borrado' => 1,
                 'imagenes_id'=>null
             ]);
-            $objto->EliminarImg($vision->imagenes_id);
+            $objto->EliminarImg($idimg);
             
             
         }else{
             $mision = Mision::findOrFail($dtos[0]);
+            $idimg=$mision->imagenes_id;
             $deleted=$mision->update([
                 'borrado' => 1,
                 'imagenes_id'=>null
             ]);
-            $objto->EliminarImg($mision->imagenes_id);
+            $objto->EliminarImg($idimg);
             
         }
         if(isset($deleted)){

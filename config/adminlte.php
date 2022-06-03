@@ -249,22 +249,17 @@ return [
         [
             'text' => 'Reseña Historica',
             'icon' => 'nav-icon fas fa-copy',
-            'route' => 'resena',
+            'route' => 'admin.resena',
         ],
         [
             'text' => 'Vision y Mision',
             'icon' => 'nav-icon fas fa-list-ul',
-            'route' => 'misionvision',
+            'route' => 'admin.misionvision',
         ],
         [
             'text' => 'Baners',
             'icon' => 'nav-icon fas fa-paper-plane',
-            'route'  => 'baners',
-        ],
-        [
-            'text' => 'Objetivo',
-            'icon' => 'nav-icon fas fa-bullseye',
-            'route'  => 'objetivo',
+            'route'  => 'admin.baners',
         ],
         [
             'text'    => 'Organos de Gobierno',
@@ -345,6 +340,21 @@ return [
         ],
         ['header' => 'SERVICIOS'],
         ['header' => 'NOTICIAS Y EVENTOS'],
+        [
+            'text' => 'Noticias',
+            'icon' => 'nav-icon fas fa-newspaper',
+            'route'  => 'noticia',
+        ],
+        [
+            'text' => 'Eventos',
+            'icon' => 'nav-icon fas fa-calendar-check',
+            'route'  => 'admin.evento',
+        ], 
+        [
+            'text' => 'Actividades',
+            'icon' => 'nav-icon fas fa-sliders-h',
+            'route'  => 'admin.actividad',
+        ],
     ],
 
     /*

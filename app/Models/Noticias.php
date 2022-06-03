@@ -20,4 +20,9 @@ class Noticias extends Model
         'borrado',
     ];
     public $timestamps = false;
+    
+    public function noticiaimagenes()
+    {
+        return $this->belongsToMany(Imagenes::class, 'imagenes_has_noticias');
+    }
 }

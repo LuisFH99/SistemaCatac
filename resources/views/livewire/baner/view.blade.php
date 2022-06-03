@@ -43,7 +43,7 @@
                             <option value="rof">ROF</option>
                             <option value="poi">POI</option>
                             <option value="peconvenios">Convenios</option>
-                            <option value="linea">Linea</option>
+                            <option value="norvativo">Normativo</option>
                         </select>
                         @error('ubicacion')
                             <small class="text-danger">{{ $message }}</small>
