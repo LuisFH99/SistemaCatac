@@ -1,5 +1,4 @@
-
-<header id="header" class="header-one">
+<header id="header" class="header-one" >
   <div style="background: #fff5e3">
     <div class="container">
       <div class="logo-area">
@@ -33,8 +32,8 @@
                   <li class="last">
                     <div class="info-box last">
                       <div class="info-box-content">
-                          <p class="info-box-title">Reconocimiento</p>
-                          <p class="info-box-subtitle">Decreto Supremo N°2255885255</p>
+                          <p class="info-box-title">Ratificado por</p>
+                          <p class="info-box-subtitle">Resolucion Suprema N°045 - 1957</p>
                       </div>
                     </div>
                   </li>
@@ -42,12 +41,11 @@
                   <li class="header-get-a-quote">
                     <a class="btn btn-primary" href="contact.html">Contacto</a>
                   </li> -->
-                </ul><!-- Ul end -->
+                </ul>
             </div>
-          </div><!-- logo area end -->
-  
-      </div><!-- Row end -->
-    </div><!-- Container end -->
+          </div>
+      </div>
+    </div>
   </div>
 
   <div class="site-navigation">
@@ -178,6 +176,5 @@
     <!--/ Container end -->
 
   </div>
-  <!--/ Navigation end -->
 </header>
 

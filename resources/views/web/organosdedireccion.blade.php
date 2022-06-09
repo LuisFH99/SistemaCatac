@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-lg-12">
               <div class="banner-heading">
-                <h1 class="banner-title">{{$b->titulo}}</h1>
+                <h1 class="banner-title">{{$b->titulo}}</h1> 
                 <h1 class="banner-subtitle">{{$b->subtitulo}}</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
@@ -22,20 +22,19 @@
   </div>
 </div>
 @endforeach
-
 <section id="main-container" class="main-container">
   <div class="container">
 
     <div class="row">
       @foreach ($organos as $o)
-        <div class="col-lg-12" style="text-align: justify;">
+        <div class="col-lg-12" style="text-align: justify;"  data-aos="fade-right">
           <h3 class="column-title" style="text-align: center">{{$o->nombre}}</h3>
           <p style="text-align: justify">{{$o->descripcion}}</p><br>
         </div>
       @endforeach
 
-      <div class="col-lg-12" style="text-align: justify;">
-          <h4 class="column-title">Lista de los Miembros</h4>
+      <div class="col-lg-12"data-aos="fade-right" style="text-align: justify;">
+          <h4 class="column-title" >Lista de los Miembros</h4>
           <form method="get" > 
             <div class="col-lg-6">
               <div class="input-group mb-3">
@@ -47,27 +46,23 @@
       </div>
     </div>
 
-    <div class="row mt-0 ">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       @if ($funcionarios->count())
       @foreach ($funcionarios as $f)
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-5 mr-1" style="align-content: center;">
-        <div id="zoom" class="card ts-team-wrapper ml-0">
-
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0" alt="team-img">
+      <div class="col">
+        <div  data-aos="zoom-in-left" class="card shadow-sm mb-3">
+          <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px" class="img-fluid rounded mt-0 p-1" alt="team-img">
+          <div class="card-body">
+            <p class="card-text" style="font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                <!--  
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+               <small class="text-muted"><i class="fas fa-at" style="color: #747d84"></i><b> {{$f->email}}</b></small><br>
+               <small class="text-muted"><i class="fab fa-whatsapp" style="color: #747d84"></i><b> {{$f->telefono}}</b></small>
+         
           </div>
-      
-          <div class="ts-team-content-classic mb-4 m-2">
-            <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
-            <p class="ts-designation">Procedencia: {{$f->lugar_procedencia}}</p><br>
-            <div class="team-social-icons">
-              <a style="cursor: pointer"><i class="fas fa-at" style="color: black"> <b>{{$f->email}}</b></i></a>
-              <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: black"> <b>{{$f->telefono}}</b></i></a><br><br>
-            </div>
-          </div>
-
         </div>
-      </div>    
+      </div>
       @endforeach
       <div class="col-lg-12 mb-5 mb-lg-0">
         <nav aria-label="Page navigation example">
@@ -83,10 +78,9 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="{{ url('img\not-found.png') }}" alt="">
+      <img class="img-fluid" src="{{ url('img\not-found.png') }}" alt="Not found">
       @endif
     </div>
   </div>
 </section>
-  
 @endsection

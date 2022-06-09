@@ -26,43 +26,38 @@
 <section id="main-container" class="main-container">
   <div class="container">
     <div class="row">
+
       @foreach ($organos as $o)
-        <div class="col-lg-12" style="text-align: justify;">
+        <div class="col-lg-12" data-aos="fade-right" style="text-align: justify;">
           <h3 class="column-title" style="text-align: center">{{$o->nombre}}</h3>
           <p style="text-align: justify">{{$o->descripcion}}</p><br>
         </div>
       @endforeach
+
       @foreach ($suborganos as $o)
-      <div class="col-lg-12" style="text-align: justify;">
+      <div class="col-lg-12" data-aos="fade-right" style="text-align: justify;">
         <h4 class="column-title mb-2" style="text-align: left">{{$o->nombre}}</h4>
         <p style="text-align: justify">{{$o->descripcion}}</p><br>
 
           @if ($o->id == 21)
-          <div class="row" style="margin-top: 0%">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             @if ($funcionarios1->count())
             @foreach ($funcionarios1 as $f)
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-              <div id="zoom" class="card ts-team-wrapper ml-0">
-      
-                <div class="team-img-wrapper">
-                  <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+            <div class="col">
+              <div  data-aos="zoom-in-left" class="card shadow-sm mb-3">
+                <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px" class="img-fluid rounded mt-0 p-1" alt="team-img">
+                <div class="card-body">
+                  <p class="card-text" style="font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                  <p class="card-text">Cargo: {{$f->cargo }}</p>
+                      <!--  
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                     <small class="text-muted"><i class="fas fa-at" style="color: #747d84"></i><b> {{$f->email}}</b></small><br>
+                     <small class="text-muted"><i class="fab fa-whatsapp" style="color: #747d84"></i><b> {{$f->telefono}}</b></small>
+                     <small class="text-muted float-right"><a href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: green"></i></strong></a></small>
                 </div>
-            
-                <div class="ts-team-content-classic mb-4 m-2">
-                  <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
-                  <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
-                  <div class="team-social-icons">
-                    <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
-                    <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
-                  </div>
-                </div>
-      
               </div>
-            </div>    
+            </div> 
             @endforeach
             <div class="col-lg-12 mb-5 mb-lg-0">
               <nav aria-label="Page navigation example">
@@ -78,34 +73,30 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="{{ url('img\not-found.png') }}" alt="">
+            <img src="{{ url('img\not-found.png') }}"  class="img-fluid" alt="">
             @endif
           </div>
+          <hr style="height: 0.5px;background: yellowgreen">
+
           @else
               @if ($o->id==22)
-              <div class="row" style="margin-top: 0%">
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 @if ($funcionarios2->count())
                 @foreach ($funcionarios2 as $f)
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-                  <div id="zoom" class="card ts-team-wrapper ml-0">
-          
-                    <div class="team-img-wrapper">
-                      <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                <div class="col">
+                  <div  data-aos="zoom-in-left" class="card shadow-sm mb-3">
+                    <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px" class="img-fluid rounded mt-0 p-1" alt="team-img">
+                    <div class="card-body">
+                      <p class="card-text" style="font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                      <!-- <p class="ts-designation">Oficina: {{$f->nombre}}</p> -->
+                      <p class="card-text">Cargo: {{$f->cargo }}</p>
+                          <!--  
+                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                         <small class="text-muted"><i class="fas fa-at" style="color: #747d84"></i><b> {{$f->email}}</b></small><br>
+                         <small class="text-muted"><i class="fab fa-whatsapp" style="color: #747d84"></i><b> {{$f->telefono}}</b></small>
+                         <small class="text-muted float-right"><a href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: green"></i></strong></a></small>
                     </div>
-                
-                    <div class="ts-team-content-classic mb-4 m-2">
-                      <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
-                      <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
-                      <div class="team-social-icons">
-                        <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
-                        <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
-                      </div>
-                    </div>
-          
                   </div>
                 </div>    
                 @endforeach
@@ -123,34 +114,29 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="{{ url('img\not-found.png') }}" alt="">
+                <img src="{{ url('img\not-found.png') }}"  class="img-fluid" alt="">
                 @endif
               </div>
+              <hr style="height: 0.5px;background: yellowgreen">
+
               @else
                   @if ($o->id==23)
-                  <div class="row" style="margin-top: 0%">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     @if ($funcionarios3->count())
                     @foreach ($funcionarios3 as $f)
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-                      <div id="zoom" class="card ts-team-wrapper ml-0">
-              
-                        <div class="team-img-wrapper">
-                          <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                    <div class="col">
+                      <div  data-aos="zoom-in-left" class="card shadow-sm mb-3">
+                        <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px" class="img-fluid rounded mt-0 p-1" alt="team-img">
+                        <div class="card-body">
+                          <p class="card-text" style="font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                          <p class="card-text">Cargo: {{$f->cargo }}</p>
+                              <!--  
+                              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                             <small class="text-muted"><i class="fas fa-at" style="color: #747d84"></i><b> {{$f->email}}</b></small><br>
+                             <small class="text-muted"><i class="fab fa-whatsapp" style="color: #747d84"></i><b> {{$f->telefono}}</b></small>
+                             <small class="text-muted float-right"><a href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: green"></i></strong></a></small>
                         </div>
-                    
-                        <div class="ts-team-content-classic mb-4 m-2">
-                          <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
-                          <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
-                          <div class="team-social-icons">
-                            <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
-                            <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
-                          </div>
-                        </div>
-              
                       </div>
                     </div>    
                     @endforeach
@@ -168,36 +154,31 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src="{{ url('img\not-found.png') }}" alt="">
+                    <img src="{{ url('img\not-found.png') }}" class="img-fluid"  alt="">
                     @endif
                   </div>
+                  <hr style="height: 0.5px;background: yellowgreen">
+
                   @else
                       @if ($o->id==24)
-                      <div class="row" style="margin-top: 0%">
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @if ($funcionarios4->count())
                         @foreach ($funcionarios4 as $f)
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-                          <div id="zoom" class="card ts-team-wrapper ml-0">
-                  
-                            <div class="team-img-wrapper">
-                              <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                        <div class="col">
+                          <div  data-aos="zoom-in-left" class="card shadow-sm mb-3">
+                            <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px" class="img-fluid rounded mt-0 p-1" alt="team-img">
+                            <div class="card-body">
+                              <p class="card-text" style="font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                              <p class="card-text">Cargo: {{$f->cargo }}</p>
+                                  <!--  
+                                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                                 <small class="text-muted"><i class="fas fa-at" style="color: #747d84"></i><b> {{$f->email}}</b></small><br>
+                                 <small class="text-muted"><i class="fab fa-whatsapp" style="color: #747d84"></i><b> {{$f->telefono}}</b></small>
+                                 <small class="text-muted float-right"><a href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: green"></i></strong></a></small>
                             </div>
-                        
-                            <div class="ts-team-content-classic mb-4 m-2">
-                              <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
-                              <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
-                              <div class="team-social-icons">
-                                <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
-                                <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
-                              </div>
-                            </div>
-                  
                           </div>
-                        </div>    
+                        </div>     
                         @endforeach
                         <div class="col-lg-12 mb-5 mb-lg-0">
                           <nav aria-label="Page navigation example">
@@ -216,31 +197,26 @@
                         <img src="{{ url('img\not-found.png') }}" alt="">
                         @endif
                       </div>
+                      <hr style="height: 0.5px;background: yellowgreen">
+
                       @else
                         @if ($o->id==25)
-                          <div class="row" style="margin-top: 0%">
+                          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                             @if ($funcionarios5->count())
                             @foreach ($funcionarios5 as $f)
-                            <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-                              <div id="zoom" class="card ts-team-wrapper ml-0">
-                      
-                                <div class="team-img-wrapper">
-                                  <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px;align-content: center" class="img-fluid rounded mt-0 pt-4" alt="team-img">
+                            <div class="col">
+                              <div  data-aos="zoom-in-left" class="card shadow-sm mb-3">
+                                <img loading="lazy" src="{{ url($f->url_imagen) }}" style="width: 350px;height: 350px" class="img-fluid rounded mt-0 p-1" alt="team-img">
+                                <div class="card-body">
+                                  <p class="card-text" style="font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p>
+                                  <p class="card-text">Cargo: {{$f->cargo }}</p>
+                                      <!--  
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                                     <small class="text-muted"><i class="fas fa-at" style="color: #747d84"></i><b> {{$f->email}}</b></small><br>
+                                     <small class="text-muted"><i class="fab fa-whatsapp" style="color: #747d84"></i><b> {{$f->telefono}}</b></small>
+                                     <small class="text-muted float-right"><a href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: green"></i></strong></a></small>
                                 </div>
-                            
-                                <div class="ts-team-content-classic mb-4 m-2">
-                                  <p class="ts-name" style="font-size: 88%; font-weight: bolder">{{$f->apep}} {{$f->apem}} {{$f->name}}</p><br>
-                                  <p class="ts-designation">Cargo: {{$f->cargo}}</p><br>
-                                  <div class="team-social-icons">
-                                    <a style="cursor: pointer"><i class="fas fa-at" style="color: #64dd17"> {{$f->email}}</i></a><br>
-                                    <a style="cursor: pointer"><i class="fab fa-whatsapp" style="color: #64dd17"> {{$f->telefono}}</i></a><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a class="link-secondary mb-4" href="perfiles/{{$f->id}}"><strong>Perfil <i class="fas fa-arrow-circle-right" style="color: greenyellow"></i></strong></a><br><br>
-                                  </div>
-                                </div>
-                      
                               </div>
                             </div>    
                             @endforeach
@@ -258,7 +234,7 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <img src="{{ url('img\not-found.png') }}" alt="">
+                            <img src="{{ url('img\not-found.png') }}"  class="img-fluid" alt="">
                             @endif
                           </div>
                         @endif

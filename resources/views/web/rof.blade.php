@@ -28,7 +28,7 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-16">
-            <p style="text-align: justify">El Reglamento de Organización y Funciones (ROF) de la Municipalidad Distrital de Cátac, es el instrumento de gestión institucional que formaliza 
+            <p style="text-align: justify" data-aos="fade-zoom-in">El Reglamento de Organización y Funciones (ROF) de la Municipalidad Distrital de Cátac, es el instrumento de gestión institucional que formaliza 
               la estructura orgánica de la entidad municipal, orientada al esfuerzo institucional y al logro de la misión, visión y objetivos institucionales; 
               conteniendo las funciones generales de la Municipalidad y las funciones específicas de los órganos y unidades orgánicas, estableciendo sus relaciones 
               y responsabilidades.</p>
@@ -36,7 +36,7 @@
               @foreach ($instrumentos as $i)
               @if ($codigos > 0)
               <div class="accordion accordion-group" id="construction-accordion">
-                <div class="card">
+                <div class="card" data-aos="fade-zoom-in">
                   <div class="card-header p-0 bg-transparent" id="headingOne">
                     <h2 class="mb-0">
                       <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="true" aria-controls="collapse{{$i->id}}">

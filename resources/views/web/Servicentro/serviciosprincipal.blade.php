@@ -58,7 +58,7 @@
               <div class="row"> 
                 <div class="col-md-12">
                   <ul class="list-arrow">
-                    <li>{{$f->funcion}}<br></li>
+                    <li>{{$f->funciones}}<br></li>
                   </ul>
                 </div>
               </div>

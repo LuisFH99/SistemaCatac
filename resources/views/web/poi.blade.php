@@ -28,14 +28,14 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-16">
-            <p style="text-align: justify">El Plan Estratégico Institucional (PEI) 2019 – 2020 y Plan Operativo Institucional (POI) 2019 de la Municipalidad Distrital de Cátac, 
+            <p style="text-align: justify" data-aos="fade-zoom-in">El Plan Estratégico Institucional (PEI) 2019 – 2020 y Plan Operativo Institucional (POI) 2019 de la Municipalidad Distrital de Cátac, 
               constituye una herramienta de Gestión institucional de corto plazo, que orienta la labor operativa de la alta dirección, funcionarios y 
               trabajadores de las diferentes unidades orgánicas de la institución, con al finalidad de alcanzar los mejores resultados organizando esfuerzos 
               y racionalizando recursos materiales, humanos y económicos para lograr los objetivos y metas del plan estratégico institucional.</p>
               @foreach ($instrumentos as $i)
               @if ($codigos > 0)
               <div class="accordion accordion-group" id="construction-accordion">
-                <div class="card">
+                <div class="card" data-aos="fade-zoom-in">
                   <div class="card-header p-0 bg-transparent" id="headingOne">
                     <h2 class="mb-0">
                       <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="true" aria-controls="collapse{{$i->id}}">
