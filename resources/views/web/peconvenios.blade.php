@@ -16,11 +16,11 @@
                     </ol>
                 </nav>
               </div>
-          </div><!-- Col end -->
-        </div><!-- Row end -->
-    </div><!-- Container end -->
-  </div><!-- Banner text end -->
-</div><!-- Banner area end --> 
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 @endforeach
   
   <section id="main-container" class="main-container">
@@ -28,7 +28,7 @@
       <div class="col-lg-16 mt-4 mt-lg-0">
         @foreach ($instrumentos as $i)
         <div class="accordion accordion-group" id="our-values-accordion">
-          <div class="card">
+          <div class="card" data-aos="fade-zoom-in">
             <div class="card-header p-0 bg-transparent" id="headingOne">
                 <h2 class="mb-0">
                   <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -47,7 +47,7 @@
 
               @if ($codigos > 0)
               <div class="accordion accordion-group" id="construction-accordion">
-                <div class="card">
+                <div class="card" data-aos="fade-zoom-in">
                   <div class="card-header p-0 bg-transparent" id="headingOne">
                     <h2 class="mb-0">
                       <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="true" aria-controls="collapse{{$i->id}}">

@@ -27,10 +27,10 @@
   <section style="margin:5%">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 mt-5 mt-lg-0">
+        <div class="col-lg-12 mt-5 mt-lg-0" data-aos="fade-zoom-in">
           <div id="page-slider" class="page-slider small-bg">
             @foreach ($slider as $s)
-              <div class="item" style="background-image:url({{$s->url_imagen}})">
+              <div class="item rounded" style="background-image:url({{$s->url_imagen}})">
                 <div class="container">
                   <!-- <div class="box-slider-content">
                       <div class="box-slider-text">
@@ -42,10 +42,10 @@
             @endforeach
           </div>     
         </div>
-          <div class="col-lg-12"><br><br>
+          <div class="col-lg-12" data-aos="fade-zoom-in"><br><br>
             @foreach ($historia as $h)
                 <div class="col-lg-12 shadow-sm p-4 bg-white rounded" style="text-align: justify;">
-                  <h3 class="column-title" style="color: #cc5c34"><center>{{$h->titulo}}</center></h3>
+                  <h5 class="column-title" style="font-size: 140%"><center>{{$h->titulo}}</center></h5>
                   <p style=" text-muted text-align: justify">{{$h->descripcion}}</p>  
                 </div>
             @endforeach

@@ -33,7 +33,7 @@
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
                 <li><a href="/serviciosprincipalrestaurante">Detalles</a></li>
-                <li><a href="/serviciosofertadosrestaurante">Servicios</a></li>
+                <li><a href="/serviciosofertadosrestaurante">Productos</a></li>
                 <li class="active"><a href="/serviciosadquirirrestaurante">Como comprar</a></li>
                 <li><a href="/serviciocontactorestaurante">Personal</a></li>
               </ul>

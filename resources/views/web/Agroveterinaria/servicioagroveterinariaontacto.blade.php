@@ -32,7 +32,7 @@
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
                 <li><a href="/serviciosprincipalagroveterinaria">Detalles</a></li>
-                <li><a href="/serviciosofertadosagroveterinaria">Servicios</a></li>
+                <li><a href="/serviciosofertadosagroveterinaria">Productos</a></li>
                 <li><a href="/serviciosadquiriragroveterinaria">Como comprar</a></li>
                 <li class="active"><a href="/serviciocontactoagroveterinaria">Contacto</a></li>
               </ul>

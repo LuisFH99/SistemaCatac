@@ -19,18 +19,18 @@
             </div><!-- Col end -->
           </div><!-- Row end -->
       </div><!-- Container end -->
-    </div><!-- Banner text end -->
+    </div><!-- Banner text end --> 
 </div>
 @endforeach
 
   <section class="container mt-0">
         @foreach ($tipos as $t)
-        <h3 class="column-title; text-center mt-0" >{{$t->tipo}}</h3>
+        <h3 class="column-title; text-center mt-0" data-aos="fade-zoom-in">{{$t->tipo}}</h3>
         @endforeach
         @foreach ($ogenerales as $o)
         <div  class="row mb-2">
           @if ($o->posicion == 1)
-          <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+          <div data-aos="fade-right" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
             <div  class="row no-gutters">
               <div class="col-lg-4 p-2">
                 <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
@@ -44,7 +44,7 @@
             </div>
           </div>
           @else
-          <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+          <div data-aos="fade-left" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
             <div  class="row no-gutters">
               <div class="col-lg-8">
                 <div class="card-body">
@@ -66,13 +66,13 @@
 
 
         @foreach ($tipos1 as $t)
-        <h3 class="column-title; text-center"  >{{$t->tipo}}</h3>
+        <h3 class="column-title; text-center" data-aos="fade-zoom-in">{{$t->tipo}}</h3>
         @endforeach
 
         @foreach ($oespecificos as $o)
         <div class="row">
           @if ($o->posicion == 1)
-          <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+          <div data-aos="fade-right" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
             <div  class="row no-gutters">
               <div class="col-lg-4 p-2">
                 <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
@@ -86,7 +86,7 @@
             </div>
           </div>
           @else
-          <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+          <div data-aos="fade-left" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
             <div  class="row no-gutters">
               <div class="col-lg-8">
                 <div class="card-body">
@@ -106,7 +106,7 @@
         @foreach ($obejtivos3 as $o)
         <div class="row">
           @if ($o->posicion == 1)
-          <div id="transicionderecho" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+          <div data-aos="fade-right" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
             <div  class="row no-gutters">
               <div class="col-lg-4 p-2">
                 <img src="{{ url($o->url_imagen) }}" class="rounded mt-1" style="width: 100%;">
@@ -120,7 +120,7 @@
             </div>
           </div>
           @else
-          <div id="transicionizquierda" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
+          <div data-aos="fade-left" class="card mb-3 rounded shadow-sm" style="max-width: 1700px; max-height: 1200px;">
             <div  class="row no-gutters">
               <div class="col-lg-8">
                 <div class="card-body">

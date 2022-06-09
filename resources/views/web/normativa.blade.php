@@ -13,7 +13,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
                       <li class="breadcrumb-item"><a href="#">Comunidad</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">ROF</li>
+                      <li class="breadcrumb-item active" aria-current="page">Documentos Normativos</li>
                     </ol>
                 </nav>
               </div>
@@ -28,25 +28,41 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-16">
-            <p style="text-align: justify">En este apartado usted podrá visualizar de una manera detallada todos los Documentos Normativos que fueron publicadas por la Comunidad Campesina de Catac.</p>
-              @foreach ($instrumentos as $i)
-              @if ($codigos > 0)
-              <div class="accordion accordion-group" id="construction-accordion">
-                <div class="card">
-                  <div class="card-header p-0 bg-transparent" id="headingOne">
-                    <h2 class="mb-0">
-                      <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="true" aria-controls="collapse{{$i->id}}">
-                        {{$i->descripcion}}
-                      </button>
-                    </h2>
-                  </div>
-                    
-                  <div id="collapse{{$i->id}}" class="collapse show" aria-labelledby="headingOne"
-                    data-parent="#construction-accordion">
-                    <div class="card-body">
-                      <center><iframe src="{{ url($i->url_documento) }}"></iframe></center>
-                    </div>
-                  </div>
+            <p style="text-align: justify" data-aos="fade-zoom-in">En este apartado usted podrá visualizar de una manera detallada todos los Documentos Normativos que fueron publicadas por la Comunidad Campesina de Catac.</p>
+                  @if ($codigos > 0)
+                  <div class="accordion accordion-group" id="construction-accordion">
+                    <div class="card" data-aos="fade-zoom-in">
+                      <div class="card-header p-0 bg-transparent" id="headingOne">
+                        <h2 class="mb-0">
+                          <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+                            Documentos Normativos
+                          </button>
+                        </h2>
+                      </div>
+                      <div id="collapse" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#construction-accordion">
+                        <div class="card-body">
+                          
+                          <table class="table table-hover table-bordered mt-2">
+                            <thead>
+                              <tr>
+                                <th class="text-center">#</th>
+                                <th>Documentos</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach ($instrumentos as $i)
+                              <tr>
+                                <td class="text-center">{{$con++}}</td>
+                                <td><a target="_blank" href="{{ url($i->url_documento) }}">{{$i->descripcion}}</a></td>
+                              </tr>
+
+                              @endforeach
+                            </tbody>  
+                        
+                          </table>
+                        </div>
+                      </div>
                 </div>
               </div>
               @else
@@ -54,22 +70,19 @@
                 <div class="card">
                   <div class="card-header p-0 bg-transparent" id="headingOne">
                     <h2 class="mb-0">
-                      <button class="btn btn-block text-left collapsed" type="button" data-toggle="modal" data-target="#staticBackdrop" data-toggle="collapse" data-target="#collapse{{$i->id}}" aria-expanded="false" aria-controls="collapse{{$i->id}}">
-                        {{$i->descripcion}}
+                      <button class="btn btn-block text-left collapsed" type="button" data-toggle="modal" data-target="#staticBackdrop" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                        Documentos Normativos
                       </button>
                     </h2>
                   </div>
-                    
-                  <div id="collapse{{$i->id}}" class="collapse" aria-labelledby="headingOne"
+                  <div id="collapse" class="collapse" aria-labelledby="headingOne"
                     data-parent="#construction-accordion">
                     <div class="card-body">
-                      <center><iframe src="{{ url($i->url_documento) }}"></iframe></center>
                     </div>
                   </div>
                 </div>
               </div>
               @endif   
-              @endforeach
           </div>
       </div>
     </div>

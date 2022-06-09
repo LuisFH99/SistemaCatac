@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 @if ($codigos > 0)
-                <div class="card">
+                <div class="card" data-aos="fade-zoom-in">
                   <div class="card-header p-0 bg-transparent" id="headingTwo">
                       <h2 class="mb-0">
                         <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -78,11 +78,10 @@
                   </div>
                 </div>
                 @endif
-                @endforeach
+        @endforeach
                 @else
                     <h4>No se encontraron registros</h4>
                 @endif
-
 
                 @if ($codigos > 0)
                 @foreach ($modicatoria as $m)
