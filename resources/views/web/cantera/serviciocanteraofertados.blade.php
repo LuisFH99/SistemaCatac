@@ -43,50 +43,40 @@
           </div><!-- Sidebar end -->
         </div><!-- Sidebar Col end -->
   
-        <div class="col-xl-9 col-lg-9" style="text-align: justify">
-          <div class="content-inner-page">
-            @foreach ($producto as $p)
-            <div class="row" >
-              <div class="card mb-3" style="width: 850px; height: 185px;">
-                <div class="row no-gutters">
-                  <div class="col-md-4" >
-                    <img src="{{$p->url_imagen}}" alt="..." style="width: 260pX; height: 183px;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">{{$p->producto}}</h5>
-                      <p class="card-text" style="width: 400px; white-space: nowrap; text-overflow: ellipsis;
-                      overflow: hidden;">{{$p->descripcion}}</p>
-                      <div class="post-footer">
-                        <!-- Button trigger modal -->
-                        <center>
-                          <button type="button" class="btn btn-primary" style="background: #64cc17;" data-toggle="modal" data-target="#exampleModal-{{$p->id}}">
-                            Ver mas
-                          </button>
-                        </center>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal-{{$p->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel" style="text-align: justify">{{$p->producto}}</h5>
-                              </div>
-                              <div class="modal-body">
-                                {{$p->descripcion}}
-                              </div>
-                            </div>
-                          </div>
+        <div class="col-xl-9 col-lg-9 row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3" style="text-align: justify">
+          @foreach ($producto as $p)
+          <div class="col">
+            <div class="card shadow-sm mb-3 ">
+              <img loading="lazy" class="img-fluid rounded p-1" src="{{ asset($p->url_imagen) }}" style="width:400px ; height: 300px;" alt="service-image">            
+              <div class="card-body">
+                <p class="card-text card-title" style="width: 180px; white-space: nowrap; text-overflow: ellipsis  ;
+                overflow: hidden; font-weight: bold">{{strtoupper($p->producto)}}</p>
+                <p class="card-text p-2" style="width: 250px; white-space: nowrap; text-overflow: ellipsis  ;
+                overflow: hidden;">{{$p->descripcion}}</p>
+                  <!-- Button trigger modal -->
+                  <center>
+                    <button type="button" class="btn btn-primary" style="background: #64cc17;" data-toggle="modal" data-target="#productoModal-{{$p->id}}">
+                      Ver mas
+                    </button>
+                  </center>
+                  <!-- Modal -->
+                  <div class="modal fade" id="productoModal-{{$p->id}}" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="productoModalLabel" style="text-align: justify">{{$p->producto}}</h5>
+                        </div>
+                        <div class="modal-body">
+                          {{$p->descripcion}}
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
-            </div><!-- 1st row end-->
-            @endforeach
-            <div class="gap-40"></div>
-          </div><!-- Content inner end -->
-        </div><!-- Content Col end -->
+            </div>
+          </div>            
+          @endforeach
+        </div>
   
   
       </div><!-- Main row end -->

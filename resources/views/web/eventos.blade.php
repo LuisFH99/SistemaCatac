@@ -24,32 +24,79 @@
   @endforeach
 
   <section id="main-container" class="main-container">
-    
     <div class="container">
-      <div class="row">
-        <div class="col-lg-0  mb-5 mb-lg-0 order-0 order-lg-1">          
-            <div class="row row-cols-1 row-cols-md-2">
-              @foreach ($evento as $e)
-              <div class="col mb-4">                
-                <div class="card">
-                  <center><img src="{{$e->url_imagen}}" class="card-img-top" alt="..." style="width: 553px; height: 300px;"></center>
-                  <div class="card-body">
-                    <div class="post-meta">
-                      <span class="post-cat">
-                        <i class="far fa-folder-open"></i><a href="/eventos">Eventos</a>
-                      </span>
-                      <span class="post-meta-date"><i class="far fa-calendar"></i> {{$e->fecha}}</span>
+      <div class="row">  
+        <div class="col-lg-4 order-1 order-lg-0" data-aos="fade-right">  
+          <div class="sidebar sidebar-left">
+            <div class="widget recent-posts">
+              <h3 class="widget-title">Eventos Recientes</h3>
+              <ul class="list-unstyled">
+                @foreach ($eventosnuevos as $en)
+                  <li class="d-flex align-items-center">
+                    <div class="posts-thumb">
+                      <a href="#"><img loading="lazy" alt="img" src="{{$en->url_imagen}}"></a>
                     </div>
-                    <h5 class="card-title"><a href="{{ route('eventoindividual', $e->id) }}">{{$e->titulo}}</a></h5>
-                    <p class="card-text" style="width: 400px; white-space: nowrap; text-overflow: ellipsis;
-                    overflow: hidden;">{{$e->descripcion}}</p>
-                  </div>
+                    <div class="post-info">
+                      <h4 class="entry-title">
+                        <a href="{{ route('eventoindividual', $en->id) }}">{{$en->titulo}}</a>
+                      </h4>
+                    </div>
+                  </li><!-- 1st post end-->
+                @endforeach  
+              </ul>
+  
+            </div><!-- Recent post end -->  
+  
+          </div><!-- Sidebar end -->
+        </div><!-- Sidebar Col end -->
+  
+        <div class="col-lg-8 mb-5 mb-lg-0 order-0 order-lg-1" data-aos="fade-left">
+          @foreach ($evento as $e)
+          <div class="post">
+            <div class="post-media post-image">
+              <img loading="lazy" src="{{$e->url_imagen}}" class="img-fluid" alt="post-image">
+            </div>
+  
+            <div class="post-body">
+              <div class="entry-header">
+                <div class="post-meta">
+                  <span class="post-cat">
+                    <i class="far fa-folder-open"></i><a href="/eventos"> Eventos</a>
+                  </span>
+                  <span class="post-meta-date"><i class="far fa-calendar"></i>{{$e->fecha}}</span>
                 </div>
+                <h2 class="entry-title">
+                  <a href="{{ route('eventoindividual', $e->id) }}">{{$e->titulo}}</a>
+                </h2>
+              </div><!-- header end -->
+  
+              <div class="entry-content">
+                <p class="card-text" style="width: 400px; white-space: nowrap; text-overflow: ellipsis;
+                    overflow: hidden;">{{$e->descripcion}}</p>
               </div>
-              @endforeach 
-            </div> 
-        </div><!-- Content Col end --> 
-      </div><!-- Main row end -->   
+  
+              <div class="post-footer">
+                <a href="{{ route('eventoindividual', $e->id) }}" class="btn btn-primary">Continuar Leyendo</a>
+              </div>
+  
+            </div><!-- post-body end -->
+          </div><!-- 1st post end -->
+          @endforeach 
+  
+          <nav class="paging" aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
+            </ul>
+          </nav>
+  
+        </div><!-- Content Col end -->
+  
+      </div><!-- Main row end -->
+  
     </div><!-- Container end -->
-  </section><!-- Main container end -->
+  </section><!-- Main container end -->  
 @endsection

@@ -69,22 +69,11 @@
 }
 
 /*Zoom*/
-#zoom{
-border-radius: 8px;
-border: 1px solid #cccccc;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 0;
-box-sizing: border-box;
-width: 270px;
-height: 525px;
-transition: all linear 200ms;
-}
+
 
 #zoom:hover{
 transform: scale(1.1);
-transition: all linear 200ms;
+transition: all linear 50ms;
 z-index: 1;
 box-shadow: 1px 1px 10px rgba(0,0,0,.3);
 cursor: pointer;

@@ -19,7 +19,7 @@
 
         <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
           <h3 class="widget-title">Horario de Trabajo</h3>
-          <div class="working-hours">
+          <div class="working-hours" style="text-align: justify">
             Nosotros trabajamos 5 días a la semana, excepto los principales días festivos. Contáctenos si tiene una emergencia, con nuestro
             Línea directa y formulario de contacto.
             <br><br> Lunes - Viernes: <span class="text-right">8:30 - 17:00 </span>

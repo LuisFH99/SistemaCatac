@@ -33,7 +33,7 @@
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
                 <li class="active"><a href="/serviciosprincipalrestaurante">Detalles</a></li>
-                <li><a href="/serviciosofertadosrestaurante">Servicios</a></li>
+                <li><a href="/serviciosofertadosrestaurante">Productos</a></li>
                 <li><a href="/serviciosadquirirrestaurante">Como comprar</a></li>
                 <li><a href="/serviciocontactorestaurante">Personal</a></li>
               </ul>
@@ -42,7 +42,7 @@
           </div><!-- Sidebar end -->
         </div><!-- Sidebar Col end -->
   
-        <div class="col-xl-8 col-lg-8">
+        <div class="col-xl-8 col-lg-8" style="text-align: justify">
           <div class="content-inner-page">
             
             @foreach ($subservicio as $ss)

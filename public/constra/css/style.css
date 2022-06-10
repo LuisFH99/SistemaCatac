@@ -10,6 +10,12 @@ Description: Constra - Construction Html5 Template
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,500i,600,600i,700,700i,800|Open+Sans:400,400i,600,600i,700,700i,800&display=swap);
 /* Typography
 ================================================== */
+
+:root {
+  --animate-duration: 3300ms;
+  --animate-delay: 0.9s;
+}
+
 body {
   background: #f0f0f0;
   color: rgb(85, 85, 85);
@@ -1288,6 +1294,7 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
   background-size: cover;
 }
 
+
 @media (max-width: 991px) {
   .banner-carousel .banner-carousel-item {
     height: 550px;
@@ -1299,7 +1306,7 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
     height: 450px;
   }
 }
-
+ 
 .slider-content {
   position: relative;
   height: 100%;

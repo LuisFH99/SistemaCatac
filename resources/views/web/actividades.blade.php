@@ -16,39 +16,38 @@
                         </ol>
                     </nav>
                   </div>
-              </div><!-- Col end -->
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-      </div><!-- Banner text end -->
-    </div><!-- Banner area end -->
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
   @endforeach 
   
   <section id="main-container" class="main-container">
     
     <div class="container">
       <div class="row">
-        <div class="col-lg-0  mb-5 mb-lg-0 order-0 order-lg-1">          
-            <div class="row row-cols-1 row-cols-md-2">
-              @foreach ($comunicado as $c)
-              <div class="col mb-4">                
-                <div class="card">
-                  <img src="{{$c->url_imagen}}" class="card-img-top" alt="..." style="width: 553px; height: 300px;">
-                  <div class="card-body">
-                    <div class="post-meta">
-                      <span class="post-cat">
-                        <i class="far fa-folder-open"></i><a href="/actividades"> Actividades</a>
-                      </span>
-                      <span class="post-meta-date"><i class="far fa-calendar"></i> {{$c->fecha}}</span>
-                    </div>
-                    <h5 class="card-title"><a href="{{ route('actividadindividual', $c->id) }}">{{$c->titulo}}</a></h5>
-                    <p class="card-text" style="width: 400px; white-space: nowrap; text-overflow: ellipsis;
-                    overflow: hidden;">{{$c->descripcion}}</p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+          @foreach ($comunicado as $n)
+          <div class="col">
+            <div data-aos="flip-right" class="card shadow-sm mb-3 ">
+              <img loading="lazy" class="img-fluid rounded p-1" src="{{ asset($n->url_imagen) }}" style="width:555px ; height: 350px;" alt="service-image">            
+              <div class="card-body">
+                <p class="card-text card-title" style="font-weight: bold ">{{strtoupper($n->titulo)}}</p>
+                <p class="card-text p-2" style="width: 350px; white-space: nowrap; text-overflow: ellipsis  ;
+                overflow: hidden;">{{$n->descripcion}}</p>              
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-calendar-alt"></i></button>
+                    <a type="button" class="btn btn-sm btn-outline-secondary">{{$n->fecha}}</a>
                   </div>
+                  <small class="text-muted"> <a class="learn-more d-inline-block" href="{{ route('actividadindividual', $n->id) }}" aria-label="service-details"><i class="fa fa-caret-right"></i> <b>Leer más</b></a></small>
                 </div>
               </div>
-              @endforeach 
-            </div> 
-        </div><!-- Content Col end --> 
+            </div>
+          </div>            
+          @endforeach
+        </div> 
       </div><!-- Main row end -->  
     </div><!-- Container end -->
   </section><!-- Main container end -->

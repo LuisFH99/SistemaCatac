@@ -1,7 +1,7 @@
 @extends('layouts.web')
 @section('contenido')
   @foreach ($banner as $b)
-    <div id="banner-area" class="banner-area" style="background-image:url({{$b->url_imagen}})">
+    <div id="banner-area" class="banner-area" style="background-image:url({{ asset($b->url_imagen) }})">
       <div class="banner-text">
         <div class="container">
             <div class="row">
@@ -32,7 +32,7 @@
               <h3 class="widget-title">Opciones</h3>
               <ul class="nav service-menu">
                 <li class="active"><a href="/serviciosprincipalagroveterinaria">Detalles</a></li>
-                <li><a href="/serviciosofertadosagroveterinaria">Servicios</a></li>
+                <li><a href="/serviciosofertadosagroveterinaria">Productos</a></li>
                 <li><a href="/serviciosadquiriragroveterinaria">Como comprar</a></li>
                 <li><a href="/serviciocontactoagroveterinaria">Personal</a></li>
               </ul>
@@ -56,7 +56,7 @@
             <div class="row"> 
               <div class="col-md-12">
                 <ul class="list-arrow">
-                  <li>{{$f->funcion}}<br></li>
+                  <li>{{$f->funcion}}</li>
                 </ul>
               </div>
             </div>

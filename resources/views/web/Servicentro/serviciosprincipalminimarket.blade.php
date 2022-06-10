@@ -42,7 +42,7 @@
           </div><!-- Sidebar end -->
         </div><!-- Sidebar Col end -->
   
-        <div class="col-xl-8 col-lg-8">
+        <div class="col-xl-8 col-lg-8" style="text-align: justify">
           <div class="content-inner-page">
             
             @foreach ($subservicio as $ss)
@@ -58,7 +58,7 @@
               <div class="row"> 
                 <div class="col-md-12">
                   <ul class="list-arrow">
-                    <li>{{$f->funcion}}<br></li>
+                    <li>{{$f->funciones}}<br></li>
                   </ul>
                 </div>
               </div>
