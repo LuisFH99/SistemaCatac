@@ -12,11 +12,17 @@ class Productos extends Model
     protected $fillable=[
         'id',
         'producto',
-        'decripcion',
+        'descripcion',
         'posicion',
         'Activo',
         'borrado',
+        'imagenes_id',
         'servicios_id',
     ];
     public $timestamps = false;
+    
+    public function imagenes()
+    {
+        return $this->belongsTo(Imagenes::class,'imagenes_id','id');
+    }
 }

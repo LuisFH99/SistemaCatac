@@ -13,13 +13,21 @@ class Encargado extends Model
         'id',
         'descripcion',
         'fecha_inicio',
-        'fecha fin',
+        'fecha_fin',
         'posicion',
         'activo',
         'borrado',
         'persona_id',
-        'servicios_id',
         'imagenes_id',
     ];
     public $timestamps = false;
+
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class,'persona_id','id');
+    }
+    public function imagenes()
+    {
+        return $this->belongsTo(Imagenes::class,'imagenes_id','id');
+    }
 }

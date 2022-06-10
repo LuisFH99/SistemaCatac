@@ -27,9 +27,11 @@ Route::view('gestion/resena', 'livewire.resena.index')->name('admin.resena');
 Route::view('gestion/misionvision', 'livewire.misionvision.index')->name('admin.misionvision');
 Route::view('gestion/baners', 'livewire.baner.index')->name('admin.baners');
 Route::view('gestion/objetivos', 'livewire.objetivo.index')->name('admin.objetivo');
-Route::view('gestion/noticias', 'livewire.noticia.index')->name('noticia');
+Route::view('gestion/noticias', 'livewire.noticia.index')->name('admin.noticia');
 Route::view('gestion/eventos', 'livewire.evento.index')->name('admin.evento');
 Route::view('gestion/actividades', 'livewire.comunicado.index')->name('admin.actividad');
+Route::view('gestion/servicios/{id}', 'livewire.servicio.index')->name('admin.servicios');
+
 
 //Fin de Rutas de Admin
 

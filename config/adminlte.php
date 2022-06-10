@@ -339,11 +339,73 @@ return [
             'url'        => '#',
         ],
         ['header' => 'SERVICIOS'],
+        [
+            'text'    => 'Servicentro',
+            'icon'    => 'nav-icon fas fa-route',
+            'submenu' => [
+                [
+                    'text' => 'Gasolinera',
+                    'icon' => 'nav-icon fas fa-gas-pump',
+                    'url'  => 'gestion/servicios/1',
+                ],
+                [
+                    'text' => 'Minimarket',
+                    'icon' => 'nav-icon fas fa-store',
+                    'url'  => 'gestion/servicios/2',
+                ], 
+                [
+                    'text' => 'Restaurant',
+                    'icon' => 'nav-icon fas fa-utensils',
+                    'url'  => 'gestion/servicios/3',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Agropecuaria',
+            'icon'    => 'nav-icon fas fa-sitemap',
+            'submenu' => [
+                [
+                    'text' => 'Ganaderia',
+                    'icon' => 'nav-icon fas fa-horse-head',
+                    'url'  => 'gestion/servicios/4',
+                ],
+                [
+                    'text' => 'Agricultura',
+                    'icon' => 'nav-icon fas fa-tractor',
+                    'url'  => 'gestion/servicios/5',
+                ], 
+            ],
+        ],
+        [
+            'text' => 'Transporte',
+            'icon' => 'nav-icon fas fa-car-side',
+            'url'  => 'gestion/servicios/6',
+        ],
+        [
+            'text' => 'Cantera',
+            'icon' => 'nav-icon fas fa-snowplow',
+            'url'  => 'gestion/servicios/7',
+        ],
+        [
+            'text' => 'Agroveterinaria',
+            'icon' => 'nav-icon fas fa-cat',
+            'url'  => 'gestion/servicios/8',
+        ], 
+        [
+            'text' => 'Turismo',
+            'icon' => 'nav-icon fas fa-mountain',
+            'url'  => 'gestion/servicios/9',
+        ],
+        [
+            'text' => 'Forestacion',
+            'icon' => 'nav-icon fas fa-tree',
+            'url'  => 'gestion/servicios/10',
+        ],
         ['header' => 'NOTICIAS Y EVENTOS'],
         [
             'text' => 'Noticias',
             'icon' => 'nav-icon fas fa-newspaper',
-            'route'  => 'noticia',
+            'route'  => 'admin.noticia',
         ],
         [
             'text' => 'Eventos',
