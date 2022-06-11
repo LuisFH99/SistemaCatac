@@ -13,9 +13,20 @@ class Servicios extends Model
         'id',
         'nom_servicios',
         'descripcion',
+        'funciones',
         'posicion',
         'activo',
         'borrado',
+        'encargado_id'
     ];
     public $timestamps = false;
+
+    public function encargado()
+    {
+        return $this->belongsTo(Encargado::class,'encargado_id','id');
+    }
+    public function productos()
+    {
+        return $this->hasMany(Productos::class,'servicios_id','id');
+    }
 }

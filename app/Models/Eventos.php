@@ -12,7 +12,7 @@ class Eventos extends Model
     protected $fillable=[
         'id',
         'titulo',
-        'decripcion',
+        'descripcion',
         'fecha',
         'hora',
         'estado',
@@ -22,4 +22,8 @@ class Eventos extends Model
         'imagenes_id',
     ];
     public $timestamps = false;
+    public function imagenes()
+    {
+        return $this->belongsTo(Imagenes::class,'imagenes_id','id');
+    }
 }

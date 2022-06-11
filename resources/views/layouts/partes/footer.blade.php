@@ -4,23 +4,22 @@
       <div class="row justify-content-between">
         <div class="col-lg-4 col-md-6 footer-widget footer-about">
           <h3 class="widget-title">Sobre Nosotros</h3>
-          <img loading="lazy" width="150px" src="constra/images/logo.png" alt="Constra">
-          <p><br>La Comunidad Campesina de Cátac, una Asociación con casi 900 socios, ademas es una Empresa Comunal, una de las mas grandes en el Perú.</p>
+          <img loading="lazy" width="150px" src="{{ asset('/img/logo_catac.png') }}" alt="Constra">
+          <p style="text-align: justify"><br>La Comunidad Campesina de Cátac, una Asociación con casi 900 socios, ademas es una Empresa Comunal, una de las mas grandes en el Perú.</p>
           <div class="footer-social">
             <ul>
-              <li><a href="https://facebook.com/themefisher" aria-label="Facebook"><i
-                    class="fab fa-facebook-f"></i></a></li>
-              <li><a href="https://twitter.com/themefisher" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-              </li>
-              <li><a href="https://instagram.com/themefisher" aria-label="Instagram"><i
-                    class="fab fa-instagram"></i></a></li>
+              <li><a href="https://www.facebook.com/comunidadcampesinacatac" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://twitter.com/themefisher" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+              <li><a href="https://instagram.com/themefisher" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://www.youtube.com/channel/UCITP2GvveB6GUrlyCf_O4RQ" aria-label="Instagram"><i class="fab fa-youtube"></i></a></li>
+
             </ul>
           </div><!-- Footer social end -->
         </div><!-- Col end -->
 
         <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
           <h3 class="widget-title">Horario de Trabajo</h3>
-          <div class="working-hours">
+          <div class="working-hours" style="text-align: justify">
             Nosotros trabajamos 5 días a la semana, excepto los principales días festivos. Contáctenos si tiene una emergencia, con nuestro
             Línea directa y formulario de contacto.
             <br><br> Lunes - Viernes: <span class="text-right">8:30 - 17:00 </span>
@@ -32,13 +31,13 @@
         <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 footer-widget">
           <h3 class="widget-title">Servicios</h3>
           <ul class="list-arrow">
-            <li><a href="service-single.html">Servicentro</a></li>
-            <li><a href="service-single.html">Agropecuaria</a></li>
-            <li><a href="service-single.html">Transporte</a></li>
-            <li><a href="service-single.html">Cantera</a></li>
-            <li><a href="service-single.html">Agroveterinaria</a></li>
-            <li><a href="service-single.html">Turismo</a></li>
-            <li><a href="service-single.html">Forestación</a></li>
+            <li><a href="/serviciosprincipal">Servicentro</a></li>
+            <li><a href="/serviciosprincipalganaderia">Agropecuaria</a></li>
+            <li><a href="/serviciosprincipaltransporte">Transporte</a></li>
+            <li><a href="/serviciosprincipalcantera">Cantera</a></li>
+            <li><a href="/serviciosprincipalagroveterinaria">Agroveterinaria</a></li>
+            <li><a href="/serviciosprincipalturismo">Turismo</a></li>
+            <li><a href="/serviciosprincipalforestacion">Forestación</a></li>
           </ul>
         </div><!-- Col end -->
       </div><!-- Row end -->
@@ -48,7 +47,7 @@
   <div class="copyright" style="background-color: #1faa00;">
     <div class="" style="margin-left: 50px; margin-right: 100px;">
       <div class="row align-items-center">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="copyright-info text-center text-md-left">
             <span>Copyright &copy; <script>
                 document.write(new Date().getFullYear())
@@ -56,12 +55,9 @@
         </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="footer-menu text-center text-md-right">
             <ul class="list-unstyled">
-              <li><a href="about.html">Sobre Nosotros</a></li>
-              <li><a href="team.html">Directivos</a></li>
-              <li><a href="faq.html">Preguntas Frecuentes</a></li>
               <li>
                 @if (Route::has('login'))
                 @auth

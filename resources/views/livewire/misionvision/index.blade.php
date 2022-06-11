@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Reseña')
+@section('title', 'Mision-Vision')
 
 
 @section('content')
@@ -11,30 +11,30 @@
 @stop
 
 @section('css')
-    {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 @stop
 
 @section('js')
-    {{-- <script src="{{ asset('js/cute-alert.js') }}"></script>
+    <script src="{{ asset('js/cute-alert.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            Livewire.on('confirmCambioEstado', subentidadId=>{
+            Livewire.on('confirmEliminacion', subentidadId=>{
                 cuteAlert({
                 type: "question",
                 title: "Mensaje de Sistema",
                 img: "question.svg",
-                message: "¿Esta seguro de Cambiar de Estado...?",
+                message: "¿Esta seguro de Eliminar el elemento del Sistema?",
                 confirmText: "SI",
                 cancelText: "NO"
                 }).then((e)=>{
                     console.log(e)
                 if ( e == ("confirm")){
-                    Livewire.emitTo('admin.entidades-admin','cambiarestado',subentidadId)
+                    Livewire.emitTo('admin.mision-vision','ElimnarComponente',subentidadId)
                 } else {
                     console.log('No confirmo');
                 }
                 })
             });
         });
-    </script> --}}
+    </script>
 @stop

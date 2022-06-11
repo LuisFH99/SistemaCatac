@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Comunidad Campesina de Catac') }}</title>
+    <title>Comunidad Campesina de Catac</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
