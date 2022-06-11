@@ -12,11 +12,11 @@ class Comuneros extends Model
     protected $fillable=[
         'id',
         'codigo',
-        'lugar_procedencia',
         'posicion',
         'activo',
         'borrado',
         'persona_id',
+        'imagenes_id',
     ];
     public $timestamps = false;
 }

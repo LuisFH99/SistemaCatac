@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Admin</b>CATAC',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'adminCatac',
 
     /*
     |--------------------------------------------------------------------------
@@ -271,36 +271,70 @@ return [
             'icon'    => 'nav-icon fas fa-sitemap',
             'submenu' => [
                 [
-                    'text' => 'Asamblea General',
-                    'url'  => '#',
+                    'text' => 'Organo de Dirección',
+                    'icon'    => 'nav-icon fas fa-sitemap',
+                    'submenu' => [
+                        [
+                            'text' => 'Asamblea General',
+                            'url'  => 'admin/organos_de_gobierno/direccion/asamblea_general',
+                        ],
+                    ],
                 ],
                 [
-                    'text' => 'Directivos',
-                    'url'  => '#',
+                    'text' => 'Organo de Administracion',
+                    'icon'    => 'nav-icon fas fa-sitemap',
+                    'submenu' => [
+                        [
+                            'text' => 'Directiva Comunal',
+                            'url'  => 'admin/organos_de_gobierno/administracion/directiva_comunal',
+                        ],
+                    ],
                 ],
                 [
-                    'text' => 'Comites Especializados',
-                    'url'  => '#',
+                    'text' => 'Organo de Ejecución',
+                    'icon'    => 'nav-icon fas fa-sitemap',
+                    'submenu' => [
+                        [
+                            'text' => 'Gerencia',
+                            'url'  => 'admin/organos_de_gobierno/ejecucion/gerencia',
+                        ],
+                    ],
                 ],
                 [
-                    'text' => 'Organos de Asesoria',
-                    'url'  => '#',
+                    'text' => 'Organo de Apoyo y Asesoria',
+                    'icon'    => 'nav-icon fas fa-sitemap',
+                    'submenu' => [
+                        [
+                            'text' => 'Organos de Apoyo',
+                            'url'  => 'admin/organos_de_gobierno/apoyo_asesoria/apoyo',
+                        ],
+                        [
+                            'text' => 'Organos de Asesoria',
+                            'url'  => 'admin/organos_de_gobierno/apoyo_asesoria/asesoria',
+                        ],
+                        [
+                            'text' => 'Comités Especializados',
+                            'url'  => 'admin/organos_de_gobierno/apoyo_asesoria/comite',
+                        ],
+                    ],
                 ],
                 [
-                    'text' => 'Organos de Linea',
-                    'url'  => '#',
+                    'text' => 'Organo de Linea',
+                    'icon'    => 'nav-icon fas fa-sitemap',
+                    'submenu' => [
+                        [
+                            'text' => 'Actividades Productivas',
+                            'url'  => 'admin/organos_de_gobierno/linea/actividades/productiva',
+                        ],
+                        [
+                            'text' => 'Actividades Empresariales',
+                            'url'  => 'admin/organos_de_gobierno/linea/actividades/empresarial',
+                        ],
+                    ],
                 ],
-                [
-                    'text' => 'Organos de Apoyo',
-                    'url'  => '#',
-                ],
+                
             ],
-        ],
-        [
-            'text' => 'Directivos',
-            'icon' => 'nav-icon fas fa-user-tie',
-            'url'  => 'admin/settings',
-        ],    
+        ],  
         [
             'text' => 'Directorios',
             'icon' => 'nav-icon fas fa-users',
