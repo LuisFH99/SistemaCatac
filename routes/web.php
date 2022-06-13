@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\organo_de_gobierno\ProductivasController;
 use App\Http\Controllers\admin\organo_de_gobierno\ProductivasFuncionariosController;
 use App\Http\Controllers\admin\organo_de_gobierno\EmpresarialesController;
 use App\Http\Controllers\admin\organo_de_gobierno\EmpresarialesFuncionariosController;
+use App\Http\Controllers\admin\instrumento_gestion\InstrumentoController;
 // use App\Http\Controllers\admin\organo_de_gobierno\ComuneroController;
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,9 @@ Route::post('admin/organos_de_gobierno/linea/actividades/empresarial/habilitar',
 
 Route::resource('admin/organos_de_gobierno/linea/actividades/empresariales', EmpresarialesFuncionariosController::class);
 Route::post('admin/organos_de_gobierno/linea/actividades/empresariales/habilitar', [EmpresarialesFuncionariosController::class, 'habilitar'])->name('empresariales.habilitar');
+
+Route::resource('admin/instrumento_de_gestion', InstrumentoController::class);
+Route::get('admin/instrumento_de_gestion/{instrumento_de_gestion}/edit1', [InstrumentoController::class, 'edit1'])->name('instrumento_de_gestion.edit1');
 //#########################**********Fin de Rutas de Admin**********############################
 
 //Rutas de Admin

@@ -16,7 +16,7 @@ class Modificatorias extends Model
         'posicion',
         'activo',
         'borrado',
-        'instrumento_gestion_id'
+        'instrumentos_gestion_id'
     ];
     public $timestamps = false;
 }

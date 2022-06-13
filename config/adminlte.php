@@ -330,11 +330,11 @@ return [
                 
             ],
         ],  
-        [
+        /*[
             'text' => 'Directorios',
             'icon' => 'nav-icon fas fa-users',
             'url'  => 'admin/settings',
-        ],    
+        ],   */ 
         [
             'text' => 'Convocatoria',
             'icon' => 'nav-icon fas fa-envelope',
@@ -343,11 +343,12 @@ return [
 
         ['header' => 'INSTRUMENTOS DE GESTION'],
         [
-            'text'       => 'Estatuto',
+            'text'       => 'Gestionar Documentos',
             'icon'       => 'nav-icon fas fa-book',
-            'url'        => '#',
+            'icon_color' => 'cyan',
+            'url'        => 'admin/instrumento_de_gestion',
         ],
-        [
+        /*[
             'text'       => 'Reglamento',
             'icon'       => 'nav-icon fas fa-file-alt',
             'url'        => '#',
@@ -371,7 +372,7 @@ return [
             'text'       => 'Convenios',
             'icon'       => 'nav-icon fas fa-handshake',
             'url'        => '#',
-        ],
+        ],*/
         ['header' => 'SERVICIOS'],
         [
             'text'    => 'Servicentro',
