@@ -11,7 +11,7 @@
     <section class="content">
         <div class="container-fluid">
             <div id="accordion">
-                <div class="card ">
+                <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-9">
